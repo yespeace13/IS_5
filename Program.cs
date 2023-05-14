@@ -21,11 +21,8 @@ namespace IS_5
             //Application.Run(new OrganizationView());
             OrganizationView view = new OrganizationView();
             view.Visible = false;
-            var organizations = new List<Organization>
-            {
-                new Organization("1213", "123", "123", "1234", TypeOrganizations.first, TypeOfPred.second)
-            };
-            var controller = new OrganizationController(view, organizations);
+            
+            var controller = new OrganizationController(view);
             controller.LoadView();
             view.ShowDialog();
         }

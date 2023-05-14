@@ -11,14 +11,14 @@ namespace IS_5.Controler
     {
         void SetController(OrganizationController controller);
         void ClearGrid();
-        void AddOrganizationToGrid(Organization organization);
+        void AddOrganizationToGrid(int id, Organization organization);
 
         string Name { get; set; }
         string TaxIdenNum { get; set; }
         string KPP { get; set; }
         string Address { get; set; }
-        TypeOrganizations TypeOrganization { get; set; }
+        string TypeOrganization { get; set; }
 
-        TypeOfPred TypeOfPred { get; set; }
+        string TypeOwnerOrganization { get; set; }
     }
 }
