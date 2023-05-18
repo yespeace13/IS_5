@@ -34,7 +34,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TypeOwnerComboBox = new System.Windows.Forms.ComboBox();
-            this.TypeOrgamizationComboBox = new System.Windows.Forms.ComboBox();
+            this.TypeOrganizationComboBox = new System.Windows.Forms.ComboBox();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.KPPTextBox = new System.Windows.Forms.TextBox();
             this.TaxIdenNumTextBox = new System.Windows.Forms.TextBox();
@@ -65,7 +65,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.TypeOwnerComboBox);
-            this.groupBox1.Controls.Add(this.TypeOrgamizationComboBox);
+            this.groupBox1.Controls.Add(this.TypeOrganizationComboBox);
             this.groupBox1.Controls.Add(this.AddressTextBox);
             this.groupBox1.Controls.Add(this.KPPTextBox);
             this.groupBox1.Controls.Add(this.TaxIdenNumTextBox);
@@ -123,16 +123,16 @@
             this.TypeOwnerComboBox.FormattingEnabled = true;
             this.TypeOwnerComboBox.Location = new System.Drawing.Point(588, 58);
             this.TypeOwnerComboBox.Name = "TypeOwnerComboBox";
-            this.TypeOwnerComboBox.Size = new System.Drawing.Size(195, 24);
+            this.TypeOwnerComboBox.Size = new System.Drawing.Size(282, 24);
             this.TypeOwnerComboBox.TabIndex = 10;
             // 
-            // TypeOrgamizationComboBox
+            // TypeOrganizationComboBox
             // 
-            this.TypeOrgamizationComboBox.FormattingEnabled = true;
-            this.TypeOrgamizationComboBox.Location = new System.Drawing.Point(588, 28);
-            this.TypeOrgamizationComboBox.Name = "TypeOrgamizationComboBox";
-            this.TypeOrgamizationComboBox.Size = new System.Drawing.Size(195, 24);
-            this.TypeOrgamizationComboBox.TabIndex = 9;
+            this.TypeOrganizationComboBox.FormattingEnabled = true;
+            this.TypeOrganizationComboBox.Location = new System.Drawing.Point(588, 28);
+            this.TypeOrganizationComboBox.Name = "TypeOrganizationComboBox";
+            this.TypeOrganizationComboBox.Size = new System.Drawing.Size(282, 24);
+            this.TypeOrganizationComboBox.TabIndex = 9;
             // 
             // AddressTextBox
             // 
@@ -304,14 +304,18 @@
             // 
             this.dataGridOrg.AllowUserToAddRows = false;
             this.dataGridOrg.AllowUserToDeleteRows = false;
+            this.dataGridOrg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridOrg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridOrg.Location = new System.Drawing.Point(12, 135);
             this.dataGridOrg.Name = "dataGridOrg";
             this.dataGridOrg.ReadOnly = true;
+            this.dataGridOrg.RowHeadersVisible = false;
             this.dataGridOrg.RowHeadersWidth = 51;
             this.dataGridOrg.RowTemplate.Height = 24;
+            this.dataGridOrg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridOrg.Size = new System.Drawing.Size(1006, 322);
             this.dataGridOrg.TabIndex = 9;
+            this.dataGridOrg.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOrg_CellClick);
             // 
             // OrganizationView
             // 
@@ -330,6 +334,7 @@
             this.Name = "OrganizationView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Организации";
+            this.Load += new System.EventHandler(this.OrganizationView_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).EndInit();
@@ -357,7 +362,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox TypeOwnerComboBox;
-        private System.Windows.Forms.ComboBox TypeOrgamizationComboBox;
+        private System.Windows.Forms.ComboBox TypeOrganizationComboBox;
         private System.Windows.Forms.TextBox AddressTextBox;
         private System.Windows.Forms.TextBox KPPTextBox;
         private System.Windows.Forms.TextBox TaxIdenNumTextBox;

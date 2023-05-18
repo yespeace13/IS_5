@@ -49,9 +49,9 @@
     <Compile Include="Controler\IOrganizationView.cs" />
     <Compile Include="Controler\OrganizationController.cs" />
     <Compile Include="Model\TypeOrganization.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="Data\Repository.cs" />
     <Compile Include="Services\OrganizationService.cs" />
-    <Compile Include="TestData.cs" />
+    <Compile Include="Data\TestData.cs" />
     <Compile Include="View\OrganizationView.cs">
       <SubType>Form</SubType>
     </Compile>

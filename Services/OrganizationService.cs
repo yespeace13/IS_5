@@ -11,11 +11,12 @@ namespace IS_5.Service
 {
     public class OrganizationService
     {
-        public Dictionary<int, string[]> _mapOrganizations;
+        private Dictionary<int, string[]> _mapOrganizations;
+        private OrganizationsRepository _organizationsRepository;
         public OrganizationService()
         {
-            var organizations = new OrganizationsRepository().GetOrganizations();
-            MapOrganizations(organizations);
+            _organizationsRepository = new OrganizationsRepository();
+            
         }
 
         private void MapOrganizations(Dictionary<int, Organization> organizations)
@@ -39,9 +40,37 @@ namespace IS_5.Service
             };
         }
 
-        public Dictionary<int, string[]> GetOrganizations()
+        public Dictionary<int, string[]> GetOrganizations(int sizePages, int page)
         {
+            var organizations = _organizationsRepository.GetOrganizations(sizePages, page);
+            MapOrganizations(organizations);
             return _mapOrganizations;
+        }
+        public string[] GetTypeOrganizations()
+        {
+            var organizations = _organizationsRepository.GetTypeOrganizations();
+            return MapTypeOrganizations(organizations); ;
+        }
+
+        private string[] MapTypeOrganizations(Dictionary<int, TypeOrganization> typeOrganizations)
+        {
+            return typeOrganizations.Select(org => org.Value.Name).ToArray();
+        }
+
+        public string[] GetTypeOwnerOrganizations()
+        {
+            var typeOwnOrg = _organizationsRepository.GetTypeOwnerOrganizations();
+            return MapTypeOwnerOrganizations(typeOwnOrg); ;
+        }
+
+        private string[] MapTypeOwnerOrganizations(Dictionary<int, TypeOwnerOrganization> typeOwnOrg)
+        {
+            return typeOwnOrg.Select(org => org.Value.Name).ToArray();
+        }
+
+        public void CreateOrganization(string nameOrg, string taxIdenNum, string kpp, string address, string typeOrg, string typeOwnOrg)
+        {
+            _organizationsRepository.AddOrganizationToRepository(nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg);
         }
     }
 }

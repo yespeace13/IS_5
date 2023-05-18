@@ -2,6 +2,7 @@
 using IS_5.Service;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,24 @@ namespace IS_5.Controler
 
         }
 
-        public Dictionary<int, string[]> ShowOrganizations()
+        public Dictionary<int, string[]> ShowOrganizations(int sizePages, int page)
         {
-             return _service.GetOrganizations();
+             return _service.GetOrganizations(sizePages, page);
+        }
+        public string[] ShowTypeOrganizations()
+        {
+            return _service.GetTypeOrganizations();
+        }
+
+        public string[] ShowTypeOwnerOrganizations()
+        {
+            return _service.GetTypeOwnerOrganizations();
+        }
+
+        public void CreateOrganization(
+            string nameOrg, string taxIdenNum, string kpp, string address, string typeOrg, string typeOwnOrg)
+        {
+            _service.CreateOrganization(nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg);
         }
     }
 }

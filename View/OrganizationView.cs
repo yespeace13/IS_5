@@ -20,69 +20,47 @@ namespace IS_5
         public OrganizationView()
         {
             InitializeComponent();
-            PreviousPageButton.Click += new EventHandler(PreviousPageButton_Click);
-            NextPageButton.Click += new EventHandler(NextPageButton_Click);
-            Load += new EventHandler(NumberOfPage_Load);
             SelectPageButton.Click += new EventHandler(ForwardToPage_Click);
             _controller = new OrganizationController();
             AddOrganizationToGrid();
+            AddOrgButton.Click += new EventHandler(AddOrganization_Click);
+
         }
 
         private void ForwardToPage_Click(object sender, EventArgs e)
         {
-            //_controller.LoadView((int)PagesSize.Value, (int)NumberOfPage.Value);
-        }
-
-        private void NumberOfPage_Load(object sender, EventArgs e)
-        {
-            //15 количество элементов для отображения
-            //NumberOfPage.Maximum = (int)Math.Ceiling((double)_controller.CountElems / (int)PagesSize.Value);
-            //NumberOfPage.Minimum = 1;
+            AddOrganizationToGrid();
         }
 
         private void NextPageButton_Click(object sender, EventArgs e)
         {
-            //    NumberOfPage.Value = NumberOfPage.Value < NumberOfPage.Maximum
-            //        ? ++NumberOfPage.Value : NumberOfPage.Maximum;
-            //    _controller.LoadView((int)PagesSize.Value, (int)NumberOfPage.Value);
+            NumberOfPage.Value += 1;
+            AddOrganizationToGrid();
         }
 
         private void PreviousPageButton_Click(object sender, EventArgs e)
         {
-            //NumberOfPage.Value = NumberOfPage.Value <= 2 ? 1 : --NumberOfPage.Value;
-            //_controller.LoadView((int)PagesSize.Value, (int)NumberOfPage.Value);
-            
-        }
-
-        public string NameOrg { get { return NameOrgTextBox.Text; } set { NameOrgTextBox.Text = value; } }
-        public string TaxIdenNum { get { return TaxIdenNumTextBox.Text; } set { TaxIdenNumTextBox.Text = value; } }
-        public string KPP { get { return KPPTextBox.Text; } set { KPPTextBox.Text = value; } }
-        public string Address { get { return AddressTextBox.Text; } set { AddressTextBox.Text = value; } }
-        public string TypeOrganization 
-        { 
-            get { return TypeOrgamizationComboBox.SelectedValue.ToString(); } 
-            set { TypeOrgamizationComboBox.SelectedValue = value; } 
-        }
-        public string TypeOwnerOrganization
-        {
-            get { return TypeOwnerComboBox.SelectedValue.ToString(); }
-            set { TypeOwnerComboBox.SelectedValue = value; }
+            NumberOfPage.Value = NumberOfPage.Value > 1 ? --NumberOfPage.Value : NumberOfPage.Value;
+            AddOrganizationToGrid();
         }
 
         public void AddOrganizationToGrid()
         {
-            ClearGrid();
-            foreach(var org in _controller.ShowOrganizations())
+            var orgs = _controller.ShowOrganizations((int)PagesSize.Value, (int)NumberOfPage.Value);
+            if(orgs.Count != 0)
             {
-                dataGridOrg.Rows.Add(org.Value);
-
+                ClearGrid();
+                foreach (var org in orgs)
+                {
+                    dataGridOrg.Rows.Add(org.Value);
+                }
             }
         }
 
         public void ClearGrid()
         {
             dataGridOrg.Columns.Clear();
-            dataGridOrg.Columns.Add("Id", "Номер");
+            //dataGridOrg.Columns.Add("Id", "Номер");
             dataGridOrg.Columns.Add("Название", "Название");
             dataGridOrg.Columns.Add("ИНН", "ИНН");
             dataGridOrg.Columns.Add("КПП", "КПП");
@@ -92,29 +70,53 @@ namespace IS_5
         }
 
 
-        public void DeleteOrganizationFromGrid(int id)
+
+        public void AddOrganization_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if(CheckFilds())
+                _controller.CreateOrganization(NameOrgTextBox.Text, TaxIdenNumTextBox.Text, KPPTextBox.Text,
+                    AddressTextBox.Text, 
+                    TypeOrganizationComboBox.SelectedItem.ToString(), 
+                    TypeOwnerComboBox.SelectedItem.ToString());
         }
 
-        public void UpdateViewDetail(int id, Organization organization)
+        private bool CheckFilds()
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateOrganization(int id, Organization organization)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddOrganization(Organization organization)
-        {
-            throw new NotImplementedException();
+            if(NameOrgTextBox.Text == "" ||  
+                TaxIdenNumTextBox.Text == "" ||
+                KPPTextBox.Text == "" || 
+                AddressTextBox.Text == "" ||
+                TypeOrganizationComboBox.SelectedIndex == -1  ||
+                TypeOwnerComboBox.SelectedIndex == -1)
+                return false;
+            else return true;
         }
 
         public void DeleteOrganization(int id)
         {
             throw new NotImplementedException();
+        }
+
+        private void dataGridOrg_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dataGridOrg.CurrentRow != null)
+            {
+                var org = dataGridOrg.CurrentRow.Cells;
+                NameOrgTextBox.Text = org[0].Value.ToString();
+                TaxIdenNumTextBox.Text = org[1].Value.ToString();
+                KPPTextBox.Text = org[2].Value.ToString();
+                AddressTextBox.Text = org[3].Value.ToString();
+                TypeOrganizationComboBox.SelectedItem = org[4].Value.ToString();
+                TypeOwnerComboBox.SelectedItem = org[5].Value.ToString();
+
+            }
+
+        }
+
+        private void OrganizationView_Load(object sender, EventArgs e)
+        {
+            TypeOrganizationComboBox.Items.AddRange(_controller.ShowTypeOrganizations().ToArray());
+            TypeOwnerComboBox.Items.AddRange(_controller.ShowTypeOwnerOrganizations().ToArray());
         }
     }
 }
