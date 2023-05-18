@@ -20,10 +20,10 @@ namespace IS_5
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new OrganizationView());
             OrganizationView view = new OrganizationView();
-            view.Visible = false;
+            //iew.Visible = false;
             
-            var controller = new OrganizationController(view);
-            controller.LoadView();
+            //var controller = new OrganizationController(view);
+            //controller.LoadView();
             view.ShowDialog();
         }
 

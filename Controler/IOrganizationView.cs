@@ -13,7 +13,13 @@ namespace IS_5.Controler
         void ClearGrid();
         void AddOrganizationToGrid(int id, Organization organization);
 
-        string Name { get; set; }
+        void DeleteOrganizationFromGrid(int id);
+        void UpdateViewDetail(int id, Organization organization);
+        void UpdateOrganization(int id, Organization organization);
+        void AddOrganization(Organization organization);
+        void DeleteOrganization(int id);
+
+        string NameOrg { get; set; }
         string TaxIdenNum { get; set; }
         string KPP { get; set; }
         string Address { get; set; }
