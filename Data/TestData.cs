@@ -3,19 +3,13 @@ using System.Collections.Generic;
 
 namespace IS_5
 {
-    public class TestData
+    public static class TestData
     {
-        public Dictionary<int, Organization> Organizations { get; set; }
-        public Dictionary<int, TypeOrganization> TypeOrganizations { get; set; }
-        public Dictionary<int, TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
-        public TestData()
-        {
-            CreateTypeOrganizations();
-            CreateTypeOwnerOrganizations();
-            CreateOrganizations();
-        }
+        public static Dictionary<int, Organization> Organizations { get; set; }
+        public static Dictionary<int, TypeOrganization> TypeOrganizations { get; set; }
+        public static Dictionary<int, TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
 
-        private void CreateTypeOwnerOrganizations()
+        private static void CreateTypeOwnerOrganizations()
         {
             TypeOwnerOrganizations = new Dictionary<int, TypeOwnerOrganization>
             {
@@ -23,9 +17,14 @@ namespace IS_5
                 {2, new TypeOwnerOrganization("Юридическое лицо")}
             };
         }
+        static TestData()
+        {
+            CreateTypeOrganizations();
+            CreateTypeOwnerOrganizations();
+            CreateOrganizations();
+        }
 
-
-        private void CreateTypeOrganizations()
+        private static void CreateTypeOrganizations()
         {
             TypeOrganizations = new Dictionary<int, TypeOrganization>
             {
@@ -44,7 +43,7 @@ namespace IS_5
             };
         }
 
-        private void CreateOrganizations()
+        private static void CreateOrganizations()
         {
             Organizations = new Dictionary<int, Organization>
             {

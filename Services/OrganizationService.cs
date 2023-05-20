@@ -11,24 +11,22 @@ namespace IS_5.Service
 {
     public class OrganizationService
     {
-        private Dictionary<int, string[]> _mapOrganizations;
         private OrganizationsRepository _organizationsRepository;
         public OrganizationService()
         {
             _organizationsRepository = new OrganizationsRepository();
-            
         }
 
-        private void MapOrganizations(Dictionary<int, Organization> organizations)
+        private List<string[]> MapOrganizations(Dictionary<int, Organization> organizations)
         {
-            _mapOrganizations = new Dictionary<int, string[]>();
+            var mapedOrganizations = new List<string[]>();
             foreach (var org in organizations)
             {
                 (int id, Organization organization) = (org.Key, org.Value);
-                _mapOrganizations.Add
+                mapedOrganizations.Add
                     (
-                        id,
                         new string[] {
+                            id.ToString(),
                             organization.NameOrg,
                             organization.TaxIdenNum,
                             organization.KPP,
@@ -38,18 +36,18 @@ namespace IS_5.Service
                         }
                     );
             };
+            return mapedOrganizations;
         }
 
-        public Dictionary<int, string[]> GetOrganizations(int sizePages, int page)
+        public List<string[]> GetOrganizations(int sizePages, int page, out int maxPage)
         {
-            var organizations = _organizationsRepository.GetOrganizations(sizePages, page);
-            MapOrganizations(organizations);
-            return _mapOrganizations;
+            var organizations = _organizationsRepository.GetOrganizations(sizePages, page, out maxPage);
+            return MapOrganizations(organizations);
         }
         public string[] GetTypeOrganizations()
         {
             var organizations = _organizationsRepository.GetTypeOrganizations();
-            return MapTypeOrganizations(organizations); ;
+            return MapTypeOrganizations(organizations);
         }
 
         private string[] MapTypeOrganizations(Dictionary<int, TypeOrganization> typeOrganizations)
@@ -70,7 +68,33 @@ namespace IS_5.Service
 
         public void CreateOrganization(string nameOrg, string taxIdenNum, string kpp, string address, string typeOrg, string typeOwnOrg)
         {
-            _organizationsRepository.AddOrganizationToRepository(nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg);
+            var typeOrganizations = _organizationsRepository.GetTypeOrganizations();
+            var typeOwnerOrganizations = _organizationsRepository.GetTypeOwnerOrganizations();
+            var org = new Organization(
+                nameOrg, taxIdenNum, kpp, address,
+                typeOrganizations.Values.Where(type => type.Name == typeOrg).FirstOrDefault(),
+                typeOwnerOrganizations.Values.Where(typeOwn => typeOwn.Name == typeOwnOrg).FirstOrDefault());
+            _organizationsRepository.AddOrganizationToRepository(org);
+        }
+
+        public void UpdateOrganization(
+            int id, string nameOrg, string taxIdenNum, string kpp, 
+            string address, string typeOrg, string typeOwnOrg)
+        {
+            var oldOrg = _organizationsRepository.GetOrganization(id);
+            var typeOrganizations = _organizationsRepository.GetTypeOrganizations();
+            var typeOwnerOrganizations = _organizationsRepository.GetTypeOwnerOrganizations();
+            oldOrg.NameOrg = nameOrg;
+            oldOrg.TaxIdenNum = taxIdenNum;
+            oldOrg.KPP = kpp;
+            oldOrg.Address = address;
+            oldOrg.TypeOrganization = typeOrganizations.Values.Where(type => type.Name == typeOrg).FirstOrDefault();
+            oldOrg.TypeOwnerOrganization =  typeOwnerOrganizations.Values.Where(typeOwn => typeOwn.Name == typeOwnOrg).FirstOrDefault();
+        }
+
+        public void DeleteOrganization(int id)
+        {
+            _organizationsRepository.DeleteOrganizationFromRepository(id);   
         }
     }
 }

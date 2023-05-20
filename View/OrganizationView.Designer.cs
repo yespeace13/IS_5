@@ -43,7 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.DelOrgButton = new System.Windows.Forms.Button();
             this.ChangeOrgButton = new System.Windows.Forms.Button();
-            this.AddOrgButton = new System.Windows.Forms.Button();
+            this.CreateOrgButton = new System.Windows.Forms.Button();
             this.NextPageButton = new System.Windows.Forms.Button();
             this.PreviousPageButton = new System.Windows.Forms.Button();
             this.NumberOfPage = new System.Windows.Forms.NumericUpDown();
@@ -51,11 +51,11 @@
             this.PagesSize = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridOrg = new System.Windows.Forms.DataGridView();
+            this.DataGridOrg = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridOrg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridOrg)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,7 +74,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.DelOrgButton);
             this.groupBox1.Controls.Add(this.ChangeOrgButton);
-            this.groupBox1.Controls.Add(this.AddOrgButton);
+            this.groupBox1.Controls.Add(this.CreateOrgButton);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1006, 117);
@@ -197,15 +197,17 @@
             this.ChangeOrgButton.TabIndex = 1;
             this.ChangeOrgButton.Text = "Изменить";
             this.ChangeOrgButton.UseVisualStyleBackColor = true;
+            this.ChangeOrgButton.Click += new System.EventHandler(this.UpdateOrgButton_Click);
             // 
-            // AddOrgButton
+            // CreateOrgButton
             // 
-            this.AddOrgButton.Location = new System.Drawing.Point(897, 17);
-            this.AddOrgButton.Name = "AddOrgButton";
-            this.AddOrgButton.Size = new System.Drawing.Size(90, 23);
-            this.AddOrgButton.TabIndex = 0;
-            this.AddOrgButton.Text = "Добавить";
-            this.AddOrgButton.UseVisualStyleBackColor = true;
+            this.CreateOrgButton.Location = new System.Drawing.Point(897, 17);
+            this.CreateOrgButton.Name = "CreateOrgButton";
+            this.CreateOrgButton.Size = new System.Drawing.Size(90, 23);
+            this.CreateOrgButton.TabIndex = 0;
+            this.CreateOrgButton.Text = "Добавить";
+            this.CreateOrgButton.UseVisualStyleBackColor = true;
+            this.CreateOrgButton.Click += new System.EventHandler(this.CreateOrgButton_Click);
             // 
             // NextPageButton
             // 
@@ -267,7 +269,7 @@
             0,
             0});
             this.PagesSize.Minimum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -300,29 +302,30 @@
             this.label2.Text = "Количество отображаемых\r\nэлементов";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridOrg
+            // DataGridOrg
             // 
-            this.dataGridOrg.AllowUserToAddRows = false;
-            this.dataGridOrg.AllowUserToDeleteRows = false;
-            this.dataGridOrg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridOrg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridOrg.Location = new System.Drawing.Point(12, 135);
-            this.dataGridOrg.Name = "dataGridOrg";
-            this.dataGridOrg.ReadOnly = true;
-            this.dataGridOrg.RowHeadersVisible = false;
-            this.dataGridOrg.RowHeadersWidth = 51;
-            this.dataGridOrg.RowTemplate.Height = 24;
-            this.dataGridOrg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridOrg.Size = new System.Drawing.Size(1006, 322);
-            this.dataGridOrg.TabIndex = 9;
-            this.dataGridOrg.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOrg_CellClick);
+            this.DataGridOrg.AllowUserToAddRows = false;
+            this.DataGridOrg.AllowUserToDeleteRows = false;
+            this.DataGridOrg.AllowUserToResizeRows = false;
+            this.DataGridOrg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DataGridOrg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridOrg.Location = new System.Drawing.Point(12, 135);
+            this.DataGridOrg.Name = "DataGridOrg";
+            this.DataGridOrg.ReadOnly = true;
+            this.DataGridOrg.RowHeadersVisible = false;
+            this.DataGridOrg.RowHeadersWidth = 51;
+            this.DataGridOrg.RowTemplate.Height = 24;
+            this.DataGridOrg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridOrg.Size = new System.Drawing.Size(1006, 322);
+            this.DataGridOrg.TabIndex = 9;
+            this.DataGridOrg.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridOrg_CellClick);
             // 
             // OrganizationView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1030, 523);
-            this.Controls.Add(this.dataGridOrg);
+            this.Controls.Add(this.DataGridOrg);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PagesSize);
@@ -339,7 +342,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridOrg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridOrg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,7 +359,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button DelOrgButton;
         private System.Windows.Forms.Button ChangeOrgButton;
-        private System.Windows.Forms.Button AddOrgButton;
+        private System.Windows.Forms.Button CreateOrgButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -369,7 +372,7 @@
         private System.Windows.Forms.TextBox NameOrgTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridOrg;
+        private System.Windows.Forms.DataGridView DataGridOrg;
     }
 }
 
