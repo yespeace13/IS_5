@@ -322,8 +322,7 @@
             // 
             // OrganizationView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1030, 523);
             this.Controls.Add(this.DataGridOrg);
             this.Controls.Add(this.label2);
