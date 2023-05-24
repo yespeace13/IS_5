@@ -16,15 +16,42 @@ namespace IS_5
     public partial class OrganizationView : Form
     {
         private OrganizationController _controller;
-        
-        public OrganizationView()
+        private User _user;
+        public OrganizationView(User user)
         {
+            _user = user;
             InitializeComponent();
-            SelectPageButton.Click += new EventHandler(ForwardToPage_Click);
+            InitializeForm();
             _controller = new OrganizationController();
             ShowOrganizations();
-            CreateOrgButton.Click += new EventHandler(CreateOrgButton_Click);
-            DelOrgButton.Click += new EventHandler(DeleteOrgButton_Click);
+        }
+
+        private void InitializeForm()
+        {
+            var possibilites = _user.Privilege.Organizations.Item2;
+            CreateOrgButton.Enabled = false;
+            ChangeOrgButton.Enabled = false;
+            DelOrgButton.Enabled = false;
+            foreach (var poss in possibilites)
+            {
+                switch (poss)
+                {
+                    case Possibilities.Add:
+                        CreateOrgButton.Enabled = true;
+                        break;
+                    case Possibilities.OpenAndEdit:
+                        ChangeOrgButton.Enabled = true;
+                        break;
+                    case Possibilities.Delite:
+                        DelOrgButton.Enabled = true;
+                        break;
+                    case Possibilities.Open:
+                        break;
+                    case Possibilities.Change:
+                        ChangeOrgButton.Enabled = true;
+                        break;
+                }
+            }
         }
 
         private void ForwardToPage_Click(object sender, EventArgs e)
@@ -50,7 +77,7 @@ namespace IS_5
 
         public void ShowOrganizations()
         {
-            var orgs = _controller.ShowOrganizations((int)PagesSize.Value, (int)NumberOfPage.Value, out int maxPage);
+            var orgs = _controller.ShowOrganizations((int)PagesSize.Value, (int)NumberOfPage.Value, _user, out int maxPage);
             NumberOfPage.Maximum = maxPage;
             ClearGrid();
             foreach (var org in orgs)
@@ -62,6 +89,7 @@ namespace IS_5
         public void ClearGrid()
         {
             DataGridOrg.Columns.Clear();
+            DataGridOrg.Rows.Clear();
             DataGridOrg.Columns.Add("Id", "Номер");
             DataGridOrg.Columns.Add("Название", "Название");
             DataGridOrg.Columns.Add("ИНН", "ИНН");
@@ -81,11 +109,6 @@ namespace IS_5
                 TypeOwnerComboBox.SelectedIndex == -1)
                 return false;
             else return true;
-        }
-
-        public void DeleteOrganization(int id)
-        {
-            throw new NotImplementedException();
         }
 
         private void DataGridOrg_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -141,6 +164,11 @@ namespace IS_5
 
                 ShowOrganizations();
             }
+        }
+
+        private void PagesSize_ValueChanged(object sender, EventArgs e)
+        {
+            ShowOrganizations();
         }
     }
 }

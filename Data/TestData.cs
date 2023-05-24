@@ -1,4 +1,5 @@
 ﻿using IS_5.Model;
+using System;
 using System.Collections.Generic;
 
 namespace IS_5
@@ -8,21 +9,106 @@ namespace IS_5
         public static Dictionary<int, Organization> Organizations { get; set; }
         public static Dictionary<int, TypeOrganization> TypeOrganizations { get; set; }
         public static Dictionary<int, TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
+        public static Dictionary<int, User> Users { get; set; }
+        public static Dictionary<int, Locality> Localitys { get; set; }
 
-        private static void CreateTypeOwnerOrganizations()
-        {
-            TypeOwnerOrganizations = new Dictionary<int, TypeOwnerOrganization>
-            {
-                {1, new TypeOwnerOrganization("Индивидуальный предприниматель") },
-                {2, new TypeOwnerOrganization("Юридическое лицо")}
-            };
-        }
         static TestData()
         {
             CreateTypeOrganizations();
             CreateTypeOwnerOrganizations();
             CreateOrganizations();
+            CreateLocalitys();
+            CreateUsers();
         }
+
+        private static void CreateLocalitys()
+        {
+            Localitys = new Dictionary<int, Locality>
+            {
+                { 1, new Locality("Тюмень") },
+                { 2, new Locality("Боровский") }
+            };
+        }
+
+        private static void CreateUsers()
+        {
+            Users = new Dictionary<int, User>
+            {
+                {
+                    //создаем пользователя
+                    1, new User("ObserVetSer", "1234", Localitys[1], null,
+                    //создаем его привилегии и возможности для работы с формой
+                    new UserPrivilege(
+                        new Tuple<Restrictions, Possibilities[]>(
+                            //Что будет отображать датагрид
+                            Restrictions.All,
+                            //Что он может делать на форме
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.All,
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.None, null),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.All,
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.All,
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }
+                            )))
+                    },
+                {
+                    //создаем пользователя
+                    2, new User("OperatorVetSer", "1234", Localitys[1], Organizations[1],
+                    //создаем его привилегии и возможности для работы с формой
+                    new UserPrivilege(
+                        new Tuple<Restrictions, Possibilities[]>(
+                            //Что будет отображать датагрид
+                            Restrictions.All,
+                            //Что он может делать на форме
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.All,
+                            new Possibilities[]
+                            {
+                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.None, null),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.Organizations,
+                            new Possibilities[]
+                            {
+                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort, 
+                                Possibilities.Export, Possibilities.Delite, Possibilities.Change, 
+                                Possibilities.AddFile, Possibilities.DelFile
+                            }),
+                        new Tuple<Restrictions, Possibilities[]>(
+                            Restrictions.All,
+                            new Possibilities[]
+                            {
+                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }
+                            )))
+                    }
+            };
+        }
+        
 
         private static void CreateTypeOrganizations()
         {
@@ -67,6 +153,14 @@ namespace IS_5
                 { 18, new Organization("Организация18", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[1]) },
                 { 19, new Organization("Организация19", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1]) },
                 { 20, new Organization("Организация20", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[2]) }
+            };
+        }
+        private static void CreateTypeOwnerOrganizations()
+        {
+            TypeOwnerOrganizations = new Dictionary<int, TypeOwnerOrganization>
+            {
+                {1, new TypeOwnerOrganization("Индивидуальный предприниматель") },
+                {2, new TypeOwnerOrganization("Юридическое лицо")}
             };
         }
     }

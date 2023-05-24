@@ -188,6 +188,7 @@
             this.DelOrgButton.TabIndex = 2;
             this.DelOrgButton.Text = "Удалить";
             this.DelOrgButton.UseVisualStyleBackColor = true;
+            this.DelOrgButton.Click += new System.EventHandler(this.DeleteOrgButton_Click);
             // 
             // ChangeOrgButton
             // 
@@ -254,6 +255,7 @@
             this.SelectPageButton.TabIndex = 5;
             this.SelectPageButton.Text = "Перейти";
             this.SelectPageButton.UseVisualStyleBackColor = true;
+            this.SelectPageButton.Click += new System.EventHandler(this.ForwardToPage_Click);
             // 
             // PagesSize
             // 
@@ -281,6 +283,7 @@
             0,
             0,
             0});
+            this.PagesSize.ValueChanged += new System.EventHandler(this.PagesSize_ValueChanged);
             // 
             // label1
             // 

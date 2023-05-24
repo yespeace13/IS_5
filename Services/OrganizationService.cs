@@ -39,9 +39,9 @@ namespace IS_5.Service
             return mapedOrganizations;
         }
 
-        public List<string[]> GetOrganizations(int sizePages, int page, out int maxPage)
+        public List<string[]> GetOrganizations(int sizePages, int page, User user, out int maxPage)
         {
-            var organizations = _organizationsRepository.GetOrganizations(sizePages, page, out maxPage);
+            var organizations = _organizationsRepository.GetOrganizations(sizePages, page, user, out maxPage);
             return MapOrganizations(organizations);
         }
         public string[] GetTypeOrganizations()

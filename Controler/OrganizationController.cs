@@ -20,9 +20,9 @@ namespace IS_5.Controler
             _service = new OrganizationService();
         }
 
-        public List<string[]> ShowOrganizations(int sizePages, int page, out int maxPage)
+        public List<string[]> ShowOrganizations(int sizePages, int page, User user, out int maxPage)
         {
-             return _service.GetOrganizations(sizePages, page, out maxPage);
+             return _service.GetOrganizations(sizePages, page, user, out maxPage);
         }
         public string[] ShowTypeOrganizations()
         {
