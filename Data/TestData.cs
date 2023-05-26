@@ -89,7 +89,7 @@ namespace IS_5
                             new Possibilities[]
                             {
                                 Possibilities.Add, Possibilities.Filtr, Possibilities.Sort,
-                                Possibilities.Export, Possibilities.Delite, Possibilities.Change,
+                                Possibilities.Export, Possibilities.Delete, Possibilities.Change,
                                 Possibilities.AddFile, Possibilities.DelFile
                             }),
                         new Tuple<Restrictions, Possibilities[]>(

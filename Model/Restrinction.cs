@@ -18,7 +18,7 @@ namespace IS_5.Model
     {
         OpenAndEdit, 
         Add,
-        Delite,
+        Delete,
         Open,
         Change,
         Export,
