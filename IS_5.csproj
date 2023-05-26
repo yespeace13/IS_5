@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,12 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controler\AuthorizationController.cs" />
+    <Compile Include="Data\AuthorizationRepository.cs" />
+    <Compile Include="Model\Locality.cs" />
+    <Compile Include="Model\Restrinction.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Controler\IOrganizationView.cs" />
     <Compile Include="Controler\OrganizationController.cs" />
     <Compile Include="Model\TypeOrganization.cs" />
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />
+    <Compile Include="Services\UserSession.cs" />
+    <Compile Include="StatusEnum.cs" />
+    <Compile Include="View\AuthorizationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AuthorizationView.Designer.cs">
+      <DependentUpon>AuthorizationView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\OrganizationView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +78,7 @@
     <Compile Include="Model\Organization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\User.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -70,9 +88,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\AuthorizationView.resx">
+      <DependentUpon>AuthorizationView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\OrganizationView.resx">
       <DependentUpon>OrganizationView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\IS_5.Model.Organization.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

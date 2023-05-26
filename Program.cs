@@ -1,5 +1,6 @@
 ﻿using IS_5.Controler;
 using IS_5.Model;
+using IS_5.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,17 @@ namespace IS_5
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new OrganizationView());
-            OrganizationView view = new OrganizationView();
-            //iew.Visible = false;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            var authoizationView = new AuthorizationView();
+            Application.Run(authoizationView);
             
-            //var controller = new OrganizationController(view);
-            //controller.LoadView();
-            view.ShowDialog();
+            if(authoizationView.UserSuccessfullyAuthenticated) 
+            {
+                Application.Run(new OrganizationView());
+            }
+            
+         
         }
 
     }

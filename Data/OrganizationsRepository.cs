@@ -14,10 +14,10 @@ namespace IS_5
         {
         }
 
-        public Dictionary<int, Organization> GetOrganizations(int sizePages, int page, out int maxPage)
+        public Dictionary<int, Organization> GetOrganizations()
         {
-            maxPage = (int)Math.Ceiling((double)TestData.Organizations.Count / sizePages); ;
-            return TestData.Organizations.Skip(sizePages * (page - 1)).Take(sizePages).ToDictionary(org => org.Key, org => org.Value);
+            return TestData.Organizations;
+            
         }
         public Organization GetOrganization(int id)
         {
