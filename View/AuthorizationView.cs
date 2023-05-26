@@ -15,7 +15,7 @@ namespace IS_5.View
     public partial class AuthorizationView : Form
     {
         private AuthorizationController _controller;
-        private User _user;
+        public bool UserSuccessfullyAuthenticated { get; private set; }
         public AuthorizationView()
         {
             InitializeComponent();
@@ -28,11 +28,10 @@ namespace IS_5.View
         {
             var log = LogTextBox.Text;
             var pass = PassTextBox.Text;
-            _user = _controller.GetPrivilege(log, pass);
-            if( _user != null )
+            if(_controller.GetPrivilege(log, pass))
             {
-                var org = new OrganizationView(_user).ShowDialog();
-                this.Close();
+                UserSuccessfullyAuthenticated = true;
+                Close();
             }
             else
             {

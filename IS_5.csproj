@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,7 +53,7 @@
     <Compile Include="Data\AuthorizationRepository.cs" />
     <Compile Include="Model\Locality.cs" />
     <Compile Include="Model\Restrinction.cs" />
-    <Compile Include="Model\UserPrivilege.cs" />
+    <Compile Include="Model\Role.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Controler\IOrganizationView.cs" />
     <Compile Include="Controler\OrganizationController.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />
+    <Compile Include="Services\UserSession.cs" />
     <Compile Include="View\AuthorizationView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +93,7 @@
     <EmbeddedResource Include="View\OrganizationView.resx">
       <DependentUpon>OrganizationView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

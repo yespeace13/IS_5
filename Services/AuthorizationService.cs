@@ -1,6 +1,7 @@
 ﻿using IS_5.Model;
 using IS_5.View;
 using System;
+using System.Linq;
 
 namespace IS_5.Service
 {
@@ -11,16 +12,16 @@ namespace IS_5.Service
         {
             _authorizationRepository = new AuthorizationRepository();
         }
-        public User GetPrivilege(string log, string pass)
+        public bool GetPrivilege(string log, string pass)
         {
             var users = _authorizationRepository.GetUsers();
-            User user = null;
-            foreach (var u in users) 
+            var user = users.Where(u => u.Value.Login == log && u.Value.Password == pass).FirstOrDefault();
+            if(default(User) != user.Value)
             {
-                if(log == u.Value.Login && pass == u.Value.Password)
-                    user = u.Value;
+                UserSession.User = user.Value;
+                return true;
             }
-            return user;
+            else return false;
         }
     }
 }

@@ -25,9 +25,14 @@ namespace IS_5
                 maxPage = (int)Math.Ceiling((double)orgs.Count / sizePages); ;
                 return orgs.Skip(sizePages * (page - 1)).Take(sizePages).ToDictionary(org => org.Key, org => org.Value);
             }
-            //else if(user.Privilege.Organizations.Item1 == Restrictions.Locality)
+            //else if (user.Privilege.Organizations.Item1 == Restrictions.Locality)
             //{
+            //    var orgs = TestData.Organizations
+            //        .Where(org => org.Value.NameOrg == user.Organization.NameOrg)
+            //        .ToDictionary(org => org.Key, org=> org.Value);
 
+            //    maxPage = (int)Math.Ceiling((double)orgs.Count / sizePages); ;
+            //    return orgs.Skip(sizePages * (page - 1)).Take(sizePages).ToDictionary(org => org.Key, org => org.Value);
             //}
             else
             {

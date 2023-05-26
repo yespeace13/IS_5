@@ -10,9 +10,9 @@ namespace IS_5.Model
         public string Password { get; set; }
         public Locality Locality { get; set; }
         public Organization Organization { get; set; }
-        public UserPrivilege Privilege { get; set; }
+        public Role Privilege { get; set; }
 
-        public User(string log, string pass, Locality locality, Organization organization, UserPrivilege privilege) 
+        public User(string log, string pass, Locality locality, Organization organization, Role privilege) 
         {
             Login = log;
             Password = pass;

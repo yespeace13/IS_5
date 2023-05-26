@@ -100,7 +100,7 @@
             this.Controls.Add(this.OkButton);
             this.Name = "AuthorizationView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AuthorizationView";
+            this.Text = "Авторизация";
             this.ResumeLayout(false);
             this.PerformLayout();
 

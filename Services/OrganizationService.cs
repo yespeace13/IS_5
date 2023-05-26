@@ -88,8 +88,12 @@ namespace IS_5.Service
             oldOrg.TaxIdenNum = taxIdenNum;
             oldOrg.KPP = kpp;
             oldOrg.Address = address;
-            oldOrg.TypeOrganization = typeOrganizations.Values.Where(type => type.Name == typeOrg).FirstOrDefault();
-            oldOrg.TypeOwnerOrganization =  typeOwnerOrganizations.Values.Where(typeOwn => typeOwn.Name == typeOwnOrg).FirstOrDefault();
+            oldOrg.TypeOrganization = typeOrganizations.Values
+                .Where(type => type.Name == typeOrg)
+                .FirstOrDefault();
+            oldOrg.TypeOwnerOrganization =  typeOwnerOrganizations.Values
+                .Where(typeOwn => typeOwn.Name == typeOwnOrg)
+                .FirstOrDefault();
         }
 
         public void DeleteOrganization(int id)

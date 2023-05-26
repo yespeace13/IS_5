@@ -16,7 +16,7 @@ namespace IS_5.Controler
         {
             _service = new AuthorizationService();
         }
-        public User GetPrivilege(string log, string pass)
+        public bool GetPrivilege(string log, string pass)
         {
             return _service.GetPrivilege(log, pass);
         }

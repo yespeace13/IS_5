@@ -11,6 +11,7 @@ namespace IS_5
         public static Dictionary<int, TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
         public static Dictionary<int, User> Users { get; set; }
         public static Dictionary<int, Locality> Localitys { get; set; }
+        public static Dictionary<int, Role> Roles { get; set; }
 
         static TestData()
         {
@@ -18,6 +19,7 @@ namespace IS_5
             CreateTypeOwnerOrganizations();
             CreateOrganizations();
             CreateLocalitys();
+            CreateRoles();
             CreateUsers();
         }
 
@@ -29,16 +31,12 @@ namespace IS_5
                 { 2, new Locality("Боровский") }
             };
         }
-
-        private static void CreateUsers()
+        private static void CreateRoles()
         {
-            Users = new Dictionary<int, User>
+            Roles = new Dictionary<int, Role>
             {
                 {
-                    //создаем пользователя
-                    1, new User("ObserVetSer", "1234", Localitys[1], null,
-                    //создаем его привилегии и возможности для работы с формой
-                    new UserPrivilege(
+                    1, new Role("Куратор ВетСлужбы",
                         new Tuple<Restrictions, Possibilities[]>(
                             //Что будет отображать датагрид
                             Restrictions.All,
@@ -66,14 +64,10 @@ namespace IS_5
                             new Possibilities[]
                             {
                                 Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }
-                            )))
-                    },
+                            }))
+                },
                 {
-                    //создаем пользователя
-                    2, new User("OperatorVetSer", "1234", Localitys[1], Organizations[1],
-                    //создаем его привилегии и возможности для работы с формой
-                    new UserPrivilege(
+                    2, new Role("Оператор ВетСлужбы",
                         new Tuple<Restrictions, Possibilities[]>(
                             //Что будет отображать датагрид
                             Restrictions.All,
@@ -94,21 +88,28 @@ namespace IS_5
                             Restrictions.Organizations,
                             new Possibilities[]
                             {
-                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort, 
-                                Possibilities.Export, Possibilities.Delite, Possibilities.Change, 
+                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort,
+                                Possibilities.Export, Possibilities.Delite, Possibilities.Change,
                                 Possibilities.AddFile, Possibilities.DelFile
                             }),
                         new Tuple<Restrictions, Possibilities[]>(
                             Restrictions.All,
                             new Possibilities[]
                             {
-                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }
-                            )))
-                    }
+                                Possibilities.Open, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                            }))
+                }
             };
         }
-        
+
+        private static void CreateUsers()
+        {
+            Users = new Dictionary<int, User>
+            {
+                { 1, new User("User1", "1234", Localitys[1], null, Roles[1]) },
+                {2, new User("User2", "1234", Localitys[1], Organizations[1], Roles[2])}
+            };
+        }
 
         private static void CreateTypeOrganizations()
         {

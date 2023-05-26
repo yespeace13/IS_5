@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -16,10 +17,8 @@ namespace IS_5
     public partial class OrganizationView : Form
     {
         private OrganizationController _controller;
-        private User _user;
-        public OrganizationView(User user)
+        public OrganizationView()
         {
-            _user = user;
             InitializeComponent();
             InitializeForm();
             _controller = new OrganizationController();
@@ -28,7 +27,7 @@ namespace IS_5
 
         private void InitializeForm()
         {
-            var possibilites = _user.Privilege.Organizations.Item2;
+            var possibilites = UserSession.User.Privilege.Organizations.Item2;
             CreateOrgButton.Enabled = false;
             ChangeOrgButton.Enabled = false;
             DelOrgButton.Enabled = false;
@@ -54,6 +53,30 @@ namespace IS_5
             }
         }
 
+        private void InitializeGrid()
+        {
+            var UpdateButton = new DataGridViewButtonColumn
+            {
+                Name = "Изменить",
+                Text = "Изменить",
+                UseColumnTextForButtonValue = true
+            };
+            if (DataGridOrg.Columns["Изменить"] == null)
+                DataGridOrg.Columns.Insert(7, UpdateButton);
+
+            var DeleteButton = new DataGridViewButtonColumn
+            {
+                Name = "Удалить",
+                Text = "Удалить",
+                UseColumnTextForButtonValue = true
+            };
+            if (DataGridOrg.Columns["Удалить"] == null)
+                DataGridOrg.Columns.Insert(8, DeleteButton);
+            DataGridOrg.Columns[7].Width = 80;
+            DataGridOrg.Columns[8].Width = 80;
+
+        }
+
         private void ForwardToPage_Click(object sender, EventArgs e)
         {
             ShowOrganizations();
@@ -77,15 +100,15 @@ namespace IS_5
 
         public void ShowOrganizations()
         {
-            var orgs = _controller.ShowOrganizations((int)PagesSize.Value, (int)NumberOfPage.Value, _user, out int maxPage);
+            var orgs = _controller.ShowOrganizations((int)PagesSize.Value, (int)NumberOfPage.Value, UserSession.User, out int maxPage);
             NumberOfPage.Maximum = maxPage;
             ClearGrid();
             foreach (var org in orgs)
             {
                 DataGridOrg.Rows.Add(org);
             }
-        }
 
+        }
         public void ClearGrid()
         {
             DataGridOrg.Columns.Clear();
@@ -97,6 +120,7 @@ namespace IS_5
             DataGridOrg.Columns.Add("Адрес", "Адрес");
             DataGridOrg.Columns.Add("Тип организации", "Тип организации");
             DataGridOrg.Columns.Add("Вид организации", "Вид организации");
+            InitializeGrid();
         }
 
         private bool CheckFilds()
@@ -170,5 +194,7 @@ namespace IS_5
         {
             ShowOrganizations();
         }
+
+
     }
 }

@@ -19,8 +19,15 @@ namespace IS_5
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AuthorizationView());
-
+            var authoizationView = new AuthorizationView();
+            Application.Run(authoizationView);
+            
+            if(authoizationView.UserSuccessfullyAuthenticated) 
+            {
+                Application.Run(new OrganizationView());
+            }
+            
+         
         }
 
     }
