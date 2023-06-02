@@ -54,8 +54,8 @@
     <Compile Include="Model\Locality.cs" />
     <Compile Include="Model\Restrinction.cs" />
     <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\TypeOwnerOrganization.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
-    <Compile Include="Controler\IOrganizationView.cs" />
     <Compile Include="Controler\OrganizationController.cs" />
     <Compile Include="Model\TypeOrganization.cs" />
     <Compile Include="Data\OrganizationsRepository.cs" />
@@ -68,6 +68,12 @@
     </Compile>
     <Compile Include="View\AuthorizationView.Designer.cs">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrganizationEditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\OrganizationEditView.Designer.cs">
+      <DependentUpon>OrganizationEditView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OrganizationView.cs">
       <SubType>Form</SubType>
@@ -90,6 +96,9 @@
     </Compile>
     <EmbeddedResource Include="View\AuthorizationView.resx">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\OrganizationEditView.resx">
+      <DependentUpon>OrganizationEditView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\OrganizationView.resx">
       <DependentUpon>OrganizationView.cs</DependentUpon>

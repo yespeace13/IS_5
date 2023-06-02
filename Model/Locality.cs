@@ -2,10 +2,12 @@
 {
     public class Locality
     {
+        public int Id { get; set; } 
         public string Name { get; set; }
 
-        public Locality(string name)
+        public Locality(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

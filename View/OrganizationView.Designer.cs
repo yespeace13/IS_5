@@ -28,21 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.InsertUpdateGroupBox = new System.Windows.Forms.GroupBox();
-            this.CancelButton = new System.Windows.Forms.Button();
-            this.OkButton = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.TypeOwnerComboBox = new System.Windows.Forms.ComboBox();
-            this.TypeOrganizationComboBox = new System.Windows.Forms.ComboBox();
-            this.AddressTextBox = new System.Windows.Forms.TextBox();
-            this.KPPTextBox = new System.Windows.Forms.TextBox();
-            this.TaxIdenNumTextBox = new System.Windows.Forms.TextBox();
-            this.NameOrgTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
             this.CreateOrgButton = new System.Windows.Forms.Button();
             this.NextPageButton = new System.Windows.Forms.Button();
             this.PreviousPageButton = new System.Windows.Forms.Button();
@@ -52,6 +38,17 @@
             this.NumberPageLabel = new System.Windows.Forms.Label();
             this.CountLabel = new System.Windows.Forms.Label();
             this.OrgDataGrid = new System.Windows.Forms.DataGridView();
+            this.OrganizationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.TypeOrgCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
+            this.AcceptButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.FiltrsButton = new System.Windows.Forms.Button();
+            this.ExportButton = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INN = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,163 +56,17 @@
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeOwnOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.TypeOrgCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
-            this.AcceptButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.FiltrsButton = new System.Windows.Forms.Button();
-            this.InsertUpdateGroupBox.SuspendLayout();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrgDataGrid)).BeginInit();
+            this.OrganizationContextMenuStrip.SuspendLayout();
             this.FiltrsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // InsertUpdateGroupBox
-            // 
-            this.InsertUpdateGroupBox.Controls.Add(this.CancelButton);
-            this.InsertUpdateGroupBox.Controls.Add(this.OkButton);
-            this.InsertUpdateGroupBox.Controls.Add(this.label8);
-            this.InsertUpdateGroupBox.Controls.Add(this.label7);
-            this.InsertUpdateGroupBox.Controls.Add(this.label6);
-            this.InsertUpdateGroupBox.Controls.Add(this.label5);
-            this.InsertUpdateGroupBox.Controls.Add(this.TypeOwnerComboBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.TypeOrganizationComboBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.AddressTextBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.KPPTextBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.TaxIdenNumTextBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.NameOrgTextBox);
-            this.InsertUpdateGroupBox.Controls.Add(this.label4);
-            this.InsertUpdateGroupBox.Controls.Add(this.label3);
-            this.InsertUpdateGroupBox.Location = new System.Drawing.Point(362, 50);
-            this.InsertUpdateGroupBox.Name = "InsertUpdateGroupBox";
-            this.InsertUpdateGroupBox.Size = new System.Drawing.Size(307, 354);
-            this.InsertUpdateGroupBox.TabIndex = 1;
-            this.InsertUpdateGroupBox.TabStop = false;
-            this.InsertUpdateGroupBox.Text = "Организация";
-            // 
-            // CancelButton
-            // 
-            this.CancelButton.Location = new System.Drawing.Point(222, 325);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 16;
-            this.CancelButton.Text = "Отмена";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            // 
-            // OkButton
-            // 
-            this.OkButton.Location = new System.Drawing.Point(141, 325);
-            this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(75, 23);
-            this.OkButton.TabIndex = 15;
-            this.OkButton.Text = "Ок";
-            this.OkButton.UseVisualStyleBackColor = true;
-            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 249);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 16);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Вид";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 203);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 16);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Тип";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 159);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 16);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Адрес";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 115);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 16);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "КПП";
-            // 
-            // TypeOwnerComboBox
-            // 
-            this.TypeOwnerComboBox.FormattingEnabled = true;
-            this.TypeOwnerComboBox.Location = new System.Drawing.Point(6, 268);
-            this.TypeOwnerComboBox.Name = "TypeOwnerComboBox";
-            this.TypeOwnerComboBox.Size = new System.Drawing.Size(291, 24);
-            this.TypeOwnerComboBox.TabIndex = 10;
-            // 
-            // TypeOrganizationComboBox
-            // 
-            this.TypeOrganizationComboBox.FormattingEnabled = true;
-            this.TypeOrganizationComboBox.Location = new System.Drawing.Point(6, 222);
-            this.TypeOrganizationComboBox.Name = "TypeOrganizationComboBox";
-            this.TypeOrganizationComboBox.Size = new System.Drawing.Size(291, 24);
-            this.TypeOrganizationComboBox.TabIndex = 9;
-            // 
-            // AddressTextBox
-            // 
-            this.AddressTextBox.Location = new System.Drawing.Point(6, 178);
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(291, 22);
-            this.AddressTextBox.TabIndex = 8;
-            // 
-            // KPPTextBox
-            // 
-            this.KPPTextBox.Location = new System.Drawing.Point(6, 134);
-            this.KPPTextBox.Name = "KPPTextBox";
-            this.KPPTextBox.Size = new System.Drawing.Size(291, 22);
-            this.KPPTextBox.TabIndex = 7;
-            // 
-            // TaxIdenNumTextBox
-            // 
-            this.TaxIdenNumTextBox.Location = new System.Drawing.Point(6, 90);
-            this.TaxIdenNumTextBox.Name = "TaxIdenNumTextBox";
-            this.TaxIdenNumTextBox.Size = new System.Drawing.Size(291, 22);
-            this.TaxIdenNumTextBox.TabIndex = 6;
-            // 
-            // NameOrgTextBox
-            // 
-            this.NameOrgTextBox.Location = new System.Drawing.Point(6, 46);
-            this.NameOrgTextBox.Name = "NameOrgTextBox";
-            this.NameOrgTextBox.Size = new System.Drawing.Size(291, 22);
-            this.NameOrgTextBox.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "ИНН";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Название";
-            // 
             // CreateOrgButton
             // 
-            this.CreateOrgButton.Location = new System.Drawing.Point(928, 12);
+            this.CreateOrgButton.Location = new System.Drawing.Point(792, 12);
             this.CreateOrgButton.Name = "CreateOrgButton";
             this.CreateOrgButton.Size = new System.Drawing.Size(90, 23);
             this.CreateOrgButton.TabIndex = 0;
@@ -322,6 +173,7 @@
             // 
             this.OrgDataGrid.AllowUserToAddRows = false;
             this.OrgDataGrid.AllowUserToDeleteRows = false;
+            this.OrgDataGrid.AllowUserToOrderColumns = true;
             this.OrgDataGrid.AllowUserToResizeRows = false;
             this.OrgDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -335,7 +187,9 @@
             this.KPP,
             this.Address,
             this.TypeOrg,
-            this.TypeOwnOrg});
+            this.TypeOwnOrg,
+            this.Locality});
+            this.OrgDataGrid.ContextMenuStrip = this.OrganizationContextMenuStrip;
             this.OrgDataGrid.Location = new System.Drawing.Point(12, 41);
             this.OrgDataGrid.MultiSelect = false;
             this.OrgDataGrid.Name = "OrgDataGrid";
@@ -346,56 +200,39 @@
             this.OrgDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.OrgDataGrid.Size = new System.Drawing.Size(1006, 370);
             this.OrgDataGrid.TabIndex = 9;
-            this.OrgDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OrgDataGridView_CellClick);
+            this.OrgDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_ColumnHeaderMouseClick);
+            this.OrgDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDown);
             // 
-            // Id
+            // OrganizationContextMenuStrip
             // 
-            this.Id.HeaderText = "Код";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
+            this.OrganizationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.OrganizationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowToolStripMenuItem,
+            this.ChangeToolStripMenuItem,
+            this.DeleteToolStripMenuItem});
+            this.OrganizationContextMenuStrip.Name = "OrganizationContextMenuStrip";
+            this.OrganizationContextMenuStrip.Size = new System.Drawing.Size(150, 76);
             // 
-            // NameOrg
+            // ShowToolStripMenuItem
             // 
-            this.NameOrg.HeaderText = "Название";
-            this.NameOrg.MinimumWidth = 6;
-            this.NameOrg.Name = "NameOrg";
-            this.NameOrg.ReadOnly = true;
+            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.ShowToolStripMenuItem.Text = "Просмотр";
+            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
-            // INN
+            // ChangeToolStripMenuItem
             // 
-            this.INN.HeaderText = "ИНН";
-            this.INN.MinimumWidth = 6;
-            this.INN.Name = "INN";
-            this.INN.ReadOnly = true;
+            this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
+            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.ChangeToolStripMenuItem.Text = "Изменить";
+            this.ChangeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
             // 
-            // KPP
+            // DeleteToolStripMenuItem
             // 
-            this.KPP.HeaderText = "КПП";
-            this.KPP.MinimumWidth = 6;
-            this.KPP.Name = "KPP";
-            this.KPP.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Адрес";
-            this.Address.MinimumWidth = 6;
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // TypeOrg
-            // 
-            this.TypeOrg.HeaderText = "Тип организации";
-            this.TypeOrg.MinimumWidth = 6;
-            this.TypeOrg.Name = "TypeOrg";
-            this.TypeOrg.ReadOnly = true;
-            // 
-            // TypeOwnOrg
-            // 
-            this.TypeOwnOrg.HeaderText = "Вид организации";
-            this.TypeOwnOrg.MinimumWidth = 6;
-            this.TypeOwnOrg.Name = "TypeOwnOrg";
-            this.TypeOwnOrg.ReadOnly = true;
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.DeleteToolStripMenuItem.Text = "Удалить";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // TypeOwnCheckedListBox
             // 
@@ -450,7 +287,7 @@
             // 
             // FiltrsButton
             // 
-            this.FiltrsButton.Location = new System.Drawing.Point(847, 12);
+            this.FiltrsButton.Location = new System.Drawing.Point(711, 12);
             this.FiltrsButton.Name = "FiltrsButton";
             this.FiltrsButton.Size = new System.Drawing.Size(75, 23);
             this.FiltrsButton.TabIndex = 14;
@@ -458,14 +295,80 @@
             this.FiltrsButton.UseVisualStyleBackColor = true;
             this.FiltrsButton.Click += new System.EventHandler(this.FiltrsButton_Click);
             // 
+            // ExportButton
+            // 
+            this.ExportButton.Location = new System.Drawing.Point(888, 12);
+            this.ExportButton.Name = "ExportButton";
+            this.ExportButton.Size = new System.Drawing.Size(130, 23);
+            this.ExportButton.TabIndex = 15;
+            this.ExportButton.Text = "Экспорт в Excel";
+            this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Код";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // NameOrg
+            // 
+            this.NameOrg.HeaderText = "Название";
+            this.NameOrg.MinimumWidth = 6;
+            this.NameOrg.Name = "NameOrg";
+            this.NameOrg.ReadOnly = true;
+            // 
+            // INN
+            // 
+            this.INN.HeaderText = "ИНН";
+            this.INN.MinimumWidth = 6;
+            this.INN.Name = "INN";
+            this.INN.ReadOnly = true;
+            // 
+            // KPP
+            // 
+            this.KPP.HeaderText = "КПП";
+            this.KPP.MinimumWidth = 6;
+            this.KPP.Name = "KPP";
+            this.KPP.ReadOnly = true;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Адрес";
+            this.Address.MinimumWidth = 6;
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // TypeOrg
+            // 
+            this.TypeOrg.HeaderText = "Тип организации";
+            this.TypeOrg.MinimumWidth = 6;
+            this.TypeOrg.Name = "TypeOrg";
+            this.TypeOrg.ReadOnly = true;
+            // 
+            // TypeOwnOrg
+            // 
+            this.TypeOwnOrg.HeaderText = "Вид организации";
+            this.TypeOwnOrg.MinimumWidth = 6;
+            this.TypeOwnOrg.Name = "TypeOwnOrg";
+            this.TypeOwnOrg.ReadOnly = true;
+            // 
+            // Locality
+            // 
+            this.Locality.HeaderText = "Муниципальный район";
+            this.Locality.MinimumWidth = 6;
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
+            // 
             // OrganizationView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1030, 452);
+            this.Controls.Add(this.ExportButton);
             this.Controls.Add(this.FiltrsGroupBox);
             this.Controls.Add(this.FiltrsButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.InsertUpdateGroupBox);
             this.Controls.Add(this.OrgDataGrid);
             this.Controls.Add(this.CountLabel);
             this.Controls.Add(this.NumberPageLabel);
@@ -478,12 +381,10 @@
             this.Name = "OrganizationView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Реестр";
-            this.Load += new System.EventHandler(this.OrganizationView_Load);
-            this.InsertUpdateGroupBox.ResumeLayout(false);
-            this.InsertUpdateGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrgDataGrid)).EndInit();
+            this.OrganizationContextMenuStrip.ResumeLayout(false);
             this.FiltrsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -491,7 +392,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox InsertUpdateGroupBox;
         private System.Windows.Forms.Button NextPageButton;
         private System.Windows.Forms.Button PreviousPageButton;
         private System.Windows.Forms.NumericUpDown NumberOfPage;
@@ -500,19 +400,18 @@
         private System.Windows.Forms.Label NumberPageLabel;
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Button CreateOrgButton;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox TypeOwnerComboBox;
-        private System.Windows.Forms.ComboBox TypeOrganizationComboBox;
-        private System.Windows.Forms.TextBox AddressTextBox;
-        private System.Windows.Forms.TextBox KPPTextBox;
-        private System.Windows.Forms.TextBox TaxIdenNumTextBox;
-        private System.Windows.Forms.TextBox NameOrgTextBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView OrgDataGrid;
+        private System.Windows.Forms.CheckedListBox TypeOwnCheckedListBox;
+        private System.Windows.Forms.CheckedListBox TypeOrgCheckedListBox;
+        private System.Windows.Forms.GroupBox FiltrsGroupBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button FiltrsButton;
+        private System.Windows.Forms.Button AcceptButton;
+        private System.Windows.Forms.Button ExportButton;
+        private System.Windows.Forms.ContextMenuStrip OrganizationContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn INN;
@@ -520,14 +419,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOwnOrg;
-        private System.Windows.Forms.CheckedListBox TypeOwnCheckedListBox;
-        private System.Windows.Forms.CheckedListBox TypeOrgCheckedListBox;
-        private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.GroupBox FiltrsGroupBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button FiltrsButton;
-        private System.Windows.Forms.Button AcceptButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
     }
 }
 

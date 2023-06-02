@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace IS_5.Model
 {
-    public class TypeOrganization
+    public class TypeOwnerOrganization
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public TypeOrganization(int id, string name)
+        public TypeOwnerOrganization(int id, string name)
         {
             Id = id;
             Name = name;

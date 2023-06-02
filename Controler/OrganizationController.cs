@@ -25,33 +25,43 @@ namespace IS_5.Controler
         {
              return _service.GetOrganizations(sizePages, page, typeOrg, typeOwnOrg, sortCol, out maxPage);
         }
-        public string[] ShowTypeOrganizations()
+        public string[] ShowTypesOrganizations()
         {
             return _service.GetTypeOrganizations();
         }
 
-        public string[] ShowTypeOwnerOrganizations()
+        public string[] ShowTypesOwnerOrganizations()
         {
             return _service.GetTypeOwnerOrganizations();
         }
 
         public void CreateOrganization(
             string nameOrg, string taxIdenNum, string kpp, 
-            string address, string typeOrg, string typeOwnOrg)
+            string address, string typeOrg, string typeOwnOrg, string local)
         {
-            _service.CreateOrganization(nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg);
+            _service.CreateOrganization(nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg, local);
         }
 
         public void UpdateOrganization(
-            int id, string nameOrg, string taxIdenNum, string kpp, 
-            string address, string typeOrg, string typeOwnOrg)
+            string id, string nameOrg, string taxIdenNum, string kpp, 
+            string address, string typeOrg, string typeOwnOrg, string locality)
         {
-            _service.UpdateOrganization(id, nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg);
+            _service.UpdateOrganization(id, nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg, locality);
         }
 
         public void DeleteOrganization(int id)
         {
             _service.DeleteOrganization(id);
+        }
+
+        public string[] ShowOrganization(int id)
+        {
+            return _service.ShowOrganzation(id);
+        }
+
+        internal string[] ShowLocalitys()
+        {
+            return _service.Localitys();
         }
     }
 }

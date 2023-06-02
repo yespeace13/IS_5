@@ -14,34 +14,36 @@ namespace IS_5
         {
         }
 
-        public Dictionary<int, Organization> GetOrganizations()
+        public List<Organization> GetOrganizations()
         {
             return TestData.Organizations;
             
         }
         public Organization GetOrganization(int id)
         {
-            return TestData.Organizations[id];
+            return TestData.Organizations.Where(o => o.Id == id).FirstOrDefault();
         }
-        public Dictionary<int, TypeOrganization> GetTypeOrganizations()
+        public List<TypeOrganization> GetTypeOrganizations()
         {
             return TestData.TypeOrganizations;
         }
 
-        public Dictionary<int, TypeOwnerOrganization> GetTypeOwnerOrganizations()
+        public List<TypeOwnerOrganization> GetTypeOwnerOrganizations()
         {
             return TestData.TypeOwnerOrganizations;
         }
-
+        public List<Locality> GetLocalitys()
+        {
+            return TestData.Localitys;
+        }
         public void AddOrganizationToRepository(Organization organization) 
         {
-            var id = TestData.Organizations.Keys.Max();
-            TestData.Organizations.Add(++id, organization);
+            TestData.Organizations.Add(organization);
         }
 
         public void DeleteOrganizationFromRepository(int id)
         {
-            TestData.Organizations.Remove(id);
+            TestData.Organizations.Remove(TestData.Organizations.Where(o => o.Id == id).FirstOrDefault());
         }
     }
 }

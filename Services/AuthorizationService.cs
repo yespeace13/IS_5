@@ -15,10 +15,10 @@ namespace IS_5.Service
         public bool GetPrivilege(string log, string pass)
         {
             var users = _authorizationRepository.GetUsers();
-            var user = users.Where(u => u.Value.Login == log && u.Value.Password == pass).FirstOrDefault();
-            if(default(User) != user.Value)
+            var user = users.Where(u => u.Login == log && u.Password == pass).FirstOrDefault();
+            if(default(User) != user)
             {
-                UserSession.User = user.Value;
+                UserSession.User = user;
                 return true;
             }
             else return false;

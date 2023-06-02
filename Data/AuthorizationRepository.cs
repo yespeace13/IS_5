@@ -6,7 +6,7 @@ namespace IS_5
 {
     public class AuthorizationRepository
     {
-        public Dictionary<int, User> GetUsers()
+        public List<User> GetUsers()
         {
             return TestData.Users;
         }

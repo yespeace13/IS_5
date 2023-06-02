@@ -6,37 +6,38 @@ namespace IS_5
 {
     public static class TestData
     {
-        public static Dictionary<int, Organization> Organizations { get; set; }
-        public static Dictionary<int, TypeOrganization> TypeOrganizations { get; set; }
-        public static Dictionary<int, TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
-        public static Dictionary<int, User> Users { get; set; }
-        public static Dictionary<int, Locality> Localitys { get; set; }
-        public static Dictionary<int, Role> Roles { get; set; }
+        public static List<Organization> Organizations { get; set; }
+        public static List<TypeOrganization> TypeOrganizations { get; set; }
+        public static List<TypeOwnerOrganization> TypeOwnerOrganizations { get; set; }
+        public static List<User> Users { get; set; }
+        public static List<Locality> Localitys { get; set; }
+        public static List<Role> Roles { get; set; }
 
         static TestData()
         {
             CreateTypeOrganizations();
             CreateTypeOwnerOrganizations();
-            CreateOrganizations();
             CreateLocalitys();
+            CreateOrganizations();
             CreateRoles();
             CreateUsers();
         }
 
         private static void CreateLocalitys()
         {
-            Localitys = new Dictionary<int, Locality>
+            Localitys = new List<Locality>
             {
-                { 1, new Locality("Тюмень") },
-                { 2, new Locality("Боровский") }
+                { new Locality(1, "Тюменский муниципальный район") },
+                { new Locality(2, "Сорокинский муниципальный район") },
+                { new Locality(3, "Ялуторовский муниципальный район") }
             };
         }
         private static void CreateRoles()
         {
-            Roles = new Dictionary<int, Role>
+            Roles = new List<Role>
             {
                 {
-                    1, new Role("Куратор ВетСлужбы",
+                    new Role(1, "Куратор ВетСлужбы",
                         new Tuple<Restrictions, Possibilities[]>(
                             //Что будет отображать датагрид
                             Restrictions.All,
@@ -67,7 +68,7 @@ namespace IS_5
                             }))
                 },
                 {
-                    2, new Role("Оператор ВетСлужбы",
+                    new Role(2, "Оператор ВетСлужбы",
                         new Tuple<Restrictions, Possibilities[]>(
                             //Что будет отображать датагрид
                             Restrictions.All,
@@ -85,7 +86,7 @@ namespace IS_5
                         new Tuple<Restrictions, Possibilities[]>(
                             Restrictions.None, null),
                         new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.Organizations,
+                            Restrictions.All,
                             new Possibilities[]
                             {
                                 Possibilities.Add, Possibilities.Filtr, Possibilities.Sort,
@@ -104,64 +105,64 @@ namespace IS_5
 
         private static void CreateUsers()
         {
-            Users = new Dictionary<int, User>
+            Users = new List<User>
             {
-                { 1, new User("User1", "1234", Localitys[1], null, Roles[1]) },
-                {2, new User("User2", "1234", Localitys[1], Organizations[1], Roles[2])}
+                { new User(1, "User1", "1234", Localitys[1], null, Roles[0]) },
+                { new User(2, "User2", "1234", null, Organizations[1], Roles[1])}
             };
         }
 
         private static void CreateTypeOrganizations()
         {
-            TypeOrganizations = new Dictionary<int, TypeOrganization>
+            TypeOrganizations = new List<TypeOrganization>
             {
-                { 1, new TypeOrganization("Значения справочника")},
-                { 2, new TypeOrganization("Исполнительный орган государственной власти")},
-                { 3, new TypeOrganization("Орган местного самоуправления")},
-                { 4, new TypeOrganization("Организация по отлову")},
-                { 5, new TypeOrganization("Организация по отлову и приют")},
-                { 6, new TypeOrganization("Организация по транспортировке")},
-                { 7, new TypeOrganization("Ветеринарная клиника: государственная")},
-                { 8, new TypeOrganization("Ветеринарная клиника: муниципальная")},
-                { 9, new TypeOrganization("Ветеринарная клиника: частная")},
-                { 10, new TypeOrganization("Благотворительный фонд")},
-                { 11, new TypeOrganization("Организации по продаже товаров и предоставлению услуг для животных")},
-                { 12, new TypeOrganization("Заявитель (для регистрации представителя юридического лица, подающего заявку на отлов)")}
+                { new TypeOrganization(1, "Значения справочника")},
+                { new TypeOrganization(2, "Исполнительный орган государственной власти")},
+                { new TypeOrganization(3, "Орган местного самоуправления") },
+                { new TypeOrganization(4, "Организация по отлову") },
+                { new TypeOrganization(5, "Организация по отлову и приют") },
+                { new TypeOrganization(6, "Организация по транспортировке") },
+                { new TypeOrganization(7, "Ветеринарная клиника: государственная")},
+                { new TypeOrganization(8, "Ветеринарная клиника: муниципальная")},
+                { new TypeOrganization(9, "Ветеринарная клиника: частная")},
+                { new TypeOrganization(10, "Благотворительный фонд")},
+                { new TypeOrganization(11, "Организации по продаже товаров и предоставлению услуг для животных")},
+                { new TypeOrganization(12, "Заявитель (для регистрации представителя юридического лица, подающего заявку на отлов)")}
             };
         }
 
         private static void CreateOrganizations()
         {
-            Organizations = new Dictionary<int, Organization>
+            Organizations = new List<Organization>
             {
-                { 1, new Organization("Организация1", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[1]) },
-                { 2, new Organization("Организация2", "123", "123", "1234", TypeOrganizations[2], TypeOwnerOrganizations[2]) },
-                { 3, new Organization("Организация3", "123", "123", "1234", TypeOrganizations[3], TypeOwnerOrganizations[1]) },
-                { 4, new Organization("Организация4", "123", "123", "1234", TypeOrganizations[4], TypeOwnerOrganizations[2]) },
-                { 5, new Organization("Организация5", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1]) },
-                { 6, new Organization("Организация6", "123", "123", "1234", TypeOrganizations[9], TypeOwnerOrganizations[1]) },
-                { 7, new Organization("Организация7", "123", "123", "1234", TypeOrganizations[8], TypeOwnerOrganizations[2]) },
-                { 8, new Organization("Организация8", "123", "123", "1234", TypeOrganizations[2], TypeOwnerOrganizations[1]) },
-                { 9, new Organization("Организация9", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[1]) },
-                { 10, new Organization("Организация10", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[2]) },
-                { 11, new Organization("Организация11", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[1]) },
-                { 12, new Organization("Организация12", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[1]) },
-                { 13, new Organization("Организация13", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1]) },
-                { 14, new Organization("Организация14", "123", "123", "1234", TypeOrganizations[7], TypeOwnerOrganizations[1]) },
-                { 15, new Organization("Организация15", "123", "123", "1234", TypeOrganizations[11], TypeOwnerOrganizations[1]) },
-                { 16, new Organization("Организация16", "123", "123", "1234", TypeOrganizations[10], TypeOwnerOrganizations[2]) },
-                { 17, new Organization("Организация17", "123", "123", "1234", TypeOrganizations[11], TypeOwnerOrganizations[2]) },
-                { 18, new Organization("Организация18", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[1]) },
-                { 19, new Organization("Организация19", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1]) },
-                { 20, new Organization("Организация20", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[2]) }
+                { new Organization(1, "Организация1", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[0], Localitys[1])},
+                { new Organization(2, "Организация2", "123", "123", "1234", TypeOrganizations[2], TypeOwnerOrganizations[1], Localitys[0]) },
+                { new Organization(3, "Организация3", "123", "123", "1234", TypeOrganizations[3], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(4, "Организация4", "123", "123", "1234", TypeOrganizations[4], TypeOwnerOrganizations[0], Localitys[0]) },
+                { new Organization(5, "Организация5", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[0], Localitys[2]) },
+                { new Organization(6, "Организация6", "123", "123", "1234", TypeOrganizations[9], TypeOwnerOrganizations[1], Localitys[1]) },
+                { new Organization(7, "Организация7", "123", "123", "1234", TypeOrganizations[0], TypeOwnerOrganizations[0], Localitys[0]) },
+                { new Organization(8, "Организация8", "123", "123", "1234", TypeOrganizations[2], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(9, "Организация9", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[1], Localitys[1]) },
+                { new Organization(10, "Организация10", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[0], Localitys[1]) },
+                { new Organization(11,"Организация11", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[1], Localitys[0]) },
+                { new Organization(12, "Организация12", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[0], Localitys[2]) },
+                { new Organization(13,"Организация13", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(14, "Организация14", "123", "123", "1234", TypeOrganizations[7], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(15, "Организация15", "123", "123", "1234", TypeOrganizations[0], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(16, "Организация16", "123", "123", "1234", TypeOrganizations[10], TypeOwnerOrganizations[0], Localitys[0]) },
+                { new Organization(17, "Организация17", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[0], Localitys[1]) },
+                { new Organization(18, "Организация18", "123", "123", "1234", TypeOrganizations[1], TypeOwnerOrganizations[1], Localitys[2]) },
+                { new Organization(19, "Организация19", "123", "123", "1234", TypeOrganizations[5], TypeOwnerOrganizations[1], Localitys[1]) },
+                { new Organization(20, "Организация20", "123", "123", "1234", TypeOrganizations[6], TypeOwnerOrganizations[0], Localitys[2]) }
             };
         }
         private static void CreateTypeOwnerOrganizations()
         {
-            TypeOwnerOrganizations = new Dictionary<int, TypeOwnerOrganization>
+            TypeOwnerOrganizations = new List<TypeOwnerOrganization>
             {
-                {1, new TypeOwnerOrganization("Индивидуальный предприниматель") },
-                {2, new TypeOwnerOrganization("Юридическое лицо")}
+                { new TypeOwnerOrganization(1, "Индивидуальный предприниматель") },
+                { new TypeOwnerOrganization(2, "Юридическое лицо") }
             };
         }
     }
