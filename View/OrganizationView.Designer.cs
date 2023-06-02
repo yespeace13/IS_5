@@ -200,8 +200,8 @@
             this.OrgDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.OrgDataGrid.Size = new System.Drawing.Size(1006, 370);
             this.OrgDataGrid.TabIndex = 9;
+            this.OrgDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_CellMouseDown);
             this.OrgDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_ColumnHeaderMouseClick);
-            this.OrgDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDown);
             // 
             // OrganizationContextMenuStrip
             // 
@@ -258,9 +258,9 @@
             this.FiltrsGroupBox.Controls.Add(this.AcceptButton);
             this.FiltrsGroupBox.Controls.Add(this.TypeOrgCheckedListBox);
             this.FiltrsGroupBox.Controls.Add(this.TypeOwnCheckedListBox);
-            this.FiltrsGroupBox.Location = new System.Drawing.Point(584, 41);
+            this.FiltrsGroupBox.Location = new System.Drawing.Point(568, 41);
             this.FiltrsGroupBox.Name = "FiltrsGroupBox";
-            this.FiltrsGroupBox.Size = new System.Drawing.Size(434, 209);
+            this.FiltrsGroupBox.Size = new System.Drawing.Size(450, 209);
             this.FiltrsGroupBox.TabIndex = 12;
             this.FiltrsGroupBox.TabStop = false;
             this.FiltrsGroupBox.Text = "Фильтрация";

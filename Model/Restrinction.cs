@@ -18,13 +18,9 @@ namespace IS_5.Model
     {
         OpenAndEdit, 
         Add,
-        Delete,
-        Open,
         Change,
-        Export,
+        Delete,
         AddFile,
-        DelFile,
-        Filtr,
-        Sort
+        DelFile
     }
 }

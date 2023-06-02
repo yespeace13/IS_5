@@ -38,6 +38,9 @@ namespace IS_5
 
             var possibilites = UserSession.User.Privilege.Organizations.Item2;
             CreateOrgButton.Enabled = false;
+            ChangeToolStripMenuItem.Enabled = false;
+            DeleteToolStripMenuItem.Enabled = false;
+            if (possibilites == null) return;
             foreach (var poss in possibilites)
             {
                 switch (poss)
@@ -45,16 +48,17 @@ namespace IS_5
                     case Possibilities.Add:
                         CreateOrgButton.Enabled = true;
                         break;
-                    case Possibilities.AddFile:
+                    case Possibilities.Change:
+                        ChangeToolStripMenuItem.Visible = true;
                         break;
                     case Possibilities.Delete:
                         DeleteToolStripMenuItem.Visible = true;
                         break;
-                    case Possibilities.Open:
+                    case Possibilities.AddFile:
                         break;
-                    case Possibilities.Change:
-                        ChangeToolStripMenuItem.Visible = true;
+                    case Possibilities.DelFile:
                         break;
+                    
                 }
             }
         }
@@ -144,12 +148,7 @@ namespace IS_5
 
         private void OrgDataGrid_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                var hti = OrgDataGrid.HitTest(e.X, e.Y);
-                OrgDataGrid.ClearSelection();
-                OrgDataGrid.Rows[hti.RowIndex].Selected = true;
-            }
+            
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,6 +162,16 @@ namespace IS_5
         {
             var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
             new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
+        }
+
+        private void OrgDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = OrgDataGrid.HitTest(e.X, e.Y);
+                OrgDataGrid.ClearSelection();
+                OrgDataGrid.Rows[hti.RowIndex].Selected = true;
+            }
         }
     }
 }

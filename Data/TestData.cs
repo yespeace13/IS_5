@@ -42,64 +42,65 @@ namespace IS_5
                             //Что будет отображать датагрид
                             Restrictions.All,
                             //Что он может делать на форме
-                            new Possibilities[]
-                            {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
-                            new Possibilities[]
-                            {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.None, null),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
-                            new Possibilities[]
-                            {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
-                            new Possibilities[]
-                            {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }))
+                            new Possibilities[] {Possibilities.OpenAndEdit}),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.All, null),
+                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.All, null, null),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.All, null))
                 },
                 {
                     new Role(2, "Оператор ВетСлужбы",
-                        new Tuple<Restrictions, Possibilities[]>(
-                            //Что будет отображать датагрид
-                            Restrictions.All,
-                            //Что он может делать на форме
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.All,
+                            new Possibilities[] {Possibilities.OpenAndEdit}),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.All, null),
+                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.All,
                             new Possibilities[]
                             {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
-                            new Possibilities[]
-                            {
-                                Possibilities.OpenAndEdit, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
-                            }),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.None, null),
-                        new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
-                            new Possibilities[]
-                            {
-                                Possibilities.Add, Possibilities.Filtr, Possibilities.Sort,
-                                Possibilities.Export, Possibilities.Delete, Possibilities.Change,
+                                Possibilities.Add, Possibilities.Delete, Possibilities.Change,
                                 Possibilities.AddFile, Possibilities.DelFile
-                            }),
+                            },
+                            new int[]{ 2, 3, 7}),
                         new Tuple<Restrictions, Possibilities[]>(
-                            Restrictions.All,
+                            Restrictions.All, null))
+                },
+                {
+                    new Role(3, "Оператор ОМСУ",
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
+                            new Possibilities[] { Possibilities.OpenAndEdit }),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality, null),
+                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.Locality,
                             new Possibilities[]
                             {
-                                Possibilities.Open, Possibilities.Filtr, Possibilities.Sort, Possibilities.Export
+                                Possibilities.Add, Possibilities.Delete, Possibilities.Change,
+                                Possibilities.AddFile, Possibilities.DelFile
+                            },
+                            new int[]{ 4, 5, 6, 7, 9, 10, 11}),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
+                            new Possibilities[]
+                            {
+                                Possibilities.Add, Possibilities.Change, Possibilities.Delete, 
+                                Possibilities.AddFile, Possibilities.DelFile
+                            }))
+                },
+                {
+                    new Role(3, "Оператор ОМСУ",
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
+                            new Possibilities[] { Possibilities.OpenAndEdit }),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality, null),
+                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.Locality,
+                            new Possibilities[]
+                            {
+                                Possibilities.Add, Possibilities.Delete, Possibilities.Change,
+                                Possibilities.AddFile, Possibilities.DelFile
+                            },
+                            new int[]{ 4, 5, 6, 7, 9, 10, 11}),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
+                            new Possibilities[]
+                            {
+                                Possibilities.Add, Possibilities.Change, Possibilities.Delete,
+                                Possibilities.AddFile, Possibilities.DelFile
                             }))
                 }
+
             };
         }
 
@@ -108,7 +109,8 @@ namespace IS_5
             Users = new List<User>
             {
                 { new User(1, "User1", "1234", Localitys[1], null, Roles[0]) },
-                { new User(2, "User2", "1234", null, Organizations[1], Roles[1])}
+                { new User(2, "User2", "1234", null, null, Roles[1])},
+                { new User(3, "User3", "1234", Localitys[2], null, Roles[2])}
             };
         }
 

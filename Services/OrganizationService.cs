@@ -43,21 +43,27 @@ namespace IS_5.Service
         public List<string[]> GetOrganizations(int sizePages, int page, string[] typeOrg, string[] typeOwnOrg, 
             (string, SortOrder) sortCol, out int maxPage)
         {
-            IEnumerable<Organization> privilege;
+            //проверка привилегий
+            IEnumerable<Organization> orgs;
             if (UserSession.User.Privilege.Organizations.Item1 == Restrictions.Organizations)
-                privilege = _organizationsRepository.GetOrganizations()
+                orgs = _organizationsRepository.GetOrganizations()
                     .Where(org => org.NameOrg == UserSession.User.Organization.NameOrg);
             else if (UserSession.User.Privilege.Organizations.Item1 == Restrictions.Locality)
-                privilege = _organizationsRepository.GetOrganizations()
+                orgs = _organizationsRepository.GetOrganizations()
                     .Where(org => org.Locality.Name == UserSession.User.Locality.Name);
             else
-                privilege = _organizationsRepository.GetOrganizations();
-            
-            var result = OrderResult(privilege
+                orgs = _organizationsRepository.GetOrganizations();
+            //проверка на тип организации
+            if(UserSession.User.Privilege.Organizations.Item3 != null)
+                orgs = orgs.Where(o => UserSession.User.Privilege.Organizations.Item3.Contains(o.TypeOrganization.Id));
+            //фильтрация
+            var result = OrderResult(orgs
                 .Join(typeOrg, org => org.TypeOrganization.Name, t => t, (org, t) => org)
                 .Join(typeOwnOrg, org => org.TypeOwnerOrganization.Name, t => t, (org, t) => org), sortCol)
                 .ToList();
+            //вычисление количества страниц
             maxPage = (int)Math.Ceiling((double)result.Count / sizePages);
+            //результат только для необходимой страницы
             return MapOrganizations(result
                 .Skip(sizePages * (page - 1))
                 .Take(sizePages)
@@ -71,31 +77,31 @@ namespace IS_5.Service
             switch (sortCol.Item1)
             {
                 case "Название":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.NameOrg)
                         : orgs.OrderByDescending(org => org.NameOrg);
                 case "ИНН":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.TaxIdenNum)
                         : orgs.OrderByDescending(org => org.TaxIdenNum);
                 case "КПП":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.KPP)
                         : orgs.OrderByDescending(org => org.KPP);
                 case "Адрес":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.Address)
                         : orgs.OrderByDescending(org => org.Address);
                 case "Тип организации":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.TypeOrganization.Name)
                         : orgs.OrderByDescending(org => org.TypeOrganization.Name);
                 case "Вид организации":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.TypeOwnerOrganization.Name)
                         : orgs.OrderByDescending(org => org.TypeOwnerOrganization.Name);
-                case "Муниципальное образование":
-                    return result = sortCol.Item2 == SortOrder.Ascending ?
+                case "Муниципальный район":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
                         orgs.OrderBy(org => org.Locality.Name)
                         : orgs.OrderByDescending(org => org.Locality.Name);
                 default:
