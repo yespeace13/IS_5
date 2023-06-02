@@ -24,7 +24,7 @@ namespace IS_5
             
             if(authoizationView.UserSuccessfullyAuthenticated) 
             {
-                Application.Run(new OrganizationView());
+                Application.Run(new MenuForm());
             }
             
          

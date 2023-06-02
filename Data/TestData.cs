@@ -13,6 +13,8 @@ namespace IS_5
         public static List<Locality> Localitys { get; set; }
         public static List<Role> Roles { get; set; }
 
+        public static List<Contract> Contracts { get; set; }
+
         static TestData()
         {
             CreateTypeOrganizations();
@@ -21,6 +23,23 @@ namespace IS_5
             CreateOrganizations();
             CreateRoles();
             CreateUsers();
+            CreateContracts();
+        }
+
+        private static void CreateContracts()
+        {
+            Contracts = new List<Contract>
+            {
+                new Contract(1, 1234, DateTime.Now, new DateTime(23, 12, 31), Organizations[1], Organizations[2],
+                    new List<Localityprice>()
+                    {
+                        new Localityprice(1, Localitys[0], (decimal)5000)
+                    },
+                    new List<ContractFile>()
+                    {
+                        new ContractFile()
+                    })
+            };
         }
 
         private static void CreateLocalitys()

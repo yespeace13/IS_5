@@ -33,9 +33,10 @@ namespace IS_5
         {
             var typeOrg = _controller.ShowTypesOrganizations();
             var typeOwnOrg = _controller.ShowTypesOwnerOrganizations();
+            var localitys = _controller.ShowLocalitys();
             TypeOrgCheckedListBox.Items.AddRange(typeOrg);
             TypeOwnCheckedListBox.Items.AddRange(typeOwnOrg);
-
+            LocalitysCheckedListBox.Items.AddRange(localitys);
             var possibilites = UserSession.User.Privilege.Organizations.Item2;
             CreateOrgButton.Enabled = false;
             ChangeToolStripMenuItem.Enabled = false;
@@ -92,6 +93,9 @@ namespace IS_5
             string[] filtrsTypeOwn = TypeOwnCheckedListBox.CheckedItems.Count == 0 ?
                 TypeOwnCheckedListBox.Items.Cast<string>().ToArray() : 
                 TypeOwnCheckedListBox.CheckedItems.Cast<string>().ToArray();
+            string[] filtrsLocalitys = LocalitysCheckedListBox.CheckedItems.Count == 0 ?
+                LocalitysCheckedListBox.Items.Cast<string>().ToArray() :
+                LocalitysCheckedListBox.CheckedItems.Cast<string>().ToArray();
             (string, SortOrder) sortCol = OrgDataGrid.SortedColumn == null ? 
                 (null, SortOrder.None) : (OrgDataGrid.SortedColumn.HeaderText, OrgDataGrid.SortOrder);
             var orgs = _controller.ShowOrganizations(
@@ -99,6 +103,7 @@ namespace IS_5
                 (int)NumberOfPage.Value, 
                 filtrsType,
                 filtrsTypeOwn,
+                filtrsLocalitys,
                 sortCol,
                 out int maxPage);
             NumberOfPage.Maximum = maxPage;
@@ -131,9 +136,19 @@ namespace IS_5
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            //_controller.ExportToFile(filtrsType,
-            //    filtrsTypeOwn,
-            //    sortCol);
+            string[] filtrsType = TypeOrgCheckedListBox.CheckedItems.Count == 0 ?
+               TypeOrgCheckedListBox.Items.Cast<string>().ToArray() :
+               TypeOrgCheckedListBox.CheckedItems.Cast<string>().ToArray();
+            string[] filtrsTypeOwn = TypeOwnCheckedListBox.CheckedItems.Count == 0 ?
+                TypeOwnCheckedListBox.Items.Cast<string>().ToArray() :
+                TypeOwnCheckedListBox.CheckedItems.Cast<string>().ToArray();
+            string[] filtrsLocalitys = LocalitysCheckedListBox.CheckedItems.Count == 0 ?
+                LocalitysCheckedListBox.Items.Cast<string>().ToArray() :
+                LocalitysCheckedListBox.CheckedItems.Cast<string>().ToArray();
+            var columns = new string[OrgDataGrid.ColumnCount];
+            for (var col = 0; col < columns.Length; col++)
+                columns[col] = OrgDataGrid.Columns[col].HeaderText;
+            _controller.ExportToExcel(filtrsType, filtrsTypeOwn, filtrsLocalitys, columns);
         }
 
         private void OrgDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
@@ -146,10 +161,6 @@ namespace IS_5
             ShowOrganizations();
         }
 
-        private void OrgDataGrid_MouseDown(object sender, MouseEventArgs e)
-        {
-            
-        }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -164,13 +175,18 @@ namespace IS_5
             new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
         }
 
-        private void OrgDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+
+        private void OrgDataGrid_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 var hti = OrgDataGrid.HitTest(e.X, e.Y);
-                OrgDataGrid.ClearSelection();
-                OrgDataGrid.Rows[hti.RowIndex].Selected = true;
+                if (hti.RowIndex != -1)
+                {
+                    OrgDataGrid.ClearSelection();
+                    OrgDataGrid.Rows[hti.RowIndex].Selected = true;
+                }
+
             }
         }
     }

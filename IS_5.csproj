@@ -49,42 +49,75 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controler\AuthorizationController.cs" />
-    <Compile Include="Data\AuthorizationRepository.cs" />
+    <Compile Include="Authorization\AuthorizationController.cs" />
+    <Compile Include="Authorization\AuthorizationRepository.cs" />
+    <Compile Include="Contract\Model\Contract.cs" />
+    <Compile Include="Contract\Controller\ContractController.cs" />
+    <Compile Include="Contract\Model\ContractFile.cs" />
+    <Compile Include="Contract\Repository\ContractRepository.cs" />
+    <Compile Include="Contract\Service\ContractService.cs" />
+    <Compile Include="Contract\Model\Localityprice.cs" />
+    <Compile Include="Contract\View\ContractEditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contract\View\ContractEditView.Designer.cs">
+      <DependentUpon>ContractEditView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\View\ContractView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contract\View\ContractView.Designer.cs">
+      <DependentUpon>ContractView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Locality.cs" />
     <Compile Include="Model\Restrinction.cs" />
     <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\TypeOwnerOrganization.cs" />
-    <Compile Include="Services\AuthorizationService.cs" />
-    <Compile Include="Controler\OrganizationController.cs" />
-    <Compile Include="Model\TypeOrganization.cs" />
-    <Compile Include="Data\OrganizationsRepository.cs" />
-    <Compile Include="Services\OrganizationService.cs" />
+    <Compile Include="Organization\Model\TypeOwnerOrganization.cs" />
+    <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Organization\Controller\OrganizationController.cs" />
+    <Compile Include="Organization\Model\TypeOrganization.cs" />
+    <Compile Include="Organization\Repository\OrganizationsRepository.cs" />
+    <Compile Include="Organization\Service\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />
-    <Compile Include="Services\UserSession.cs" />
+    <Compile Include="UserSession.cs" />
     <Compile Include="StatusEnum.cs" />
-    <Compile Include="View\AuthorizationView.cs">
+    <Compile Include="Authorization\AuthorizationView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AuthorizationView.Designer.cs">
+    <Compile Include="Authorization\AuthorizationView.Designer.cs">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\OrganizationEditView.cs">
+    <Compile Include="Organization\View\OrganizationEditView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\OrganizationEditView.Designer.cs">
+    <Compile Include="Organization\View\OrganizationEditView.Designer.cs">
       <DependentUpon>OrganizationEditView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\OrganizationView.cs">
+    <Compile Include="Organization\View\OrganizationView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\OrganizationView.Designer.cs">
+    <Compile Include="Organization\View\OrganizationView.Designer.cs">
       <DependentUpon>OrganizationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Organization.cs" />
+    <Compile Include="Organization\Model\Organization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\User.cs" />
+    <EmbeddedResource Include="Contract\View\ContractEditView.resx">
+      <DependentUpon>ContractEditView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contract\View\ContractView.resx">
+      <DependentUpon>ContractView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -94,13 +127,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\AuthorizationView.resx">
+    <EmbeddedResource Include="Authorization\AuthorizationView.resx">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\OrganizationEditView.resx">
+    <EmbeddedResource Include="Organization\View\OrganizationEditView.resx">
       <DependentUpon>OrganizationEditView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\OrganizationView.resx">
+    <EmbeddedResource Include="Organization\View\OrganizationView.resx">
       <DependentUpon>OrganizationView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -117,6 +150,35 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using IS_5.Model;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data.Odbc;
@@ -7,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace IS_5.Service
 {
@@ -40,7 +42,7 @@ namespace IS_5.Service
             return mapedOrganizations;
         }
 
-        public List<string[]> GetOrganizations(int sizePages, int page, string[] typeOrg, string[] typeOwnOrg, 
+        public List<string[]> GetOrganizations(int sizePages, int page, string[] typeOrg, string[] typeOwnOrg, string[] localitys,
             (string, SortOrder) sortCol, out int maxPage)
         {
             //проверка привилегий
@@ -59,7 +61,8 @@ namespace IS_5.Service
             //фильтрация
             var result = OrderResult(orgs
                 .Join(typeOrg, org => org.TypeOrganization.Name, t => t, (org, t) => org)
-                .Join(typeOwnOrg, org => org.TypeOwnerOrganization.Name, t => t, (org, t) => org), sortCol)
+                .Join(typeOwnOrg, org => org.TypeOwnerOrganization.Name, t => t, (org, t) => org)
+                .Join(localitys, org => org.Locality.Name, l => l, (org, l) => org), sortCol)
                 .ToList();
             //вычисление количества страниц
             maxPage = (int)Math.Ceiling((double)result.Count / sizePages);
@@ -112,6 +115,10 @@ namespace IS_5.Service
         public string[] GetTypeOrganizations()
         {
             var organizations = _organizationsRepository.GetTypeOrganizations();
+            if(UserSession.User.Privilege.Organizations.Item3 != null)
+                organizations = organizations
+                    .Where(o => UserSession.User.Privilege.Organizations.Item3.Contains(o.Id))
+                    .ToList();
             return MapTypeOrganizations(organizations);
         }
 
@@ -204,12 +211,48 @@ namespace IS_5.Service
         public string[] Localitys()
         {
             var localitys = _organizationsRepository.GetLocalitys();
+            if(UserSession.User.Locality != null)    
+                localitys
+                    .Where(l => l.Name == UserSession.User.Locality.Name)
+                    .ToList();
             return MapLocalitys(localitys);
         }
 
         private string[] MapLocalitys(List<Locality> localitys)
         {
             return localitys.Select(l => l.Name).ToArray();
+        }
+
+        public void ExportToExcel(string[] filtrsType, string[] filtrsTypeOwn, string[] localitys, string[] columns)
+        {
+            var saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx";
+            saveFileDialog1.FileName = "Организации";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var orgs = GetOrganizations(int.MaxValue, 1, filtrsType, filtrsTypeOwn,
+                localitys, (null, SortOrder.None), out int maxPage);
+                Excel.Application app = new Excel.Application
+                {
+                    Visible = true,
+                    SheetsInNewWorkbook = 1
+                };
+                Workbook workBook = app.Workbooks.Add(Type.Missing);
+                app.DisplayAlerts = false;
+                Worksheet sheet = (Worksheet)app.Worksheets.get_Item(1);
+                for (int i = 0; i < columns.Length; i++)
+                    sheet.Cells[1, i + 1] = columns[i];
+                for (int i = 0; i < orgs.Count; i++)
+                    for (int j = 0; j < orgs[0].Length; j++)
+                        sheet.Cells[i + 2, j + 1] = orgs[i][j];
+                var cols = sheet.UsedRange.Columns;
+                cols.Columns.AutoFit();
+                var name = saveFileDialog1.FileName;
+                app.Application.ActiveWorkbook.SaveAs(name);
+                sheet = null;
+                workBook.Close();
+                app.Quit();
+            }
         }
     }
 }

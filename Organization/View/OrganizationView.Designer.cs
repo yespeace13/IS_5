@@ -38,17 +38,6 @@
             this.NumberPageLabel = new System.Windows.Forms.Label();
             this.CountLabel = new System.Windows.Forms.Label();
             this.OrgDataGrid = new System.Windows.Forms.DataGridView();
-            this.OrganizationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.TypeOrgCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
-            this.AcceptButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.FiltrsButton = new System.Windows.Forms.Button();
-            this.ExportButton = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INN = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +46,18 @@
             this.TypeOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeOwnOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrganizationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.TypeOrgCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
+            this.LocalitysCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.AcceptButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.FiltrsButton = new System.Windows.Forms.Button();
+            this.ExportButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrgDataGrid)).BeginInit();
@@ -198,112 +199,10 @@
             this.OrgDataGrid.RowHeadersWidth = 51;
             this.OrgDataGrid.RowTemplate.Height = 24;
             this.OrgDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OrgDataGrid.Size = new System.Drawing.Size(1006, 370);
+            this.OrgDataGrid.Size = new System.Drawing.Size(1006, 363);
             this.OrgDataGrid.TabIndex = 9;
-            this.OrgDataGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_CellMouseDown);
             this.OrgDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_ColumnHeaderMouseClick);
-            // 
-            // OrganizationContextMenuStrip
-            // 
-            this.OrganizationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.OrganizationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowToolStripMenuItem,
-            this.ChangeToolStripMenuItem,
-            this.DeleteToolStripMenuItem});
-            this.OrganizationContextMenuStrip.Name = "OrganizationContextMenuStrip";
-            this.OrganizationContextMenuStrip.Size = new System.Drawing.Size(150, 76);
-            // 
-            // ShowToolStripMenuItem
-            // 
-            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
-            this.ShowToolStripMenuItem.Text = "Просмотр";
-            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
-            // 
-            // ChangeToolStripMenuItem
-            // 
-            this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
-            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
-            this.ChangeToolStripMenuItem.Text = "Изменить";
-            this.ChangeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
-            // 
-            // DeleteToolStripMenuItem
-            // 
-            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
-            this.DeleteToolStripMenuItem.Text = "Удалить";
-            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
-            // 
-            // TypeOwnCheckedListBox
-            // 
-            this.TypeOwnCheckedListBox.CheckOnClick = true;
-            this.TypeOwnCheckedListBox.FormattingEnabled = true;
-            this.TypeOwnCheckedListBox.Location = new System.Drawing.Point(226, 20);
-            this.TypeOwnCheckedListBox.Name = "TypeOwnCheckedListBox";
-            this.TypeOwnCheckedListBox.Size = new System.Drawing.Size(202, 157);
-            this.TypeOwnCheckedListBox.TabIndex = 10;
-            // 
-            // TypeOrgCheckedListBox
-            // 
-            this.TypeOrgCheckedListBox.CheckOnClick = true;
-            this.TypeOrgCheckedListBox.FormattingEnabled = true;
-            this.TypeOrgCheckedListBox.HorizontalScrollbar = true;
-            this.TypeOrgCheckedListBox.Location = new System.Drawing.Point(18, 20);
-            this.TypeOrgCheckedListBox.Name = "TypeOrgCheckedListBox";
-            this.TypeOrgCheckedListBox.Size = new System.Drawing.Size(202, 157);
-            this.TypeOrgCheckedListBox.TabIndex = 11;
-            // 
-            // FiltrsGroupBox
-            // 
-            this.FiltrsGroupBox.Controls.Add(this.AcceptButton);
-            this.FiltrsGroupBox.Controls.Add(this.TypeOrgCheckedListBox);
-            this.FiltrsGroupBox.Controls.Add(this.TypeOwnCheckedListBox);
-            this.FiltrsGroupBox.Location = new System.Drawing.Point(568, 41);
-            this.FiltrsGroupBox.Name = "FiltrsGroupBox";
-            this.FiltrsGroupBox.Size = new System.Drawing.Size(450, 209);
-            this.FiltrsGroupBox.TabIndex = 12;
-            this.FiltrsGroupBox.TabStop = false;
-            this.FiltrsGroupBox.Text = "Фильтрация";
-            this.FiltrsGroupBox.Visible = false;
-            // 
-            // AcceptButton
-            // 
-            this.AcceptButton.Location = new System.Drawing.Point(353, 180);
-            this.AcceptButton.Name = "AcceptButton";
-            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
-            this.AcceptButton.TabIndex = 12;
-            this.AcceptButton.Text = "Принять";
-            this.AcceptButton.UseVisualStyleBackColor = true;
-            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 16);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Организации";
-            // 
-            // FiltrsButton
-            // 
-            this.FiltrsButton.Location = new System.Drawing.Point(711, 12);
-            this.FiltrsButton.Name = "FiltrsButton";
-            this.FiltrsButton.Size = new System.Drawing.Size(75, 23);
-            this.FiltrsButton.TabIndex = 14;
-            this.FiltrsButton.Text = "Фильтры";
-            this.FiltrsButton.UseVisualStyleBackColor = true;
-            this.FiltrsButton.Click += new System.EventHandler(this.FiltrsButton_Click);
-            // 
-            // ExportButton
-            // 
-            this.ExportButton.Location = new System.Drawing.Point(888, 12);
-            this.ExportButton.Name = "ExportButton";
-            this.ExportButton.Size = new System.Drawing.Size(130, 23);
-            this.ExportButton.TabIndex = 15;
-            this.ExportButton.Text = "Экспорт в Excel";
-            this.ExportButton.UseVisualStyleBackColor = true;
-            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
+            this.OrgDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDown);
             // 
             // Id
             // 
@@ -360,6 +259,118 @@
             this.Locality.MinimumWidth = 6;
             this.Locality.Name = "Locality";
             this.Locality.ReadOnly = true;
+            // 
+            // OrganizationContextMenuStrip
+            // 
+            this.OrganizationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.OrganizationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowToolStripMenuItem,
+            this.ChangeToolStripMenuItem,
+            this.DeleteToolStripMenuItem});
+            this.OrganizationContextMenuStrip.Name = "OrganizationContextMenuStrip";
+            this.OrganizationContextMenuStrip.Size = new System.Drawing.Size(150, 76);
+            // 
+            // ShowToolStripMenuItem
+            // 
+            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.ShowToolStripMenuItem.Text = "Просмотр";
+            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
+            // 
+            // ChangeToolStripMenuItem
+            // 
+            this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
+            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.ChangeToolStripMenuItem.Text = "Изменить";
+            this.ChangeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
+            // 
+            // DeleteToolStripMenuItem
+            // 
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.DeleteToolStripMenuItem.Text = "Удалить";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
+            // 
+            // TypeOwnCheckedListBox
+            // 
+            this.TypeOwnCheckedListBox.CheckOnClick = true;
+            this.TypeOwnCheckedListBox.FormattingEnabled = true;
+            this.TypeOwnCheckedListBox.Location = new System.Drawing.Point(214, 21);
+            this.TypeOwnCheckedListBox.Name = "TypeOwnCheckedListBox";
+            this.TypeOwnCheckedListBox.Size = new System.Drawing.Size(202, 157);
+            this.TypeOwnCheckedListBox.TabIndex = 10;
+            // 
+            // TypeOrgCheckedListBox
+            // 
+            this.TypeOrgCheckedListBox.CheckOnClick = true;
+            this.TypeOrgCheckedListBox.FormattingEnabled = true;
+            this.TypeOrgCheckedListBox.HorizontalScrollbar = true;
+            this.TypeOrgCheckedListBox.Location = new System.Drawing.Point(6, 21);
+            this.TypeOrgCheckedListBox.Name = "TypeOrgCheckedListBox";
+            this.TypeOrgCheckedListBox.Size = new System.Drawing.Size(202, 157);
+            this.TypeOrgCheckedListBox.TabIndex = 11;
+            // 
+            // FiltrsGroupBox
+            // 
+            this.FiltrsGroupBox.Controls.Add(this.LocalitysCheckedListBox);
+            this.FiltrsGroupBox.Controls.Add(this.AcceptButton);
+            this.FiltrsGroupBox.Controls.Add(this.TypeOrgCheckedListBox);
+            this.FiltrsGroupBox.Controls.Add(this.TypeOwnCheckedListBox);
+            this.FiltrsGroupBox.Location = new System.Drawing.Point(377, 41);
+            this.FiltrsGroupBox.Name = "FiltrsGroupBox";
+            this.FiltrsGroupBox.Size = new System.Drawing.Size(641, 209);
+            this.FiltrsGroupBox.TabIndex = 12;
+            this.FiltrsGroupBox.TabStop = false;
+            this.FiltrsGroupBox.Text = "Фильтрация";
+            this.FiltrsGroupBox.Visible = false;
+            // 
+            // LocalitysCheckedListBox
+            // 
+            this.LocalitysCheckedListBox.CheckOnClick = true;
+            this.LocalitysCheckedListBox.FormattingEnabled = true;
+            this.LocalitysCheckedListBox.Location = new System.Drawing.Point(422, 21);
+            this.LocalitysCheckedListBox.Name = "LocalitysCheckedListBox";
+            this.LocalitysCheckedListBox.Size = new System.Drawing.Size(202, 157);
+            this.LocalitysCheckedListBox.TabIndex = 13;
+            // 
+            // AcceptButton
+            // 
+            this.AcceptButton.Location = new System.Drawing.Point(549, 184);
+            this.AcceptButton.Name = "AcceptButton";
+            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
+            this.AcceptButton.TabIndex = 12;
+            this.AcceptButton.Text = "Принять";
+            this.AcceptButton.UseVisualStyleBackColor = true;
+            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 16);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Организации";
+            // 
+            // FiltrsButton
+            // 
+            this.FiltrsButton.Location = new System.Drawing.Point(711, 12);
+            this.FiltrsButton.Name = "FiltrsButton";
+            this.FiltrsButton.Size = new System.Drawing.Size(75, 23);
+            this.FiltrsButton.TabIndex = 14;
+            this.FiltrsButton.Text = "Фильтры";
+            this.FiltrsButton.UseVisualStyleBackColor = true;
+            this.FiltrsButton.Click += new System.EventHandler(this.FiltrsButton_Click);
+            // 
+            // ExportButton
+            // 
+            this.ExportButton.Location = new System.Drawing.Point(888, 12);
+            this.ExportButton.Name = "ExportButton";
+            this.ExportButton.Size = new System.Drawing.Size(130, 23);
+            this.ExportButton.TabIndex = 15;
+            this.ExportButton.Text = "Экспорт в Excel";
+            this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
             // OrganizationView
             // 
@@ -420,6 +431,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOwnOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
+        private System.Windows.Forms.CheckedListBox LocalitysCheckedListBox;
     }
 }
 
