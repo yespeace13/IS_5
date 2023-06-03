@@ -49,10 +49,6 @@ namespace IS_5
                     case Possibilities.Delete:
                         DeleteToolStripMenuItem.Enabled = true;
                         break;
-                    case Possibilities.AddFile:
-                        break;
-                    case Possibilities.DelFile:
-                        break;
                 }
             }
         }
@@ -117,10 +113,10 @@ namespace IS_5
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            //var columns = new string[ConDataGrid.ColumnCount];
-            //for (var col = 0; col < columns.Length; col++)
-            //    columns[col] = ConDataGrid.Columns[col].HeaderText;
-            //_controller.ExportToExcel(columns);
+            var columns = new string[ConDataGrid.ColumnCount];
+            for (var col = 0; col < columns.Length; col++)
+                columns[col] = ConDataGrid.Columns[col].HeaderText;
+            _controller.ExportToExcel(columns);
         }
 
         private void ConDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
@@ -155,11 +151,18 @@ namespace IS_5
             }
         }
 
-        private void ConDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void ConDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new ContractEditView(_controller, State.None, 
-                int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
+            if (e.Button == MouseButtons.Left)
+            {
+                var hti = ConDataGrid.HitTest(e.X, e.Y);
+                if (hti.RowIndex != -1)
+                {
+                    var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                    new ContractEditView(_controller, State.None,
+                        int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
+                }
+            }
         }
     }
 }

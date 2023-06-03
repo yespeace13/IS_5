@@ -63,6 +63,7 @@ namespace IS_5.View
             PrevScanButton.Enabled = false;
             NextScanButton.Enabled = false;
         }
+
         private void ChangeEnable()
         {
             NumberTextBox.Enabled = false;
@@ -115,7 +116,7 @@ namespace IS_5.View
                 {
                     _controller.UpdateContract(int.Parse(_contract[0].ToString()), NumberTextBox.Text,
                         DateOfConclusionDateTimePicker.Value, DateValidDateTimePicker.Value,
-                        ExecutorComboBox.SelectedItem, ClientComboBox.SelectedItem,
+                        ExecutorComboBox.SelectedItem.ToString(), ClientComboBox.SelectedItem.ToString(),
                         _localprice, _scans);
                 }
                 Close();
@@ -133,6 +134,8 @@ namespace IS_5.View
             _currentScan = 0;
             if(_scans.Count > 0)
                 ChangeScan();
+            else
+                NextScanButton.Enabled = false;
         }
 
         private void CancelButton_Click(object sender, EventArgs e) => Close();
@@ -187,11 +190,24 @@ namespace IS_5.View
 
         private void DeleteImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(_scans.Count != 0)
+            if(_scans.Count > 0)
             {
                 _scans.RemoveAt(_currentScan);
-                _currentScan = _currentScan > 0 ? --_currentScan : 0;
-                ChangeScan();
+                if(_scans.Count == 0)
+                {
+                    _currentScan = 0;
+                    ScanPictureBox.Image = null;
+                }
+                else
+                {
+                    _currentScan = _currentScan == 0 ? 0 : --_currentScan;
+                    ChangeScan();
+                }
+                
+            }
+            else
+            {
+                ScanPictureBox.Image = null;
             }
         }
 
@@ -201,10 +217,12 @@ namespace IS_5.View
             var localForm = new LocalPriceView(_controller,
                 LocalsPricesDataGridView.Rows[selectedRow].Cells[0].Value.ToString(),
                 decimal.Parse(LocalsPricesDataGridView.Rows[selectedRow].Cells[1].Value.ToString()));
-            localForm.ShowDialog();
-            _localprice[selectedRow][0] = localForm.Locality;
-            _localprice[selectedRow][1] = localForm.Price.ToString();
-            ShowLocals();
+            if (localForm.ShowDialog() == DialogResult.OK)
+            {
+                _localprice[selectedRow][0] = localForm.Locality;
+                _localprice[selectedRow][1] = localForm.Price.ToString();
+                ShowLocals();
+            }
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -216,9 +234,11 @@ namespace IS_5.View
         private void AddLocalPriceButton_Click(object sender, EventArgs e)
         {
             var localForm = new LocalPriceView(_controller);
-            localForm.ShowDialog();
-            _localprice.Add(new string[] { localForm.Locality, localForm.Price.ToString() });
-            ShowLocals();
+            if(localForm.ShowDialog() == DialogResult.OK)
+            {
+                _localprice.Add(new string[] { localForm.Locality, localForm.Price.ToString() });
+                ShowLocals();
+            };
         }
 
         private void ShowLocals()

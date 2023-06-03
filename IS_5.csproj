@@ -32,6 +32,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,6 +88,7 @@
     <Compile Include="Contract\View\ScanView.Designer.cs">
       <DependentUpon>ScanView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportDataToExcel.cs" />
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +208,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico" />
     <Content Include="Resources\fast-forward%281%29.png" />
     <Content Include="Resources\fast-forward.png" />
     <Content Include="Resources\fast-forward_r.png" />

@@ -200,8 +200,8 @@
             this.OrgDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.OrgDataGrid.Size = new System.Drawing.Size(1006, 363);
             this.OrgDataGrid.TabIndex = 9;
-            this.OrgDataGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_CellMouseDoubleClick);
             this.OrgDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_ColumnHeaderMouseClick);
+            this.OrgDataGrid.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDoubleClick);
             this.OrgDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDown);
             // 
             // Id
@@ -272,14 +272,14 @@
             // ChangeToolStripMenuItem
             // 
             this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
-            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.ChangeToolStripMenuItem.Text = "Изменить";
             this.ChangeToolStripMenuItem.Click += new System.EventHandler(this.ChangeToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.DeleteToolStripMenuItem.Text = "Удалить";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 

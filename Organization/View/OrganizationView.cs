@@ -190,10 +190,17 @@ namespace IS_5
             }
         }
 
-        private void OrgDataGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void OrgDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
+            if (e.Button == MouseButtons.Left)
+            {
+                var hti = OrgDataGrid.HitTest(e.X, e.Y);
+                if (hti.RowIndex != -1)
+                {
+                    var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                    new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
+                }
+            }
         }
     }
 }

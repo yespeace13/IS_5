@@ -34,7 +34,38 @@ namespace IS_5
                 contracts = _contractRepository.GetContracts();
             //вычисление количества страниц
             maxPage = (int)Math.Ceiling((double)contracts.Count() / sizePages);
-            return MapContracts(contracts.ToList());
+            var result = OrderResult(contracts, sortCol);
+            return MapContracts(result.ToList());
+        }
+
+        private IEnumerable<Contract> OrderResult(IEnumerable<Contract> contracts, (string, SortOrder) sortCol)
+        {
+            IEnumerable<Contract> result;
+            switch (sortCol.Item1)
+            {
+                case "Номер":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
+                        contracts.OrderBy(org => org.Number)
+                        : contracts.OrderByDescending(org => org.Number);
+                case "Дата заключения":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
+                        contracts.OrderBy(org => org.DateOfConclusion)
+                        : contracts.OrderByDescending(org => org.DateOfConclusion);
+                case "Дата действия":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
+                        contracts.OrderBy(org => org.DateValidation)
+                        : contracts.OrderByDescending(org => org.DateValidation);
+                case "Исполнитель":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
+                        contracts.OrderBy(org => org.Executor.NameOrg)
+                        : contracts.OrderByDescending(org => org.Executor.NameOrg);
+                case "Заказчик":
+                    return result = sortCol.Item2 == SortOrder.Descending ?
+                        contracts.OrderBy(org => org.Client.NameOrg)
+                        : contracts.OrderByDescending(org => org.Client.NameOrg);
+                default:
+                    return contracts.OrderBy(org => org.Id);
+            }
         }
 
         public List<string[]> MapContracts(List<Contract> contracts)
@@ -95,19 +126,26 @@ namespace IS_5
         public void CreateContract(string number, DateTime dateOfConcl, DateTime dateValid, 
             string executor, string client, List<string[]> localsprices, List<string> scans)
         {
+            Contract contract = Create(number, dateOfConcl, dateValid, executor, client, localsprices, scans);
+            _contractRepository.AddContractToRepository(contract);
+        }
+
+        private Contract Create(string number, DateTime dateOfConcl, DateTime dateValid,
+            string executor, string client, List<string[]> localsprices, List<string> scans)
+        {
             var orgsRep = new OrganizationsRepository();
             var orgs = orgsRep.GetOrganizations();
             var locs = orgsRep.GetLocalitys();
             var localityPrices = new List<Localityprice>();
             for (int i = 0; i < localsprices.Count; i++)
                 localityPrices.Add(new Localityprice(
-                    i + 1, 
-                    locs.Where(l => l.Name == localsprices[i][0]).FirstOrDefault(), 
+                    i + 1,
+                    locs.Where(l => l.Name == localsprices[i][0]).FirstOrDefault(),
                     decimal.Parse(localsprices[i][1].ToString())));
-            
+
             var files = new List<ContractFile>();
             if (scans != null)
-               for (int i = 0; i < scans.Count; i++)
+                for (int i = 0; i < scans.Count; i++)
                     files.Add(new ContractFile(i + 1, scans[i]));
             var id = _contractRepository.GetContracts().Max(c => c.Id);
             var contract = new Contract(
@@ -116,12 +154,28 @@ namespace IS_5
                 orgs.Where(o => o.NameOrg == executor).FirstOrDefault(),
                 orgs.Where(o => o.NameOrg == client).FirstOrDefault(),
                 localityPrices, files);
+            return contract;
+        }
+
+        public void UpdateContract(int id, string number, DateTime dateOfConcl, DateTime dateValid, string executor, string client, List<string[]> localsprices, List<string> scans)
+        {
+            var oldCon = _contractRepository.GetContract(id);
+            var contract = Create(number, dateOfConcl, dateValid, executor, client, localsprices, scans);
+            _contractRepository.DeleteContractFromRepository(id);
+            contract.Id = id;
             _contractRepository.AddContractToRepository(contract);
         }
 
-        internal void UpdateContract(int id, string number, DateTime dateOfConcl, DateTime dateValid, string executor, string client, List<string[]> localsprices, List<string> scans)
+        public void ExportToExcel(string[] columns)
         {
-            throw new NotImplementedException();
+            var saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx";
+            saveFileDialog1.FileName = "Контракты";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var orgs = GetContracts(int.MaxValue, 1, (null, SortOrder.None), out int maxPage);
+                ExportDataToExcel.Export(columns, saveFileDialog1.FileName, orgs);
+            }
         }
     }
 }

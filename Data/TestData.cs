@@ -140,7 +140,7 @@ namespace IS_5
         {
             Users = new List<User>
             {
-                { new User(1, "User1", "1234", Localitys[1], null, Roles[0]) },
+                { new User(1, "User1", "1234", Localitys[0], null, Roles[0]) },
                 { new User(2, "User2", "1234", null, null, Roles[1])},
                 { new User(3, "User3", "1234", Localitys[2], null, Roles[2])}
             };

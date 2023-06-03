@@ -46,12 +46,20 @@ namespace IS_5
         public void CreateContract(string number, DateTime dateOfConcl, DateTime dateValid, 
             string executor, string client, List<string[]> localsprices, List<string> scans)
         {
-            _contractService.CreateContract(number, dateOfConcl, dateValid, executor, client, localsprices, scans);
+            _contractService.CreateContract(number, dateOfConcl, dateValid, 
+                executor, client, localsprices, scans);
         }
 
-        internal void UpdateContract(string v, string text, DateTime value1, DateTime value2, object selectedItem1, object selectedItem2, List<string[]> localprice, List<string> scans)
+        internal void UpdateContract(int id, string number, DateTime dateOfConcl, DateTime dateValid,
+            string executor, string client, List<string[]> localsprices, List<string> scans)
         {
-            throw new NotImplementedException();
+            _contractService.UpdateContract(id, number, dateOfConcl, dateValid, 
+                executor, client, localsprices, scans);
+        }
+
+        public void ExportToExcel(string[] columns)
+        {
+            _contractService.ExportToExcel(columns);
         }
     }
 }

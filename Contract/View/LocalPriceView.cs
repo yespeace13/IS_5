@@ -53,6 +53,7 @@ namespace IS_5
             }
             else
             {
+                this.DialogResult = DialogResult.OK;
                 Locality = LocalityComboBox.SelectedItem.ToString();
                 Price = PriceNumericUpDown.Value;
                 Close();

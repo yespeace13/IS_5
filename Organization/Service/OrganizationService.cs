@@ -62,7 +62,8 @@ namespace IS_5.Service
             var result = OrderResult(orgs
                 .Join(typeOrg, org => org.TypeOrganization.Name, t => t, (org, t) => org)
                 .Join(typeOwnOrg, org => org.TypeOwnerOrganization.Name, t => t, (org, t) => org)
-                .Join(localitys, org => org.Locality.Name, l => l, (org, l) => org), sortCol)
+                .Join(localitys, org => org.Locality.Name, l => l, (org, l) => org)
+                , sortCol)
                 .ToList();
             //вычисление количества страниц
             maxPage = (int)Math.Ceiling((double)result.Count / sizePages);
@@ -211,7 +212,7 @@ namespace IS_5.Service
         public string[] GetLocalitys()
         {
             var localitys = _organizationsRepository.GetLocalitys();
-            if(UserSession.User.Locality != null)    
+            if(UserSession.User.Privilege.Organizations.Item1 == Restrictions.Locality)    
                 localitys = localitys
                     .Where(l => l.Name == UserSession.User.Locality.Name)
                     .ToList();
@@ -232,26 +233,7 @@ namespace IS_5.Service
             {
                 var orgs = GetOrganizations(int.MaxValue, 1, filtrsType, filtrsTypeOwn,
                 localitys, (null, SortOrder.None), out int maxPage);
-                Excel.Application app = new Excel.Application
-                {
-                    Visible = true,
-                    SheetsInNewWorkbook = 1
-                };
-                Workbook workBook = app.Workbooks.Add(Type.Missing);
-                app.DisplayAlerts = false;
-                Worksheet sheet = (Worksheet)app.Worksheets.get_Item(1);
-                for (int i = 0; i < columns.Length; i++)
-                    sheet.Cells[1, i + 1] = columns[i];
-                for (int i = 0; i < orgs.Count; i++)
-                    for (int j = 0; j < orgs[0].Length; j++)
-                        sheet.Cells[i + 2, j + 1] = orgs[i][j];
-                var cols = sheet.UsedRange.Columns;
-                cols.Columns.AutoFit();
-                var name = saveFileDialog1.FileName;
-                app.Application.ActiveWorkbook.SaveAs(name);
-                sheet = null;
-                workBook.Close();
-                app.Quit();
+                ExportDataToExcel.Export(columns, saveFileDialog1.FileName, orgs);
             }
         }
 
