@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -58,8 +58,8 @@
   <ItemGroup>
     <Compile Include="Act\Model\Act.cs" />
     <Compile Include="Act\Model\Animal.cs" />
-    <Compile Include="Authorization\AuthorizationController.cs" />
-    <Compile Include="Authorization\AuthorizationRepository.cs" />
+    <Compile Include="Authorization\Controller\AuthorizationController.cs" />
+    <Compile Include="Authorization\Repository\AuthorizationRepository.cs" />
     <Compile Include="Contract\Model\Contract.cs" />
     <Compile Include="Contract\Controller\ContractController.cs" />
     <Compile Include="Contract\Model\ContractFile.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Contract\View\ScanView.Designer.cs">
       <DependentUpon>ScanView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportDataToExcel.cs" />
+    <Compile Include="Etc\ExportDataToExcel.cs" />
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,10 +98,10 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Locality.cs" />
-    <Compile Include="Model\Restrinction.cs" />
-    <Compile Include="Model\Role.cs" />
+    <Compile Include="Authorization\Model\Restrinction.cs" />
+    <Compile Include="Authorization\Model\Role.cs" />
     <Compile Include="Organization\Model\TypeOwnerOrganization.cs" />
-    <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Authorization\Service\AuthorizationService.cs" />
     <Compile Include="Organization\Controller\OrganizationController.cs" />
     <Compile Include="Organization\Model\TypeOrganization.cs" />
     <Compile Include="Organization\Repository\OrganizationsRepository.cs" />
@@ -114,12 +114,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserSession.cs" />
-    <Compile Include="StatusEnum.cs" />
-    <Compile Include="Authorization\AuthorizationView.cs">
+    <Compile Include="Authorization\Model\UserSession.cs" />
+    <Compile Include="Etc\StatusEnum.cs" />
+    <Compile Include="Authorization\View\AuthorizationView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Authorization\AuthorizationView.Designer.cs">
+    <Compile Include="Authorization\View\AuthorizationView.Designer.cs">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </Compile>
     <Compile Include="Organization\View\OrganizationEditView.cs">
@@ -137,7 +137,7 @@
     <Compile Include="Organization\Model\Organization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Authorization\Model\User.cs" />
     <EmbeddedResource Include="Contract\View\ContractEditView.resx">
       <DependentUpon>ContractEditView.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,7 +158,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Authorization\AuthorizationView.resx">
+    <EmbeddedResource Include="Authorization\View\AuthorizationView.resx">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Organization\View\OrganizationEditView.resx">
@@ -212,7 +212,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico" />
+    <Content Include="Resources\Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico" />
     <Content Include="Resources\fast-forward%281%29.png" />
     <Content Include="Resources\fast-forward.png" />
     <Content Include="Resources\fast-forward_r.png" />
