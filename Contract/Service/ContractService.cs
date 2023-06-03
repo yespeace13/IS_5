@@ -173,8 +173,8 @@ namespace IS_5
             saveFileDialog1.FileName = "Контракты";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var orgs = GetContracts(int.MaxValue, 1, (null, SortOrder.None), out int maxPage);
-                ExportDataToExcel.Export(columns, saveFileDialog1.FileName, orgs);
+                var contracts = GetContracts(int.MaxValue, 1, (null, SortOrder.None), out int maxPage);
+                ExportDataToExcel.Export(columns, saveFileDialog1.FileName, contracts);
             }
         }
     }

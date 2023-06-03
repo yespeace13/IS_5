@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Act\Model\Act.cs" />
+    <Compile Include="Act\Model\Animal.cs" />
     <Compile Include="Authorization\AuthorizationController.cs" />
     <Compile Include="Authorization\AuthorizationRepository.cs" />
     <Compile Include="Contract\Model\Contract.cs" />
@@ -105,6 +107,8 @@
     <Compile Include="Organization\Repository\OrganizationsRepository.cs" />
     <Compile Include="Organization\Service\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />
+    <Compile Include="Plan\Model\ContentPlan.cs" />
+    <Compile Include="Plan\Model\Plan.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -212,6 +216,14 @@
     <Content Include="Resources\fast-forward%281%29.png" />
     <Content Include="Resources\fast-forward.png" />
     <Content Include="Resources\fast-forward_r.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Act\Controller\" />
+    <Folder Include="Act\Service\" />
+    <Folder Include="Act\View\" />
+    <Folder Include="Plan\Controller\" />
+    <Folder Include="Plan\Service\" />
+    <Folder Include="Plan\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
