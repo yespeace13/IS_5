@@ -62,7 +62,7 @@ namespace IS_5.Controler
 
         public string[] ShowLocalitys()
         {
-            return _service.Localitys();
+            return _service.GetLocalitys();
         }
 
         public void ExportToExcel(string[] filtrsType, string[] filtrsTypeOwn, string[] localitys, string[] columns)

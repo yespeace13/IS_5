@@ -81,8 +81,12 @@ namespace IS_5
 
         private void PreviousPageButton_Click(object sender, EventArgs e)
         {
-            NumberOfPage.Value = NumberOfPage.Value > 1 ? --NumberOfPage.Value : NumberOfPage.Value;
-            ShowOrganizations();
+            if(NumberOfPage.Minimum < NumberOfPage.Value)
+            {
+                NumberOfPage.Value--;
+                ShowOrganizations();
+            }
+            
         }
 
         public void ShowOrganizations()
@@ -151,13 +155,17 @@ namespace IS_5
             _controller.ExportToExcel(filtrsType, filtrsTypeOwn, filtrsLocalitys, columns);
         }
 
-        private void OrgDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
+        private void OrgDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
             ShowOrganizations();
+        }
+            
         
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new OrganizationEditView(_controller, State.Update, selectedRow + 1).ShowDialog();
+            new OrganizationEditView(_controller, State.Update, 
+                int.Parse(OrgDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
             ShowOrganizations();
         }
 
@@ -165,16 +173,9 @@ namespace IS_5
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            _controller.DeleteOrganization(selectedRow + 1);
+            _controller.DeleteOrganization(int.Parse(OrgDataGrid.Rows[selectedRow].Cells[0].Value.ToString()));
             ShowOrganizations();
         }
-
-        private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
-        }
-
 
         private void OrgDataGrid_MouseDown(object sender, MouseEventArgs e)
         {
@@ -186,8 +187,13 @@ namespace IS_5
                     OrgDataGrid.ClearSelection();
                     OrgDataGrid.Rows[hti.RowIndex].Selected = true;
                 }
-
             }
+        }
+
+        private void OrgDataGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
         }
     }
 }

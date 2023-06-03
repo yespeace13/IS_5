@@ -208,11 +208,11 @@ namespace IS_5.Service
                         };
         }
 
-        public string[] Localitys()
+        public string[] GetLocalitys()
         {
             var localitys = _organizationsRepository.GetLocalitys();
             if(UserSession.User.Locality != null)    
-                localitys
+                localitys = localitys
                     .Where(l => l.Name == UserSession.User.Locality.Name)
                     .ToList();
             return MapLocalitys(localitys);
@@ -253,6 +253,16 @@ namespace IS_5.Service
                 workBook.Close();
                 app.Quit();
             }
+        }
+
+        public List<string[]> GetOrganizationsAll()
+        {
+            return MapOrganizations(_organizationsRepository.GetOrganizations());
+        }
+
+        public string[] GetLocalitysAll()
+        {
+            return MapLocalitys(_organizationsRepository.GetLocalitys());
         }
     }
 }

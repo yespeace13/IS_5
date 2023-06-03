@@ -30,14 +30,27 @@ namespace IS_5
         {
             Contracts = new List<Contract>
             {
-                new Contract(1, 1234, DateTime.Now, new DateTime(23, 12, 31), Organizations[1], Organizations[2],
+                new Contract(1, "1234", DateTime.Now, new DateTime(2023, 12, 31), Organizations[1], Organizations[2],
                     new List<Localityprice>()
                     {
-                        new Localityprice(1, Localitys[0], (decimal)5000)
+                        new Localityprice(1, Localitys[0], 5000),
+                        new Localityprice(2, Localitys[1], 25000)
                     },
                     new List<ContractFile>()
                     {
-                        new ContractFile()
+                        new ContractFile(1, "C:\\Users\\1\\Desktop\\img.jpg"),
+                        new ContractFile(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
+                    }),
+                new Contract(2, "5468864", new DateTime(2022, 12, 31), new DateTime(2023, 12, 31), Organizations[7], Organizations[5],
+                    new List<Localityprice>()
+                    {
+                        new Localityprice(1, Localitys[0], 5000),
+                        new Localityprice(2, Localitys[2], 25000)
+                    },
+                    new List<ContractFile>()
+                    {
+                        new ContractFile(1, "C:\\Users\\1\\Desktop\\img.jpg"),
+                        new ContractFile(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
                     })
             };
         }

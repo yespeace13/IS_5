@@ -69,6 +69,18 @@
     <Compile Include="Contract\View\ContractView.Designer.cs">
       <DependentUpon>ContractView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Contract\View\LocalPriceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contract\View\LocalPriceView.Designer.cs">
+      <DependentUpon>LocalPriceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\View\ScanView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contract\View\ScanView.Designer.cs">
+      <DependentUpon>ScanView.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,11 @@
     <Compile Include="Organization\Repository\OrganizationsRepository.cs" />
     <Compile Include="Organization\Service\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserSession.cs" />
     <Compile Include="StatusEnum.cs" />
     <Compile Include="Authorization\AuthorizationView.cs">
@@ -115,18 +132,20 @@
     <EmbeddedResource Include="Contract\View\ContractView.resx">
       <DependentUpon>ContractView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Contract\View\LocalPriceView.resx">
+      <DependentUpon>LocalPriceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contract\View\ScanView.resx">
+      <DependentUpon>ScanView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Authorization\AuthorizationView.resx">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,6 +199,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\fast-forward%281%29.png" />
+    <Content Include="Resources\fast-forward.png" />
+    <Content Include="Resources\fast-forward_r.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

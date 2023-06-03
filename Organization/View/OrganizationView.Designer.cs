@@ -47,7 +47,6 @@
             this.TypeOwnOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrganizationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
@@ -201,6 +200,7 @@
             this.OrgDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.OrgDataGrid.Size = new System.Drawing.Size(1006, 363);
             this.OrgDataGrid.TabIndex = 9;
+            this.OrgDataGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_CellMouseDoubleClick);
             this.OrgDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrgDataGrid_ColumnHeaderMouseClick);
             this.OrgDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OrgDataGrid_MouseDown);
             // 
@@ -264,18 +264,10 @@
             // 
             this.OrganizationContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.OrganizationContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowToolStripMenuItem,
             this.ChangeToolStripMenuItem,
             this.DeleteToolStripMenuItem});
             this.OrganizationContextMenuStrip.Name = "OrganizationContextMenuStrip";
-            this.OrganizationContextMenuStrip.Size = new System.Drawing.Size(150, 76);
-            // 
-            // ShowToolStripMenuItem
-            // 
-            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
-            this.ShowToolStripMenuItem.Text = "Просмотр";
-            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
+            this.OrganizationContextMenuStrip.Size = new System.Drawing.Size(148, 52);
             // 
             // ChangeToolStripMenuItem
             // 
@@ -422,7 +414,6 @@
         private System.Windows.Forms.ContextMenuStrip OrganizationContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn INN;

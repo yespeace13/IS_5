@@ -28,29 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContractEditView));
             this.CancelButton = new System.Windows.Forms.Button();
             this.OkButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.TypeOrganizationComboBox = new System.Windows.Forms.ComboBox();
+            this.ClientComboBox = new System.Windows.Forms.ComboBox();
             this.NumberTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.Locality = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.LocalsPricesDataGridView = new System.Windows.Forms.DataGridView();
+            this.DateOfConclusionDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.DateValidDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.ExecutorComboBox = new System.Windows.Forms.ComboBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.NextScanButton = new System.Windows.Forms.Button();
+            this.PrevScanButton = new System.Windows.Forms.Button();
+            this.ScanPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddLocalPriceButton = new System.Windows.Forms.Button();
+            this.LocalPriceContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.UpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UpdateButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DelButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.AddFileButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.LocalsPricesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanPictureBox)).BeginInit();
+            this.ImageContextMenuStrip.SuspendLayout();
+            this.LocalPriceContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(319, 392);
+            this.CancelButton.Location = new System.Drawing.Point(421, 430);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 16;
@@ -60,7 +74,7 @@
             // 
             // OkButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(238, 392);
+            this.OkButton.Location = new System.Drawing.Point(340, 430);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(75, 23);
             this.OkButton.TabIndex = 15;
@@ -95,13 +109,13 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Дата действия";
             // 
-            // TypeOrganizationComboBox
+            // ClientComboBox
             // 
-            this.TypeOrganizationComboBox.FormattingEnabled = true;
-            this.TypeOrganizationComboBox.Location = new System.Drawing.Point(12, 204);
-            this.TypeOrganizationComboBox.Name = "TypeOrganizationComboBox";
-            this.TypeOrganizationComboBox.Size = new System.Drawing.Size(236, 24);
-            this.TypeOrganizationComboBox.TabIndex = 9;
+            this.ClientComboBox.FormattingEnabled = true;
+            this.ClientComboBox.Location = new System.Drawing.Point(12, 204);
+            this.ClientComboBox.Name = "ClientComboBox";
+            this.ClientComboBox.Size = new System.Drawing.Size(236, 24);
+            this.ClientComboBox.TabIndex = 9;
             // 
             // NumberTextBox
             // 
@@ -128,89 +142,174 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Номер";
             // 
-            // dataGridView1
+            // LocalsPricesDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.LocalsPricesDataGridView.AllowUserToAddRows = false;
+            this.LocalsPricesDataGridView.AllowUserToDeleteRows = false;
+            this.LocalsPricesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.LocalsPricesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.LocalsPricesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Locality,
-            this.Price,
-            this.UpdateButton,
-            this.DelButton});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 234);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(501, 152);
-            this.dataGridView1.TabIndex = 17;
+            this.Price});
+            this.LocalsPricesDataGridView.ContextMenuStrip = this.LocalPriceContextMenuStrip;
+            this.LocalsPricesDataGridView.Location = new System.Drawing.Point(12, 234);
+            this.LocalsPricesDataGridView.MultiSelect = false;
+            this.LocalsPricesDataGridView.Name = "LocalsPricesDataGridView";
+            this.LocalsPricesDataGridView.ReadOnly = true;
+            this.LocalsPricesDataGridView.RowHeadersVisible = false;
+            this.LocalsPricesDataGridView.RowHeadersWidth = 51;
+            this.LocalsPricesDataGridView.RowTemplate.Height = 24;
+            this.LocalsPricesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.LocalsPricesDataGridView.Size = new System.Drawing.Size(484, 190);
+            this.LocalsPricesDataGridView.TabIndex = 17;
+            this.LocalsPricesDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LocalsPricesDataGridView_MouseDown);
             // 
-            // dateTimePicker1
+            // DateOfConclusionDateTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(12, 72);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(155, 22);
-            this.dateTimePicker1.TabIndex = 18;
+            this.DateOfConclusionDateTimePicker.Location = new System.Drawing.Point(12, 72);
+            this.DateOfConclusionDateTimePicker.Name = "DateOfConclusionDateTimePicker";
+            this.DateOfConclusionDateTimePicker.Size = new System.Drawing.Size(155, 22);
+            this.DateOfConclusionDateTimePicker.TabIndex = 18;
             // 
-            // dateTimePicker2
+            // DateValidDateTimePicker
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(12, 116);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(155, 22);
-            this.dateTimePicker2.TabIndex = 19;
+            this.DateValidDateTimePicker.Location = new System.Drawing.Point(12, 116);
+            this.DateValidDateTimePicker.Name = "DateValidDateTimePicker";
+            this.DateValidDateTimePicker.Size = new System.Drawing.Size(155, 22);
+            this.DateValidDateTimePicker.TabIndex = 19;
             // 
-            // comboBox1
+            // ExecutorComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 158);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(236, 24);
-            this.comboBox1.TabIndex = 20;
+            this.ExecutorComboBox.FormattingEnabled = true;
+            this.ExecutorComboBox.Location = new System.Drawing.Point(12, 158);
+            this.ExecutorComboBox.Name = "ExecutorComboBox";
+            this.ExecutorComboBox.Size = new System.Drawing.Size(236, 24);
+            this.ExecutorComboBox.TabIndex = 20;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"png|*.png|*.jpg|\"";
+            // 
+            // NextScanButton
+            // 
+            this.NextScanButton.Image = ((System.Drawing.Image)(resources.GetObject("NextScanButton.Image")));
+            this.NextScanButton.Location = new System.Drawing.Point(465, 92);
+            this.NextScanButton.Name = "NextScanButton";
+            this.NextScanButton.Size = new System.Drawing.Size(26, 32);
+            this.NextScanButton.TabIndex = 23;
+            this.NextScanButton.UseVisualStyleBackColor = true;
+            this.NextScanButton.Click += new System.EventHandler(this.NextScanButton_Click);
+            // 
+            // PrevScanButton
+            // 
+            this.PrevScanButton.Image = ((System.Drawing.Image)(resources.GetObject("PrevScanButton.Image")));
+            this.PrevScanButton.Location = new System.Drawing.Point(253, 92);
+            this.PrevScanButton.Name = "PrevScanButton";
+            this.PrevScanButton.Size = new System.Drawing.Size(26, 32);
+            this.PrevScanButton.TabIndex = 24;
+            this.PrevScanButton.UseVisualStyleBackColor = true;
+            this.PrevScanButton.Click += new System.EventHandler(this.PrevScanButton_Click);
+            // 
+            // ScanPictureBox
+            // 
+            this.ScanPictureBox.ContextMenuStrip = this.ImageContextMenuStrip;
+            this.ScanPictureBox.Location = new System.Drawing.Point(285, 12);
+            this.ScanPictureBox.Name = "ScanPictureBox";
+            this.ScanPictureBox.Size = new System.Drawing.Size(174, 189);
+            this.ScanPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ScanPictureBox.TabIndex = 22;
+            this.ScanPictureBox.TabStop = false;
+            this.ScanPictureBox.DoubleClick += new System.EventHandler(this.ScanPictureBox_DoubleClick);
+            // 
+            // ImageContextMenuStrip
+            // 
+            this.ImageContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ImageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteImageToolStripMenuItem});
+            this.ImageContextMenuStrip.Name = "ImageContextMenuStrip";
+            this.ImageContextMenuStrip.Size = new System.Drawing.Size(135, 28);
+            // 
+            // DeleteImageToolStripMenuItem
+            // 
+            this.DeleteImageToolStripMenuItem.Name = "DeleteImageToolStripMenuItem";
+            this.DeleteImageToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
+            this.DeleteImageToolStripMenuItem.Text = "Удалить";
+            this.DeleteImageToolStripMenuItem.Click += new System.EventHandler(this.DeleteImageToolStripMenuItem_Click);
+            // 
+            // AddLocalPriceButton
+            // 
+            this.AddLocalPriceButton.Location = new System.Drawing.Point(421, 207);
+            this.AddLocalPriceButton.Name = "AddLocalPriceButton";
+            this.AddLocalPriceButton.Size = new System.Drawing.Size(75, 23);
+            this.AddLocalPriceButton.TabIndex = 25;
+            this.AddLocalPriceButton.Text = "Добавить";
+            this.AddLocalPriceButton.UseVisualStyleBackColor = true;
+            this.AddLocalPriceButton.Click += new System.EventHandler(this.AddLocalPriceButton_Click);
+            // 
+            // LocalPriceContextMenuStrip
+            // 
+            this.LocalPriceContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.LocalPriceContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UpdateToolStripMenuItem,
+            this.DeleteToolStripMenuItem});
+            this.LocalPriceContextMenuStrip.Name = "contextMenuStrip1";
+            this.LocalPriceContextMenuStrip.Size = new System.Drawing.Size(148, 52);
+            // 
+            // UpdateToolStripMenuItem
+            // 
+            this.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
+            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.UpdateToolStripMenuItem.Text = "Изменить";
+            this.UpdateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
+            // 
+            // DeleteToolStripMenuItem
+            // 
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+            this.DeleteToolStripMenuItem.Text = "Удалить";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // Locality
             // 
+            this.Locality.FillWeight = 61.94443F;
             this.Locality.HeaderText = "Муниципальный район";
             this.Locality.MinimumWidth = 6;
             this.Locality.Name = "Locality";
             this.Locality.ReadOnly = true;
             this.Locality.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Locality.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Locality.Width = 125;
             // 
             // Price
             // 
+            this.Price.FillWeight = 67.36925F;
             this.Price.HeaderText = "Цена";
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
-            this.Price.Width = 125;
             // 
-            // UpdateButton
+            // AddFileButton
             // 
-            this.UpdateButton.HeaderText = "Изменить";
-            this.UpdateButton.MinimumWidth = 6;
-            this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.ReadOnly = true;
-            this.UpdateButton.Width = 125;
-            // 
-            // DelButton
-            // 
-            this.DelButton.HeaderText = "Удалить";
-            this.DelButton.MinimumWidth = 6;
-            this.DelButton.Name = "DelButton";
-            this.DelButton.ReadOnly = true;
-            this.DelButton.Width = 125;
+            this.AddFileButton.Location = new System.Drawing.Point(290, 207);
+            this.AddFileButton.Name = "AddFileButton";
+            this.AddFileButton.Size = new System.Drawing.Size(125, 23);
+            this.AddFileButton.TabIndex = 26;
+            this.AddFileButton.Text = "Загрузить файл";
+            this.AddFileButton.UseVisualStyleBackColor = true;
+            this.AddFileButton.Click += new System.EventHandler(this.AddFileButton_Click);
             // 
             // ContractEditView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(525, 467);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(503, 465);
+            this.Controls.Add(this.AddFileButton);
+            this.Controls.Add(this.AddLocalPriceButton);
+            this.Controls.Add(this.PrevScanButton);
+            this.Controls.Add(this.NextScanButton);
+            this.Controls.Add(this.ScanPictureBox);
+            this.Controls.Add(this.ExecutorComboBox);
+            this.Controls.Add(this.DateValidDateTimePicker);
+            this.Controls.Add(this.DateOfConclusionDateTimePicker);
+            this.Controls.Add(this.LocalsPricesDataGridView);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.label4);
@@ -219,11 +318,15 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.TypeOrganizationComboBox);
+            this.Controls.Add(this.ClientComboBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ContractEditView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Контракт";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LocalsPricesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanPictureBox)).EndInit();
+            this.ImageContextMenuStrip.ResumeLayout(false);
+            this.LocalPriceContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,17 +338,26 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox TypeOrganizationComboBox;
+        private System.Windows.Forms.ComboBox ClientComboBox;
         private System.Windows.Forms.TextBox NumberTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Locality;
+        private System.Windows.Forms.DataGridView LocalsPricesDataGridView;
+        private System.Windows.Forms.DateTimePicker DateOfConclusionDateTimePicker;
+        private System.Windows.Forms.DateTimePicker DateValidDateTimePicker;
+        private System.Windows.Forms.ComboBox ExecutorComboBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox ScanPictureBox;
+        private System.Windows.Forms.Button NextScanButton;
+        private System.Windows.Forms.Button PrevScanButton;
+        private System.Windows.Forms.Button AddLocalPriceButton;
+        private System.Windows.Forms.ContextMenuStrip ImageContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem DeleteImageToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip LocalPriceContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem UpdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewButtonColumn UpdateButton;
-        private System.Windows.Forms.DataGridViewButtonColumn DelButton;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button AddFileButton;
     }
 }

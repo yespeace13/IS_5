@@ -45,7 +45,6 @@
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ContractContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
@@ -68,7 +67,7 @@
             this.CreateButton.TabIndex = 0;
             this.CreateButton.Text = "Добавить";
             this.CreateButton.UseVisualStyleBackColor = true;
-            this.CreateButton.Click += new System.EventHandler(this.CreateOrgButton_Click);
+            this.CreateButton.Click += new System.EventHandler(this.CreateContractButton_Click);
             // 
             // NextPageButton
             // 
@@ -194,6 +193,7 @@
             this.ConDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ConDataGrid.Size = new System.Drawing.Size(1006, 370);
             this.ConDataGrid.TabIndex = 9;
+            this.ConDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ConDataGrid_CellDoubleClick);
             this.ConDataGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.ConDataGrid_ColumnHeaderMouseClick);
             this.ConDataGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ConDataGrid_MouseDown);
             // 
@@ -243,18 +243,10 @@
             // 
             this.ContractContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.ContractContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ShowToolStripMenuItem,
             this.ChangeToolStripMenuItem,
             this.DeleteToolStripMenuItem});
             this.ContractContextMenuStrip.Name = "OrganizationContextMenuStrip";
-            this.ContractContextMenuStrip.Size = new System.Drawing.Size(150, 76);
-            // 
-            // ShowToolStripMenuItem
-            // 
-            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(149, 24);
-            this.ShowToolStripMenuItem.Text = "Просмотр";
-            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
+            this.ContractContextMenuStrip.Size = new System.Drawing.Size(148, 52);
             // 
             // ChangeToolStripMenuItem
             // 
@@ -368,7 +360,6 @@
         private System.Windows.Forms.ContextMenuStrip ContractContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumContract;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOfConclusion;

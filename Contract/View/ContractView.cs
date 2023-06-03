@@ -26,7 +26,7 @@ namespace IS_5
             InitializeComponent();
             _controller = new ContractController();
             InitializeForm();
-            ShowOrganizations();
+            ShowContracts();
         }
 
         private void InitializeForm()
@@ -44,23 +44,22 @@ namespace IS_5
                         CreateButton.Enabled = true;
                         break;
                     case Possibilities.Change:
-                        ChangeToolStripMenuItem.Visible = true;
+                        ChangeToolStripMenuItem.Enabled = true;
                         break;
                     case Possibilities.Delete:
-                        DeleteToolStripMenuItem.Visible = true;
+                        DeleteToolStripMenuItem.Enabled = true;
                         break;
                     case Possibilities.AddFile:
                         break;
                     case Possibilities.DelFile:
                         break;
-                    
                 }
             }
         }
 
         private void ForwardToPage_Click(object sender, EventArgs e)
         {
-            ShowOrganizations();
+            ShowContracts();
         }
 
         private void NextPageButton_Click(object sender, EventArgs e)
@@ -68,7 +67,7 @@ namespace IS_5
             if(NumberOfPage.Maximum > NumberOfPage.Value)
             {
                 NumberOfPage.Value++;
-                ShowOrganizations();
+                ShowContracts();
             }
             
         }
@@ -76,10 +75,10 @@ namespace IS_5
         private void PreviousPageButton_Click(object sender, EventArgs e)
         {
             NumberOfPage.Value = NumberOfPage.Value > 1 ? --NumberOfPage.Value : NumberOfPage.Value;
-            ShowOrganizations();
+            ShowContracts();
         }
 
-        public void ShowOrganizations()
+        public void ShowContracts()
         {
             (string, SortOrder) sortCol = ConDataGrid.SortedColumn == null ? 
                 (null, SortOrder.None) : (ConDataGrid.SortedColumn.HeaderText, ConDataGrid.SortOrder);
@@ -94,15 +93,15 @@ namespace IS_5
                 ConDataGrid.Rows.Add(org);
         }
 
-        private void CreateOrgButton_Click(object sender, EventArgs e)
+        private void CreateContractButton_Click(object sender, EventArgs e)
         {
-            new ContractEditView(_controller, State.Insert).ShowDialog();
-            ShowOrganizations();
+            new ContractEditView(_controller).ShowDialog();
+            ShowContracts();
         }
 
         private void PagesSize_ValueChanged(object sender, EventArgs e)
         {
-            ShowOrganizations();
+            ShowContracts();
         }
 
         private void FiltrsButton_Click(object sender, EventArgs e)
@@ -113,7 +112,7 @@ namespace IS_5
         private void AcceptButton_Click(object sender, EventArgs e)
         {
             FiltrsGroupBox.Visible = false;
-            ShowOrganizations();
+            ShowContracts();
         }
 
         private void ExportButton_Click(object sender, EventArgs e)
@@ -125,27 +124,22 @@ namespace IS_5
         }
 
         private void ConDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
-            ShowOrganizations();
+            ShowContracts();
         
         private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new ContractEditView(_controller, State.Update, selectedRow + 1).ShowDialog();
-            ShowOrganizations();
+            new ContractEditView(_controller, State.Update,
+                int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
+            ShowContracts();
         }
 
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            _controller.DeleteContract(selectedRow + 1);
-            ShowOrganizations();
-        }
-
-        private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-            new ContractEditView(_controller, State.None, selectedRow + 1).ShowDialog();
+            _controller.DeleteContract(int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString()));
+            ShowContracts();
         }
 
         private void ConDataGrid_MouseDown(object sender, MouseEventArgs e)
@@ -159,6 +153,13 @@ namespace IS_5
                     ConDataGrid.Rows[hti.RowIndex].Selected = true;
                 }
             }
+        }
+
+        private void ConDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            new ContractEditView(_controller, State.None, 
+                int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
         }
     }
 }
