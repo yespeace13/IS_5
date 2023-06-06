@@ -48,9 +48,17 @@ namespace IS_5
             if (filters["Number"] != "")
                 contracts = contracts.Where(c => c.Number.Contains(filters["Number"]));
             if (filters["DateOfConclusion"] != "")
-                contracts = contracts.Where(c => c.DateOfConclusion == DateTime.Parse(filters["DateOfConclusion"]));
+            {
+                var dates = filters["DateOfConclusion"].Split(' ');
+                contracts = contracts.Where(c => c.DateOfConclusion >= DateTime.Parse(dates[0]) 
+                && c.DateOfConclusion <= DateTime.Parse(dates[1]));
+            }
             if (filters["DateValidation"] != "")
-                contracts = contracts.Where(c => c.DateValidation == DateTime.Parse(filters["DateValidation"]));
+            {
+                var dates = filters["DateValidation"].Split(' ');
+                contracts = contracts.Where(c => c.DateOfConclusion >= DateTime.Parse(dates[0])
+                && c.DateOfConclusion <= DateTime.Parse(dates[1]));
+            }
             if (filters["Executor"] != "")
                 contracts = contracts.Where(c => c.Executor.NameOrg.Contains(filters["Executor"]));
             if (filters["Client"] != "")

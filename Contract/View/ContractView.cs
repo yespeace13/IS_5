@@ -150,16 +150,29 @@ namespace IS_5
                     FiltrTextBox.Text = _filtres[ConDataGrid.Columns[hti.ColumnIndex].Name];
                     if (hti.ColumnIndex == 2 || hti.ColumnIndex == 3)
                     {
+                        if(FiltrGroupBox.Size.Height == 89)
+                            FiltrGroupBox.Size = new Size(FiltrGroupBox.Size.Width, FiltrGroupBox.Size.Height + 28);
                         FiltrTextBox.Visible = false;
+                        
                         FiltrStartDateTimePicker.Visible = true;
                         FiltrStartDateTimePicker.Location = FiltrTextBox.Location;
-                        if(_filtres.ElementAt(hti.ColumnIndex).Value != "")
-                            FiltrStartDateTimePicker.Value = DateTime.Parse(_filtres.ElementAt(hti.ColumnIndex).Value);
+                        
+                        FiltrEndDateTimePicker.Location = new Point(FiltrTextBox.Location.X, FiltrTextBox.Location.Y + 28);
+                        FiltrEndDateTimePicker.Visible = true;
+                        
+                        if (_filtres.ElementAt(hti.ColumnIndex).Value != "")
+                        {
+                            var dates = _filtres.ElementAt(hti.ColumnIndex).Value.Split(' ');
+                            FiltrStartDateTimePicker.Value = DateTime.Parse(dates[0]);
+                            FiltrEndDateTimePicker.Value = DateTime.Parse(dates[1]);
+                        }
                     }
                     else
                     {
+                        FiltrGroupBox.Size = new Size(FiltrGroupBox.Size.Width, 89);
                         FiltrTextBox.Visible = true;
                         FiltrStartDateTimePicker.Visible = false;
+                        FiltrEndDateTimePicker.Visible = false;
                     }
                     FiltrGroupBox.Visible = true;
                     if (hti.ColumnIndex == ConDataGrid.ColumnCount - 1)
@@ -189,7 +202,8 @@ namespace IS_5
         {
             if(_columnName == "DateOfConclusion" || _columnName == "DateValidation")
             {
-                _filtres[_columnName] = FiltrStartDateTimePicker.Value.ToShortDateString();
+                _filtres[_columnName] = FiltrStartDateTimePicker.Value.ToShortDateString() + " "
+                    + FiltrEndDateTimePicker.Value.ToShortDateString();
                 FiltrStartDateTimePicker.Value = DateTime.Now;
                 FiltrGroupBox.Visible = false;
                 ShowContracts();
