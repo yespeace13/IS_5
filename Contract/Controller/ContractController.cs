@@ -17,10 +17,10 @@ namespace IS_5
             _contractService = new ContractService();
         }
 
-        public List<string[]> ShowContracts(int sizePages, int page,
+        public List<string[]> ShowContracts(int sizePages, int page, Dictionary<string, string> filtres,
             (string, SortOrder) sortCol, out int maxPage)
         {
-            return _contractService.GetContracts(sizePages, page, sortCol, out maxPage);
+            return _contractService.GetContracts(sizePages, page, filtres , sortCol, out maxPage);
         }
 
         public void DeleteContract(int id)
@@ -57,9 +57,9 @@ namespace IS_5
                 executor, client, localsprices, scans);
         }
 
-        public void ExportToExcel(string[] columns)
+        public void ExportToExcel(string[] columns, Dictionary<string, string> filters)
         {
-            _contractService.ExportToExcel(columns);
+            _contractService.ExportToExcel(columns, filters);
         }
     }
 }

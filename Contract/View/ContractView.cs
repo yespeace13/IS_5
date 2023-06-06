@@ -1,32 +1,31 @@
-﻿using IS_5.Controler;
-using IS_5.Model;
+﻿using IS_5.Model;
 using IS_5.View;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IS_5
 {
     public partial class Contractview : Form
     {
         private ContractController _controller;
-
+        private Dictionary<string, string> _filtres;
+        private string _columnName;
         public Contractview()
         {
             InitializeComponent();
             _controller = new ContractController();
             InitializeForm();
+            InitializeFiltrsDictionary();
             ShowContracts();
+        }
+        private void InitializeFiltrsDictionary()
+        {
+            _filtres = new Dictionary<string, string>();
+            foreach (DataGridViewColumn col in ConDataGrid.Columns)
+                _filtres.Add(col.Name, "");
         }
 
         private void InitializeForm()
@@ -81,6 +80,7 @@ namespace IS_5
             var orgs = _controller.ShowContracts(
                 (int)PagesSize.Value, 
                 (int)NumberOfPage.Value,
+                _filtres,
                 sortCol,
                 out int maxPage);
             NumberOfPage.Maximum = maxPage;
@@ -100,14 +100,9 @@ namespace IS_5
             ShowContracts();
         }
 
-        private void FiltrsButton_Click(object sender, EventArgs e)
-        {
-            FiltrsGroupBox.Visible = !FiltrsGroupBox.Visible;
-        }
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
-            FiltrsGroupBox.Visible = false;
             ShowContracts();
         }
 
@@ -116,7 +111,7 @@ namespace IS_5
             var columns = new string[ConDataGrid.ColumnCount];
             for (var col = 0; col < columns.Length; col++)
                 columns[col] = ConDataGrid.Columns[col].HeaderText;
-            _controller.ExportToExcel(columns);
+            _controller.ExportToExcel(columns, _filtres);
         }
 
         private void ConDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
@@ -140,6 +135,7 @@ namespace IS_5
 
         private void ConDataGrid_MouseDown(object sender, MouseEventArgs e)
         {
+            FiltrGroupBox.Visible = false;
             if (e.Button == MouseButtons.Right)
             {
                 var hti = ConDataGrid.HitTest(e.X, e.Y);
@@ -147,8 +143,32 @@ namespace IS_5
                 {
                     ConDataGrid.ClearSelection();
                     ConDataGrid.Rows[hti.RowIndex].Selected = true;
+                    ContractContextMenuStrip.Show(ConDataGrid, e.Location);
+                }
+                else if (hti.ColumnIndex > -1)
+                {
+                    FiltrTextBox.Text = _filtres[ConDataGrid.Columns[hti.ColumnIndex].Name];
+                    if (hti.ColumnIndex == 2 || hti.ColumnIndex == 3)
+                    {
+                        FiltrTextBox.Visible = false;
+                        FiltrStartDateTimePicker.Visible = true;
+                        FiltrStartDateTimePicker.Location = FiltrTextBox.Location;
+                        if(_filtres.ElementAt(hti.ColumnIndex).Value != "")
+                            FiltrStartDateTimePicker.Value = DateTime.Parse(_filtres.ElementAt(hti.ColumnIndex).Value);
+                    }
+                    else
+                    {
+                        FiltrTextBox.Visible = true;
+                        FiltrStartDateTimePicker.Visible = false;
+                    }
+                    FiltrGroupBox.Visible = true;
+                    if (hti.ColumnIndex == ConDataGrid.ColumnCount - 1)
+                        FiltrGroupBox.Location = new Point(hti.ColumnX - 80, hti.RowY + 60);
+                    else FiltrGroupBox.Location = new Point(hti.ColumnX, hti.RowY + 60);
+                    _columnName = ConDataGrid.Columns[hti.ColumnIndex].Name;
                 }
             }
+            
         }
 
         private void ConDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -163,6 +183,33 @@ namespace IS_5
                         int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
                 }
             }
+        }
+
+        private void AcceptFiltrButton_Click(object sender, EventArgs e)
+        {
+            if(_columnName == "DateOfConclusion" || _columnName == "DateValidation")
+            {
+                _filtres[_columnName] = FiltrStartDateTimePicker.Value.ToShortDateString();
+                FiltrStartDateTimePicker.Value = DateTime.Now;
+                FiltrGroupBox.Visible = false;
+                ShowContracts();
+            }
+            else if(FiltrTextBox.Text.Length != 0)
+            {
+                _filtres[_columnName] = FiltrTextBox.Text;
+                FiltrTextBox.Clear();
+                FiltrGroupBox.Visible = false;
+                ShowContracts();
+            }
+                
+        }
+
+        private void ClearFiltrsButton_Click(object sender, EventArgs e)
+        {
+            InitializeFiltrsDictionary();
+            FiltrTextBox.Clear();
+            ShowContracts();
+            FiltrGroupBox.Visible = false;
         }
     }
 }

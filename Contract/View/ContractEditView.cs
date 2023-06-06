@@ -166,10 +166,17 @@ namespace IS_5.View
 
         private void ChangeScan()
         {
-            var bitmap = new Bitmap(_scans[_currentScan]);
-            var coef = (int)((double)bitmap.Size.Width / bitmap.Size.Height * 10);
-            var i = new Bitmap(bitmap, new Size(ScanPictureBox.Height * coef / 10, ScanPictureBox.Width));
-            ScanPictureBox.Image = i;
+            if (File.Exists(_scans[_currentScan]))
+            {
+                var bitmap = new Bitmap(_scans[_currentScan]);
+                var coef = (int)((double)bitmap.Size.Width / bitmap.Size.Height * 10);
+                var i = new Bitmap(bitmap, new Size(ScanPictureBox.Height * coef / 10, ScanPictureBox.Width));
+                ScanPictureBox.Image = i;
+            }
+            else
+            {
+                ShowErrorMessage("Не все файлы были загружены.");
+            }
         }
 
         private void NextScanButton_Click(object sender, EventArgs e)

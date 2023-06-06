@@ -49,19 +49,17 @@
             this.OrganizationContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TypeOwnCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.TypeOrgCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
-            this.LocalitysCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.AcceptButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.FiltrsButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
+            this.FiltrGroupBox = new System.Windows.Forms.GroupBox();
+            this.ClearFiltrsButton = new System.Windows.Forms.Button();
+            this.AcceptFiltrButton = new System.Windows.Forms.Button();
+            this.FiltrTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrgDataGrid)).BeginInit();
             this.OrganizationContextMenuStrip.SuspendLayout();
-            this.FiltrsGroupBox.SuspendLayout();
+            this.FiltrGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CreateOrgButton
@@ -189,7 +187,6 @@
             this.TypeOrg,
             this.TypeOwnOrg,
             this.Locality});
-            this.OrgDataGrid.ContextMenuStrip = this.OrganizationContextMenuStrip;
             this.OrgDataGrid.Location = new System.Drawing.Point(12, 41);
             this.OrgDataGrid.MultiSelect = false;
             this.OrgDataGrid.Name = "OrgDataGrid";
@@ -283,58 +280,6 @@
             this.DeleteToolStripMenuItem.Text = "Удалить";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
-            // TypeOwnCheckedListBox
-            // 
-            this.TypeOwnCheckedListBox.CheckOnClick = true;
-            this.TypeOwnCheckedListBox.FormattingEnabled = true;
-            this.TypeOwnCheckedListBox.Location = new System.Drawing.Point(214, 21);
-            this.TypeOwnCheckedListBox.Name = "TypeOwnCheckedListBox";
-            this.TypeOwnCheckedListBox.Size = new System.Drawing.Size(202, 157);
-            this.TypeOwnCheckedListBox.TabIndex = 10;
-            // 
-            // TypeOrgCheckedListBox
-            // 
-            this.TypeOrgCheckedListBox.CheckOnClick = true;
-            this.TypeOrgCheckedListBox.FormattingEnabled = true;
-            this.TypeOrgCheckedListBox.HorizontalScrollbar = true;
-            this.TypeOrgCheckedListBox.Location = new System.Drawing.Point(6, 21);
-            this.TypeOrgCheckedListBox.Name = "TypeOrgCheckedListBox";
-            this.TypeOrgCheckedListBox.Size = new System.Drawing.Size(202, 157);
-            this.TypeOrgCheckedListBox.TabIndex = 11;
-            // 
-            // FiltrsGroupBox
-            // 
-            this.FiltrsGroupBox.Controls.Add(this.LocalitysCheckedListBox);
-            this.FiltrsGroupBox.Controls.Add(this.AcceptButton);
-            this.FiltrsGroupBox.Controls.Add(this.TypeOrgCheckedListBox);
-            this.FiltrsGroupBox.Controls.Add(this.TypeOwnCheckedListBox);
-            this.FiltrsGroupBox.Location = new System.Drawing.Point(377, 41);
-            this.FiltrsGroupBox.Name = "FiltrsGroupBox";
-            this.FiltrsGroupBox.Size = new System.Drawing.Size(641, 209);
-            this.FiltrsGroupBox.TabIndex = 12;
-            this.FiltrsGroupBox.TabStop = false;
-            this.FiltrsGroupBox.Text = "Фильтрация";
-            this.FiltrsGroupBox.Visible = false;
-            // 
-            // LocalitysCheckedListBox
-            // 
-            this.LocalitysCheckedListBox.CheckOnClick = true;
-            this.LocalitysCheckedListBox.FormattingEnabled = true;
-            this.LocalitysCheckedListBox.Location = new System.Drawing.Point(422, 21);
-            this.LocalitysCheckedListBox.Name = "LocalitysCheckedListBox";
-            this.LocalitysCheckedListBox.Size = new System.Drawing.Size(202, 157);
-            this.LocalitysCheckedListBox.TabIndex = 13;
-            // 
-            // AcceptButton
-            // 
-            this.AcceptButton.Location = new System.Drawing.Point(549, 184);
-            this.AcceptButton.Name = "AcceptButton";
-            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
-            this.AcceptButton.TabIndex = 12;
-            this.AcceptButton.Text = "Принять";
-            this.AcceptButton.UseVisualStyleBackColor = true;
-            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -343,16 +288,6 @@
             this.label1.Size = new System.Drawing.Size(95, 16);
             this.label1.TabIndex = 13;
             this.label1.Text = "Организации";
-            // 
-            // FiltrsButton
-            // 
-            this.FiltrsButton.Location = new System.Drawing.Point(711, 12);
-            this.FiltrsButton.Name = "FiltrsButton";
-            this.FiltrsButton.Size = new System.Drawing.Size(75, 23);
-            this.FiltrsButton.TabIndex = 14;
-            this.FiltrsButton.Text = "Фильтры";
-            this.FiltrsButton.UseVisualStyleBackColor = true;
-            this.FiltrsButton.Click += new System.EventHandler(this.FiltrsButton_Click);
             // 
             // ExportButton
             // 
@@ -364,13 +299,55 @@
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
+            // FiltrGroupBox
+            // 
+            this.FiltrGroupBox.Controls.Add(this.ClearFiltrsButton);
+            this.FiltrGroupBox.Controls.Add(this.AcceptFiltrButton);
+            this.FiltrGroupBox.Controls.Add(this.FiltrTextBox);
+            this.FiltrGroupBox.Location = new System.Drawing.Point(12, 83);
+            this.FiltrGroupBox.Name = "FiltrGroupBox";
+            this.FiltrGroupBox.Size = new System.Drawing.Size(211, 79);
+            this.FiltrGroupBox.TabIndex = 16;
+            this.FiltrGroupBox.TabStop = false;
+            this.FiltrGroupBox.Text = "Фильтр";
+            this.FiltrGroupBox.Visible = false;
+            // 
+            // ClearFiltrsButton
+            // 
+            this.ClearFiltrsButton.Location = new System.Drawing.Point(49, 50);
+            this.ClearFiltrsButton.Name = "ClearFiltrsButton";
+            this.ClearFiltrsButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearFiltrsButton.TabIndex = 3;
+            this.ClearFiltrsButton.Text = "Сбросить";
+            this.ClearFiltrsButton.UseVisualStyleBackColor = true;
+            this.ClearFiltrsButton.Click += new System.EventHandler(this.ClearFiltrsButton_Click);
+            // 
+            // AcceptFiltrButton
+            // 
+            this.AcceptFiltrButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AcceptFiltrButton.Location = new System.Drawing.Point(130, 50);
+            this.AcceptFiltrButton.Name = "AcceptFiltrButton";
+            this.AcceptFiltrButton.Size = new System.Drawing.Size(75, 23);
+            this.AcceptFiltrButton.TabIndex = 2;
+            this.AcceptFiltrButton.Text = "Принять";
+            this.AcceptFiltrButton.UseVisualStyleBackColor = true;
+            this.AcceptFiltrButton.Click += new System.EventHandler(this.AcceptFiltrButton_Click);
+            // 
+            // FiltrTextBox
+            // 
+            this.FiltrTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FiltrTextBox.Location = new System.Drawing.Point(6, 22);
+            this.FiltrTextBox.Name = "FiltrTextBox";
+            this.FiltrTextBox.Size = new System.Drawing.Size(199, 22);
+            this.FiltrTextBox.TabIndex = 1;
+            // 
             // OrganizationView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1030, 452);
+            this.Controls.Add(this.FiltrGroupBox);
             this.Controls.Add(this.ExportButton);
-            this.Controls.Add(this.FiltrsGroupBox);
-            this.Controls.Add(this.FiltrsButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.OrgDataGrid);
             this.Controls.Add(this.CountLabel);
@@ -388,7 +365,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrgDataGrid)).EndInit();
             this.OrganizationContextMenuStrip.ResumeLayout(false);
-            this.FiltrsGroupBox.ResumeLayout(false);
+            this.FiltrGroupBox.ResumeLayout(false);
+            this.FiltrGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,12 +382,7 @@
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Button CreateOrgButton;
         private System.Windows.Forms.DataGridView OrgDataGrid;
-        private System.Windows.Forms.CheckedListBox TypeOwnCheckedListBox;
-        private System.Windows.Forms.CheckedListBox TypeOrgCheckedListBox;
-        private System.Windows.Forms.GroupBox FiltrsGroupBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button FiltrsButton;
-        private System.Windows.Forms.Button AcceptButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.ContextMenuStrip OrganizationContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
@@ -422,7 +395,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOwnOrg;
         private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
-        private System.Windows.Forms.CheckedListBox LocalitysCheckedListBox;
+        private System.Windows.Forms.GroupBox FiltrGroupBox;
+        private System.Windows.Forms.TextBox FiltrTextBox;
+        private System.Windows.Forms.Button AcceptFiltrButton;
+        private System.Windows.Forms.Button ClearFiltrsButton;
     }
 }
 

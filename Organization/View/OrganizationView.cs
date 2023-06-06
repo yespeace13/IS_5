@@ -20,23 +20,26 @@ namespace IS_5
     public partial class OrganizationView : Form
     {
         private OrganizationController _controller;
-
+        private Dictionary<string, string> _filtres;
+        private string _columnName;
         public OrganizationView()
         {
             InitializeComponent();
             _controller = new OrganizationController();
+            InitializeFiltrsDictionary();
             InitializeForm();
             ShowOrganizations();
         }
 
+        private void InitializeFiltrsDictionary()
+        {
+            _filtres = new Dictionary<string, string>();
+            foreach (DataGridViewColumn col in OrgDataGrid.Columns)
+                _filtres.Add(col.Name, "");
+        }
+
         private void InitializeForm()
         {
-            var typeOrg = _controller.ShowTypesOrganizations();
-            var typeOwnOrg = _controller.ShowTypesOwnerOrganizations();
-            var localitys = _controller.ShowLocalitys();
-            TypeOrgCheckedListBox.Items.AddRange(typeOrg);
-            TypeOwnCheckedListBox.Items.AddRange(typeOwnOrg);
-            LocalitysCheckedListBox.Items.AddRange(localitys);
             var possibilites = UserSession.User.Privilege.Organizations.Item2;
             CreateOrgButton.Enabled = false;
             ChangeToolStripMenuItem.Enabled = false;
@@ -50,15 +53,15 @@ namespace IS_5
                         CreateOrgButton.Enabled = true;
                         break;
                     case Possibilities.Change:
-                        ChangeToolStripMenuItem.Visible = true;
+                        ChangeToolStripMenuItem.Enabled = true;
                         break;
                     case Possibilities.Delete:
-                        DeleteToolStripMenuItem.Visible = true;
+                        DeleteToolStripMenuItem.Enabled = true;
                         break;
-                    case Possibilities.AddFile:
-                        break;
-                    case Possibilities.DelFile:
-                        break;
+                    //case Possibilities.AddFile:
+                    //    break;
+                    //case Possibilities.DelFile:
+                    //    break;
                     
                 }
             }
@@ -91,23 +94,12 @@ namespace IS_5
 
         public void ShowOrganizations()
         {
-            string[] filtrsType = TypeOrgCheckedListBox.CheckedItems.Count == 0 ?
-                TypeOrgCheckedListBox.Items.Cast<string>().ToArray() : 
-                TypeOrgCheckedListBox.CheckedItems.Cast<string>().ToArray();
-            string[] filtrsTypeOwn = TypeOwnCheckedListBox.CheckedItems.Count == 0 ?
-                TypeOwnCheckedListBox.Items.Cast<string>().ToArray() : 
-                TypeOwnCheckedListBox.CheckedItems.Cast<string>().ToArray();
-            string[] filtrsLocalitys = LocalitysCheckedListBox.CheckedItems.Count == 0 ?
-                LocalitysCheckedListBox.Items.Cast<string>().ToArray() :
-                LocalitysCheckedListBox.CheckedItems.Cast<string>().ToArray();
             (string, SortOrder) sortCol = OrgDataGrid.SortedColumn == null ? 
                 (null, SortOrder.None) : (OrgDataGrid.SortedColumn.HeaderText, OrgDataGrid.SortOrder);
             var orgs = _controller.ShowOrganizations(
-                (int)PagesSize.Value, 
-                (int)NumberOfPage.Value, 
-                filtrsType,
-                filtrsTypeOwn,
-                filtrsLocalitys,
+                (int)PagesSize.Value,
+                (int)NumberOfPage.Value,
+                _filtres,
                 sortCol,
                 out int maxPage);
             NumberOfPage.Maximum = maxPage;
@@ -127,37 +119,23 @@ namespace IS_5
             ShowOrganizations();
         }
 
-        private void FiltrsButton_Click(object sender, EventArgs e)
-        {
-            FiltrsGroupBox.Visible = !FiltrsGroupBox.Visible;
-        }
-
         private void AcceptButton_Click(object sender, EventArgs e)
         {
-            FiltrsGroupBox.Visible = false;
             ShowOrganizations();
         }
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            string[] filtrsType = TypeOrgCheckedListBox.CheckedItems.Count == 0 ?
-               TypeOrgCheckedListBox.Items.Cast<string>().ToArray() :
-               TypeOrgCheckedListBox.CheckedItems.Cast<string>().ToArray();
-            string[] filtrsTypeOwn = TypeOwnCheckedListBox.CheckedItems.Count == 0 ?
-                TypeOwnCheckedListBox.Items.Cast<string>().ToArray() :
-                TypeOwnCheckedListBox.CheckedItems.Cast<string>().ToArray();
-            string[] filtrsLocalitys = LocalitysCheckedListBox.CheckedItems.Count == 0 ?
-                LocalitysCheckedListBox.Items.Cast<string>().ToArray() :
-                LocalitysCheckedListBox.CheckedItems.Cast<string>().ToArray();
             var columns = new string[OrgDataGrid.ColumnCount];
             for (var col = 0; col < columns.Length; col++)
                 columns[col] = OrgDataGrid.Columns[col].HeaderText;
-            _controller.ExportToExcel(filtrsType, filtrsTypeOwn, filtrsLocalitys, columns);
+            _controller.ExportToExcel(_filtres, columns);
         }
 
         private void OrgDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ShowOrganizations();
+            if(e.Button == MouseButtons.Left)
+                ShowOrganizations();
         }
             
         
@@ -179,6 +157,7 @@ namespace IS_5
 
         private void OrgDataGrid_MouseDown(object sender, MouseEventArgs e)
         {
+            FiltrGroupBox.Visible = false;
             if (e.Button == MouseButtons.Right)
             {
                 var hti = OrgDataGrid.HitTest(e.X, e.Y);
@@ -186,8 +165,19 @@ namespace IS_5
                 {
                     OrgDataGrid.ClearSelection();
                     OrgDataGrid.Rows[hti.RowIndex].Selected = true;
+                    OrganizationContextMenuStrip.Show(OrgDataGrid, e.Location);
+                }
+                else if(hti.ColumnIndex > -1)
+                {
+                    FiltrTextBox.Text = _filtres[OrgDataGrid.Columns[hti.ColumnIndex].Name];
+                    FiltrGroupBox.Visible = true;
+                    if(hti.ColumnIndex == OrgDataGrid.ColumnCount -1)
+                        FiltrGroupBox.Location = new Point(hti.ColumnX - 80, hti.RowY + 80);
+                    else FiltrGroupBox.Location = new Point(hti.ColumnX, hti.RowY + 80);
+                    _columnName = OrgDataGrid.Columns[hti.ColumnIndex].Name;
                 }
             }
+            
         }
 
         private void OrgDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -198,9 +188,28 @@ namespace IS_5
                 if (hti.RowIndex != -1)
                 {
                     var selectedRow = OrgDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                    new OrganizationEditView(_controller, State.None, selectedRow + 1).ShowDialog();
+                    new OrganizationEditView(_controller, State.None, int.Parse(OrgDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
                 }
             }
+        }
+
+        private void AcceptFiltrButton_Click(object sender, EventArgs e)
+        {
+            if(FiltrTextBox.Text.Length != 0) 
+            {
+                _filtres[_columnName] = FiltrTextBox.Text;
+                FiltrTextBox.Clear();
+                FiltrGroupBox.Visible = false;
+                ShowOrganizations();
+            }
+        }
+
+        private void ClearFiltrsButton_Click(object sender, EventArgs e)
+        {
+            InitializeFiltrsDictionary();
+            FiltrTextBox.Clear();
+            ShowOrganizations();
+            FiltrGroupBox.Visible = false;
         }
     }
 }
