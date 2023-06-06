@@ -42,7 +42,7 @@ namespace IS_5.Service
             return mapedOrganizations;
         }
 
-        public List<string[]> GetOrganizations(int sizePages, int page, string[] typeOrg, string[] typeOwnOrg, string[] localitys,
+        public List<string[]> GetOrganizations(int sizePages, int page, Dictionary<string, string> filters,
             (string, SortOrder) sortCol, out int maxPage)
         {
             //проверка привилегий
@@ -59,11 +59,9 @@ namespace IS_5.Service
             if(UserSession.User.Privilege.Organizations.Item3 != null)
                 orgs = orgs.Where(o => UserSession.User.Privilege.Organizations.Item3.Contains(o.TypeOrganization.Id));
             //фильтрация
-            var result = OrderResult(orgs
-                .Join(typeOrg, org => org.TypeOrganization.Name, t => t, (org, t) => org)
-                .Join(typeOwnOrg, org => org.TypeOwnerOrganization.Name, t => t, (org, t) => org)
-                .Join(localitys, org => org.Locality.Name, l => l, (org, l) => org)
-                , sortCol)
+            var res = FilterOrganizations(orgs, filters);
+            //сортировка
+            var result = OrderResult(res, sortCol)
                 .ToList();
             //вычисление количества страниц
             maxPage = (int)Math.Ceiling((double)result.Count / sizePages);
@@ -72,6 +70,31 @@ namespace IS_5.Service
                 .Skip(sizePages * (page - 1))
                 .Take(sizePages)
                 .ToList());
+        }
+
+        private IEnumerable<Organization> FilterOrganizations(IEnumerable<Organization> orgs, Dictionary<string, string> filters)
+        {
+            if (filters["Id"] != "")
+            {
+                int.TryParse(filters["Id"], out int id);
+                orgs = orgs.Where(o => o.Id == id);
+            }
+            if (filters["NameOrg"] != "")
+                orgs = orgs.Where(o => o.NameOrg.Contains(filters["NameOrg"]));
+            if (filters["INN"] != "")
+                orgs = orgs.Where(o => o.TaxIdenNum.Contains(filters["INN"]));
+            if (filters["KPP"] != "")
+                orgs = orgs.Where(o => o.KPP.Contains(filters["KPP"]));
+            if (filters["Address"] != "")
+                orgs = orgs.Where(o => o.Address.Contains(filters["Address"]));
+            if (filters["TypeOrg"] != "")
+                orgs = orgs.Where(o => o.TypeOrganization.Name.Contains(filters["TypeOrg"]));
+            if (filters["TypeOwnOrg"] != "")
+                orgs = orgs.Where(o => o.TypeOwnerOrganization.Name.Contains(filters["TypeOwnOrg"]));
+            if (filters["Locality"] != "")
+                orgs = orgs.Where(o => o.Locality.Name.Contains(filters["Locality"]));
+            return orgs;
+                
         }
 
         private IEnumerable<Organization> OrderResult(
@@ -224,15 +247,14 @@ namespace IS_5.Service
             return localitys.Select(l => l.Name).ToArray();
         }
 
-        public void ExportToExcel(string[] filtrsType, string[] filtrsTypeOwn, string[] localitys, string[] columns)
+        public void ExportToExcel(Dictionary<string, string> filtres, string[] columns)
         {
             var saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx";
             saveFileDialog1.FileName = "Организации";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var orgs = GetOrganizations(int.MaxValue, 1, filtrsType, filtrsTypeOwn,
-                localitys, (null, SortOrder.None), out int maxPage);
+                var orgs = GetOrganizations(int.MaxValue, 1, filtres, (null, SortOrder.None), out int maxPage);
                 ExportDataToExcel.Export(columns, saveFileDialog1.FileName, orgs);
             }
         }

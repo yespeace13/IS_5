@@ -18,7 +18,7 @@ namespace IS_5
             _contractRepository = new ContractRepository();
         }
 
-        public List<string[]> GetContracts(int sizePages, int page,
+        public List<string[]> GetContracts(int sizePages, int page, Dictionary<string, string> filters,
             (string, SortOrder) sortCol, out int maxPage)
         {
             IEnumerable<Contract> contracts;
@@ -32,10 +32,38 @@ namespace IS_5
                     .Where(lp => lp.Locality.Name == UserSession.User.Locality.Name).Count() > 0);
             else
                 contracts = _contractRepository.GetContracts();
-            //вычисление количества страниц
+            contracts = FilterContracts(contracts, filters);
             maxPage = (int)Math.Ceiling((double)contracts.Count() / sizePages);
             var result = OrderResult(contracts, sortCol);
             return MapContracts(result.ToList());
+        }
+
+        private IEnumerable<Contract> FilterContracts(IEnumerable<Contract> contracts, Dictionary<string, string> filters)
+        {
+            if (filters["Id"] != "")
+            {
+                int.TryParse(filters["Id"], out int id);
+                contracts = contracts.Where(c => c.Id == id);
+            }
+            if (filters["Number"] != "")
+                contracts = contracts.Where(c => c.Number.Contains(filters["Number"]));
+            if (filters["DateOfConclusion"] != "")
+            {
+                var dates = filters["DateOfConclusion"].Split(' ');
+                contracts = contracts.Where(c => c.DateOfConclusion >= DateTime.Parse(dates[0]) 
+                && c.DateOfConclusion <= DateTime.Parse(dates[1]));
+            }
+            if (filters["DateValidation"] != "")
+            {
+                var dates = filters["DateValidation"].Split(' ');
+                contracts = contracts.Where(c => c.DateOfConclusion >= DateTime.Parse(dates[0])
+                && c.DateOfConclusion <= DateTime.Parse(dates[1]));
+            }
+            if (filters["Executor"] != "")
+                contracts = contracts.Where(c => c.Executor.NameOrg.Contains(filters["Executor"]));
+            if (filters["Client"] != "")
+                contracts = contracts.Where(c => c.Client.NameOrg.Contains(filters["Client"]));
+            return contracts;
         }
 
         private IEnumerable<Contract> OrderResult(IEnumerable<Contract> contracts, (string, SortOrder) sortCol)
@@ -166,14 +194,14 @@ namespace IS_5
             _contractRepository.AddContractToRepository(contract);
         }
 
-        public void ExportToExcel(string[] columns)
+        public void ExportToExcel(string[] columns, Dictionary<string, string> filters)
         {
             var saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx";
             saveFileDialog1.FileName = "Контракты";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                var contracts = GetContracts(int.MaxValue, 1, (null, SortOrder.None), out int maxPage);
+                var contracts = GetContracts(int.MaxValue, 1, filters, (null, SortOrder.None), out int maxPage);
                 ExportDataToExcel.Export(columns, saveFileDialog1.FileName, contracts);
             }
         }

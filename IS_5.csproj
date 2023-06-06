@@ -212,6 +212,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\6701277%281%29.jpg" />
     <Content Include="Resources\Microsoft-Fluentui-Emoji-Mono-Service-Dog.ico" />
     <Content Include="Resources\fast-forward%281%29.png" />
     <Content Include="Resources\fast-forward.png" />

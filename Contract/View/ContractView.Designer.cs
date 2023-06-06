@@ -39,24 +39,27 @@
             this.CountLabel = new System.Windows.Forms.Label();
             this.ConDataGrid = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateOfConclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateValid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateValidation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ContractContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FiltrsGroupBox = new System.Windows.Forms.GroupBox();
-            this.AcceptButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.FiltrsButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
+            this.FiltrGroupBox = new System.Windows.Forms.GroupBox();
+            this.FiltrStartDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.ClearFiltrsButton = new System.Windows.Forms.Button();
+            this.AcceptFiltrButton = new System.Windows.Forms.Button();
+            this.FiltrTextBox = new System.Windows.Forms.TextBox();
+            this.FiltrEndDateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.NumberOfPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConDataGrid)).BeginInit();
             this.ContractContextMenuStrip.SuspendLayout();
-            this.FiltrsGroupBox.SuspendLayout();
+            this.FiltrGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CreateButton
@@ -177,12 +180,11 @@
             this.ConDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ConDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.NumContract,
+            this.Number,
             this.DateOfConclusion,
-            this.DateValid,
+            this.DateValidation,
             this.Executor,
             this.Client});
-            this.ConDataGrid.ContextMenuStrip = this.ContractContextMenuStrip;
             this.ConDataGrid.Location = new System.Drawing.Point(12, 41);
             this.ConDataGrid.MultiSelect = false;
             this.ConDataGrid.Name = "ConDataGrid";
@@ -204,12 +206,12 @@
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             // 
-            // NumContract
+            // Number
             // 
-            this.NumContract.HeaderText = "Номер";
-            this.NumContract.MinimumWidth = 6;
-            this.NumContract.Name = "NumContract";
-            this.NumContract.ReadOnly = true;
+            this.Number.HeaderText = "Номер";
+            this.Number.MinimumWidth = 6;
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
             // 
             // DateOfConclusion
             // 
@@ -218,12 +220,12 @@
             this.DateOfConclusion.Name = "DateOfConclusion";
             this.DateOfConclusion.ReadOnly = true;
             // 
-            // DateValid
+            // DateValidation
             // 
-            this.DateValid.HeaderText = "Дата действия";
-            this.DateValid.MinimumWidth = 6;
-            this.DateValid.Name = "DateValid";
-            this.DateValid.ReadOnly = true;
+            this.DateValidation.HeaderText = "Дата действия";
+            this.DateValidation.MinimumWidth = 6;
+            this.DateValidation.Name = "DateValidation";
+            this.DateValidation.ReadOnly = true;
             // 
             // Executor
             // 
@@ -262,27 +264,6 @@
             this.DeleteToolStripMenuItem.Text = "Удалить";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
-            // FiltrsGroupBox
-            // 
-            this.FiltrsGroupBox.Controls.Add(this.AcceptButton);
-            this.FiltrsGroupBox.Location = new System.Drawing.Point(377, 41);
-            this.FiltrsGroupBox.Name = "FiltrsGroupBox";
-            this.FiltrsGroupBox.Size = new System.Drawing.Size(641, 209);
-            this.FiltrsGroupBox.TabIndex = 12;
-            this.FiltrsGroupBox.TabStop = false;
-            this.FiltrsGroupBox.Text = "Фильтрация";
-            this.FiltrsGroupBox.Visible = false;
-            // 
-            // AcceptButton
-            // 
-            this.AcceptButton.Location = new System.Drawing.Point(549, 184);
-            this.AcceptButton.Name = "AcceptButton";
-            this.AcceptButton.Size = new System.Drawing.Size(75, 23);
-            this.AcceptButton.TabIndex = 12;
-            this.AcceptButton.Text = "Принять";
-            this.AcceptButton.UseVisualStyleBackColor = true;
-            this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -291,16 +272,6 @@
             this.label1.Size = new System.Drawing.Size(77, 16);
             this.label1.TabIndex = 13;
             this.label1.Text = "Контракты";
-            // 
-            // FiltrsButton
-            // 
-            this.FiltrsButton.Location = new System.Drawing.Point(711, 12);
-            this.FiltrsButton.Name = "FiltrsButton";
-            this.FiltrsButton.Size = new System.Drawing.Size(75, 23);
-            this.FiltrsButton.TabIndex = 14;
-            this.FiltrsButton.Text = "Фильтры";
-            this.FiltrsButton.UseVisualStyleBackColor = true;
-            this.FiltrsButton.Click += new System.EventHandler(this.FiltrsButton_Click);
             // 
             // ExportButton
             // 
@@ -312,13 +283,75 @@
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
+            // FiltrGroupBox
+            // 
+            this.FiltrGroupBox.Controls.Add(this.FiltrEndDateTimePicker);
+            this.FiltrGroupBox.Controls.Add(this.FiltrStartDateTimePicker);
+            this.FiltrGroupBox.Controls.Add(this.ClearFiltrsButton);
+            this.FiltrGroupBox.Controls.Add(this.AcceptFiltrButton);
+            this.FiltrGroupBox.Controls.Add(this.FiltrTextBox);
+            this.FiltrGroupBox.Location = new System.Drawing.Point(158, 146);
+            this.FiltrGroupBox.Name = "FiltrGroupBox";
+            this.FiltrGroupBox.Size = new System.Drawing.Size(212, 89);
+            this.FiltrGroupBox.TabIndex = 17;
+            this.FiltrGroupBox.TabStop = false;
+            this.FiltrGroupBox.Text = "Фильтр";
+            this.FiltrGroupBox.Visible = false;
+            // 
+            // FiltrStartDateTimePicker
+            // 
+            this.FiltrStartDateTimePicker.Location = new System.Drawing.Point(6, 32);
+            this.FiltrStartDateTimePicker.Name = "FiltrStartDateTimePicker";
+            this.FiltrStartDateTimePicker.Size = new System.Drawing.Size(200, 22);
+            this.FiltrStartDateTimePicker.TabIndex = 18;
+            this.FiltrStartDateTimePicker.Visible = false;
+            // 
+            // ClearFiltrsButton
+            // 
+            this.ClearFiltrsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ClearFiltrsButton.Location = new System.Drawing.Point(49, 60);
+            this.ClearFiltrsButton.Name = "ClearFiltrsButton";
+            this.ClearFiltrsButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearFiltrsButton.TabIndex = 3;
+            this.ClearFiltrsButton.Text = "Сбросить";
+            this.ClearFiltrsButton.UseVisualStyleBackColor = true;
+            this.ClearFiltrsButton.Click += new System.EventHandler(this.ClearFiltrsButton_Click);
+            // 
+            // AcceptFiltrButton
+            // 
+            this.AcceptFiltrButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AcceptFiltrButton.Location = new System.Drawing.Point(131, 60);
+            this.AcceptFiltrButton.Name = "AcceptFiltrButton";
+            this.AcceptFiltrButton.Size = new System.Drawing.Size(75, 23);
+            this.AcceptFiltrButton.TabIndex = 2;
+            this.AcceptFiltrButton.Text = "Принять";
+            this.AcceptFiltrButton.UseVisualStyleBackColor = true;
+            this.AcceptFiltrButton.Click += new System.EventHandler(this.AcceptFiltrButton_Click);
+            // 
+            // FiltrTextBox
+            // 
+            this.FiltrTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FiltrTextBox.Location = new System.Drawing.Point(6, 21);
+            this.FiltrTextBox.Name = "FiltrTextBox";
+            this.FiltrTextBox.Size = new System.Drawing.Size(200, 22);
+            this.FiltrTextBox.TabIndex = 1;
+            // 
+            // FiltrEndDateTimePicker
+            // 
+            this.FiltrEndDateTimePicker.Location = new System.Drawing.Point(6, 49);
+            this.FiltrEndDateTimePicker.Name = "FiltrEndDateTimePicker";
+            this.FiltrEndDateTimePicker.Size = new System.Drawing.Size(200, 22);
+            this.FiltrEndDateTimePicker.TabIndex = 19;
+            this.FiltrEndDateTimePicker.Visible = false;
+            // 
             // Contractview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1030, 452);
+            this.Controls.Add(this.FiltrGroupBox);
             this.Controls.Add(this.ExportButton);
-            this.Controls.Add(this.FiltrsGroupBox);
-            this.Controls.Add(this.FiltrsButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ConDataGrid);
             this.Controls.Add(this.CountLabel);
@@ -336,7 +369,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PagesSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConDataGrid)).EndInit();
             this.ContractContextMenuStrip.ResumeLayout(false);
-            this.FiltrsGroupBox.ResumeLayout(false);
+            this.FiltrGroupBox.ResumeLayout(false);
+            this.FiltrGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -352,20 +386,23 @@
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.DataGridView ConDataGrid;
-        private System.Windows.Forms.GroupBox FiltrsGroupBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button FiltrsButton;
-        private System.Windows.Forms.Button AcceptButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.ContextMenuStrip ContractContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
+        private System.Windows.Forms.GroupBox FiltrGroupBox;
+        private System.Windows.Forms.Button ClearFiltrsButton;
+        private System.Windows.Forms.Button AcceptFiltrButton;
+        private System.Windows.Forms.TextBox FiltrTextBox;
+        private System.Windows.Forms.DateTimePicker FiltrStartDateTimePicker;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumContract;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOfConclusion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateValid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateValidation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client;
+        private System.Windows.Forms.DateTimePicker FiltrEndDateTimePicker;
     }
 }
 

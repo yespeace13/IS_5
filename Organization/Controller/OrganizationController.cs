@@ -21,10 +21,9 @@ namespace IS_5.Controler
         }
 
         public List<string[]> ShowOrganizations(
-            int sizePages, int page, string[] typeOrg, string[] typeOwnOrg, 
-            string[] localitys, (string, SortOrder) sortCol, out int maxPage)
+            int sizePages, int page, Dictionary<string, string> filtres, (string, SortOrder) sortCol, out int maxPage)
         {
-             return _service.GetOrganizations(sizePages, page, typeOrg, typeOwnOrg, localitys, sortCol, out maxPage);
+             return _service.GetOrganizations(sizePages, page, filtres, sortCol, out maxPage);
         }
         public string[] ShowTypesOrganizations()
         {
@@ -65,9 +64,9 @@ namespace IS_5.Controler
             return _service.GetLocalitys();
         }
 
-        public void ExportToExcel(string[] filtrsType, string[] filtrsTypeOwn, string[] localitys, string[] columns)
+        public void ExportToExcel(Dictionary<string, string> filtres, string[] columns)
         {
-            _service.ExportToExcel(filtrsType, filtrsTypeOwn, localitys, columns);
+            _service.ExportToExcel(filtres, columns);
         }
     }
 }
