@@ -1,4 +1,5 @@
 ﻿using IS_5.Model;
+using System.Collections.Generic;
 
 namespace IS_5
 {
@@ -17,13 +18,14 @@ namespace IS_5
         public string IdentificationLabel { get; set; }
         public string ChipNumber { get; set; }
         public Locality Locality { get; set; }
+        public List<Scan> Scans { get; set; }
 
-        public Animal(int id, string categore, bool sex, string breed, 
+        public Animal(int id, string category, bool sex, string breed, 
             double size, string wool, string color, string ears, string tail, 
-            string specSigns, string idenLabel, string chip, Locality locality)
+            string specSigns, string idenLabel, string chip, Locality locality, List<Scan> scans)
         {
             Id = id;
-            Category = categore;
+            Category = category;
             Sex = sex;
             Breed = breed;
             Size = size;
@@ -35,6 +37,7 @@ namespace IS_5
             IdentificationLabel = idenLabel;
             ChipNumber = chip;
             Locality = locality;
+            Scans = scans;
         }
 
     }
