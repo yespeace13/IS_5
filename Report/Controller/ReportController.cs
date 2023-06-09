@@ -17,5 +17,10 @@ namespace IS_5
         {
             return _service.CreateReport(from, to);
         }
+
+        internal void ExportToExcel(List<string> columns, DateTime from, DateTime to)
+        {
+            _service.ExportToExcel(columns, from, to);
+        }
     }
 }

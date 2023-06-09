@@ -42,9 +42,9 @@
             // 
             // ExportToExcelButton
             // 
-            this.ExportToExcelButton.Location = new System.Drawing.Point(631, 415);
+            this.ExportToExcelButton.Location = new System.Drawing.Point(599, 415);
             this.ExportToExcelButton.Name = "ExportToExcelButton";
-            this.ExportToExcelButton.Size = new System.Drawing.Size(124, 23);
+            this.ExportToExcelButton.Size = new System.Drawing.Size(189, 23);
             this.ExportToExcelButton.TabIndex = 0;
             this.ExportToExcelButton.Text = "Экспорт в Excel";
             this.ExportToExcelButton.UseVisualStyleBackColor = true;

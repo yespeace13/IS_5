@@ -46,7 +46,10 @@ namespace IS_5.Report.View
 
         private void ExportToExcelButton_Click(object sender, EventArgs e)
         {
-
+            var columns = new List<string>();
+            foreach (DataGridViewColumn col in ReportDataGridView.Columns)
+                columns.Add(col.HeaderText);
+            _controller.ExportToExcel(columns, StartDateTimePicker.Value, EndDateTimePicker.Value);
         }
     }
 }
