@@ -41,10 +41,8 @@ namespace IS_5.Report.View
                 ReportDataGridView.Rows.Add(org);
         }
 
-        private void StartDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            ShowData();
-        }
+        private void StartDateTimePicker_ValueChanged(object sender, EventArgs e) => ShowData();
+        
 
         private void ExportToExcelButton_Click(object sender, EventArgs e)
         {
