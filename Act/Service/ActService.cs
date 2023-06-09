@@ -1,5 +1,6 @@
 ﻿using IS_5.Model;
 using IS_5.Service;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -245,6 +246,18 @@ namespace IS_5
         internal void DeleteAct(int id)
         {
             _repository.DeleteActFromRepository(id);
+        }
+
+        internal void ExportToExcel(string[] columns, Dictionary<string, string> filters)
+        {
+            var saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Excel(*.xlsx)|*.xlsx";
+            saveFileDialog1.FileName = "Акты";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var acts = GetActs(int.MaxValue, 1, filters, (null, SortOrder.None), out int maxPage);
+                ExportDataToExcel.Export(columns, saveFileDialog1.FileName, acts);
+            }
         }
     }
 }

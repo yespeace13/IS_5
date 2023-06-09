@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IS_5.Report.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,6 +32,11 @@ namespace IS_5
         private void button3_Click(object sender, EventArgs e)
         {
             new Actview().ShowDialog();
+        }
+
+        private void ReportButton_Click(object sender, EventArgs e)
+        {
+            new ReportView().ShowDialog();
         }
     }
 }

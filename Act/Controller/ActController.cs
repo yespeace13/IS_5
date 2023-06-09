@@ -64,5 +64,10 @@ namespace IS_5
         {
             _service.DeleteAct(id);
         }
+
+        internal void ExportToExcel(string[] columns, Dictionary<string, string> filtres)
+        {
+            _service.ExportToExcel(columns, filtres);
+        }
     }
 }

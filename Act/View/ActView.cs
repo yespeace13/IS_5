@@ -109,10 +109,10 @@ namespace IS_5
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            //var columns = new string[ConDataGrid.ColumnCount];
-            //for (var col = 0; col < columns.Length; col++)
-            //    columns[col] = ConDataGrid.Columns[col].HeaderText;
-            //_controller.ExportToExcel(columns, _filtres);
+            var columns = new string[ConDataGrid.ColumnCount];
+            for (var col = 0; col < columns.Length; col++)
+                columns[col] = ConDataGrid.Columns[col].HeaderText;
+            _controller.ExportToExcel(columns, _filtres);
         }
 
         private void ConDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
