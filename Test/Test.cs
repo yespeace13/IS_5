@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
-using NUnit
+using NUnit;
+
 namespace IS_5.Test
 {
-    internal class Test
-    {
+    //internal class TestLocalityRepositort : 
+    //{
 
-    }
+    //}
 }

@@ -189,7 +189,7 @@ namespace IS_5
 
         public string[] GetLocalitys()
         {
-            return new OrganizationsRepository()
+            return new LocalityRepository()
                 .GetLocalitys()
                 .Select(l => l.Name)
                 .ToArray();
@@ -220,7 +220,7 @@ namespace IS_5
                 actAnimals.Add(new Animal(int.Parse(animal.Key[0]), animal.Key[1], animal.Key[2] != "Самец",
                     animal.Key[3], double.Parse(animal.Key[4]), animal.Key[5], animal.Key[6], animal.Key[7],
                     animal.Key[8], animal.Key[9], animal.Key[10], animal.Key[11],
-                    new OrganizationsRepository()
+                    new LocalityRepository()
                         .GetLocalitys()
                         .Where(l => l.Name == animal.Key[12])
                         .FirstOrDefault(),

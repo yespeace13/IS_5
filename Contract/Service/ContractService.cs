@@ -164,7 +164,7 @@ namespace IS_5
         {
             var orgsRep = new OrganizationsRepository();
             var orgs = orgsRep.GetOrganizations();
-            var locs = orgsRep.GetLocalitys();
+            var locs = new LocalityRepository().GetLocalitys();
             var localityPrices = new List<Localityprice>();
             for (int i = 0; i < localsprices.Count; i++)
                 localityPrices.Add(new Localityprice(

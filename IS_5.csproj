@@ -145,6 +145,7 @@
     <Compile Include="Authorization\Service\AuthorizationService.cs" />
     <Compile Include="Organization\Controller\OrganizationController.cs" />
     <Compile Include="Organization\Model\TypeOrganization.cs" />
+    <Compile Include="Organization\Repository\LocalityRepository.cs" />
     <Compile Include="Organization\Repository\OrganizationsRepository.cs" />
     <Compile Include="Organization\Service\OrganizationService.cs" />
     <Compile Include="Data\TestData.cs" />

@@ -165,11 +165,19 @@ namespace IS_5.Service
         public void CreateOrganization(string nameOrg, string taxIdenNum, 
             string kpp, string address, string typeOrg, string typeOwnOrg, string local)
         {
+            var id = _organizationsRepository.GetOrganizations().Select(o => o.Id).Max() + 1;
+            Organization org = Create(id, nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg, local);
+            _organizationsRepository.AddOrganizationToRepository(org);
+        }
+
+        private Organization Create(int id, string nameOrg, string taxIdenNum, string kpp, 
+            string address, string typeOrg, string typeOwnOrg, string local)
+        {
             var typeOrganizations = _organizationsRepository.GetTypeOrganizations();
             var typeOwnerOrganizations = _organizationsRepository.GetTypeOwnerOrganizations();
-            var localitys = _organizationsRepository.GetLocalitys();
+            var localitys = new LocalityRepository().GetLocalitys();
             var org = new Organization(
-                _organizationsRepository.GetOrganizations().Select(o => o.Id).Max() + 1,
+                id,
                 nameOrg, taxIdenNum, kpp, address,
                 typeOrganizations
                     .Where(type => type.Name == typeOrg)
@@ -181,7 +189,7 @@ namespace IS_5.Service
                     .Where(l => l.Name == local)
                     .FirstOrDefault()
                 );
-            _organizationsRepository.AddOrganizationToRepository(org);
+            return org;
         }
 
         public void UpdateOrganization(
@@ -189,23 +197,9 @@ namespace IS_5.Service
             string address, string typeOrg, string typeOwnOrg, string locality)
         {
             var oldId = int.Parse(id);
-            var oldOrg = _organizationsRepository.GetOrganization(oldId);
-            var typeOrganizations = _organizationsRepository.GetTypeOrganizations();
-            var typeOwnerOrganizations = _organizationsRepository.GetTypeOwnerOrganizations();
-            var localitys = _organizationsRepository.GetLocalitys();
-            oldOrg.NameOrg = nameOrg;
-            oldOrg.TaxIdenNum = taxIdenNum;
-            oldOrg.KPP = kpp;
-            oldOrg.Address = address;
-            oldOrg.TypeOrganization = typeOrganizations
-                .Where(type => type.Name == typeOrg)
-                .FirstOrDefault();
-            oldOrg.TypeOwnerOrganization =  typeOwnerOrganizations
-                .Where(typeOwn => typeOwn.Name == typeOwnOrg)
-                .FirstOrDefault();
-            oldOrg.Locality = localitys
-                .Where(l => l.Name == locality)
-                .FirstOrDefault();
+            _organizationsRepository.DeleteOrganizationFromRepository(oldId);
+            Organization org = Create(oldId, nameOrg, taxIdenNum, kpp, address, typeOrg, typeOwnOrg, locality);
+            _organizationsRepository.AddOrganizationToRepository(org);
         }
 
         public void DeleteOrganization(int id)
@@ -234,7 +228,7 @@ namespace IS_5.Service
 
         public string[] GetLocalitys()
         {
-            var localitys = _organizationsRepository.GetLocalitys();
+            var localitys = new LocalityRepository().GetLocalitys();
             if(UserSession.User.Privilege.Organizations.Item1 == Restrictions.Locality)    
                 localitys = localitys
                     .Where(l => l.Name == UserSession.User.Locality.Name)
@@ -266,7 +260,7 @@ namespace IS_5.Service
 
         public string[] GetLocalitysAll()
         {
-            return MapLocalitys(_organizationsRepository.GetLocalitys());
+            return MapLocalitys(new LocalityRepository().GetLocalitys());
         }
     }
 }

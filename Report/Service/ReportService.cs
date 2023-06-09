@@ -12,7 +12,7 @@ namespace IS_5
 
         internal List<string[]> CreateReport(DateTime from, DateTime to)
         {
-            var localitys = new OrganizationsRepository().GetLocalitys();
+            var localitys = new LocalityRepository().GetLocalitys();
             var total = new Dictionary<string, (int, decimal)>();
             foreach (var locality in localitys)
                 total.Add(locality.Name, (0, 0));
