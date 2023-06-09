@@ -12,6 +12,7 @@ namespace IS_5
         public static List<User> Users { get; set; }
         public static List<Locality> Localitys { get; set; }
         public static List<Role> Roles { get; set; }
+        public static List<Act> Acts { get; set; }
 
         public static List<Contract> Contracts { get; set; }
 
@@ -24,6 +25,21 @@ namespace IS_5
             CreateRoles();
             CreateUsers();
             CreateContracts();
+            CreateActs();
+        }
+
+        private static void CreateActs()
+        {
+            var animals = new List<Animal>
+            {
+                new Animal(1, "category", true, "breed", 45, "wool", null, null, null, null, "fdfds", "125623", Localitys[0], null)
+            };
+
+            Acts = new List<Act>
+            {
+                new Act(1, animals, Organizations[5], new DateTime(2020,11,28), null)
+            };
+            Contracts[0].Acts.Add(Acts[0]);
         }
 
         private static void CreateContracts()
@@ -36,10 +52,10 @@ namespace IS_5
                         new Localityprice(1, Localitys[0], 5000),
                         new Localityprice(2, Localitys[1], 25000)
                     },
-                    new List<ContractFile>()
+                    new List<Scan>()
                     {
-                        new ContractFile(1, "C:\\Users\\1\\Desktop\\img.jpg"),
-                        new ContractFile(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
+                        new Scan(1, "C:\\Users\\1\\Desktop\\img.jpg"),
+                        new Scan(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
                     }),
                 new Contract(2, "5468864", new DateTime(2022, 12, 31), new DateTime(2023, 12, 31), Organizations[7], Organizations[5],
                     new List<Localityprice>()
@@ -47,10 +63,10 @@ namespace IS_5
                         new Localityprice(1, Localitys[0], 5000),
                         new Localityprice(2, Localitys[2], 25000)
                     },
-                    new List<ContractFile>()
+                    new List<Scan>()
                     {
-                        new ContractFile(1, "C:\\Users\\1\\Desktop\\img.jpg"),
-                        new ContractFile(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
+                        new Scan(1, "C:\\Users\\1\\Desktop\\img.jpg"),
+                        new Scan(2, "C:\\Users\\1\\Desktop\\-с-руководителем-1-ba6d559b.png")
                     })
             };
         }
@@ -109,28 +125,21 @@ namespace IS_5
                         new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
                             new Possibilities[]
                             {
-                                Possibilities.Add, Possibilities.Change, Possibilities.Delete, 
+                                Possibilities.Add, Possibilities.Change, Possibilities.Delete,
                                 Possibilities.AddFile, Possibilities.DelFile
                             }))
                 },
                 {
-                    new Role(3, "Оператор ОМСУ",
+                    new Role(4, "Оператор по отлову",
                         new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
-                            new Possibilities[] { Possibilities.OpenAndEdit }),
-                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality, null),
-                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.Locality,
-                            new Possibilities[]
-                            {
-                                Possibilities.Add, Possibilities.Delete, Possibilities.Change,
+                            new Possibilities[] { Possibilities.OpenAndEdit, Possibilities.Add, Possibilities.Delete }),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality, new Possibilities[]
+                        {
+                            Possibilities.Add, Possibilities.Delete, Possibilities.Change,
                                 Possibilities.AddFile, Possibilities.DelFile
-                            },
-                            new int[]{ 4, 5, 6, 7, 9, 10, 11}),
-                        new Tuple<Restrictions, Possibilities[]>(Restrictions.Locality,
-                            new Possibilities[]
-                            {
-                                Possibilities.Add, Possibilities.Change, Possibilities.Delete,
-                                Possibilities.AddFile, Possibilities.DelFile
-                            }))
+                        }),
+                        new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.None, null, null),
+                        new Tuple<Restrictions, Possibilities[]>(Restrictions.None, null))
                 }
 
             };
@@ -142,7 +151,8 @@ namespace IS_5
             {
                 { new User(1, "User1", "1234", Localitys[0], null, Roles[0]) },
                 { new User(2, "User2", "1234", null, null, Roles[1])},
-                { new User(3, "User3", "1234", Localitys[2], null, Roles[2])}
+                { new User(3, "User3", "1234", Localitys[2], null, Roles[2])},
+                { new User(4, "User4", "1234", null, Organizations[5], Roles[3])}
             };
         }
 
