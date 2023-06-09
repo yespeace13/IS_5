@@ -27,5 +27,10 @@ namespace IS_5
         {
             new Contractview().ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new Actview().ShowDialog();
+        }
     }
 }
