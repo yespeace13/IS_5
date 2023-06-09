@@ -117,17 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="6701277(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\6701277(1).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="NextScanButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAKdJREFUOE/N0iEOwjAUgOEuIEhmRoLEYFHzUxyA03AEJDdA7gAENYmZGUEOQzAE
+        gyPBzML/kjZ5zeQT408+09csaVf3F53w8O5YI3RBmN2wQq8NvkqHAtIWevZBjl476I1vLCHtoWcvLBCV
+        oITe+MQcIxz9WiDHmSFqjAp64xVTTFD7teCMFFGy0EBvlEuWMrTQswOiTB8wHcF8iabfaH5I5qc8ZM79
+        AIXrardcT1MZAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="fast-forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fast-forward1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fast-forward_r" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fast-forward_r1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fast-forward(1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fast-forward(1)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="ScanContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>184, 17</value>
+  </metadata>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
