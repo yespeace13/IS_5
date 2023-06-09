@@ -1,0 +1,230 @@
+﻿using IS_5;
+using IS_5.Model;
+using IS_5.View;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace IS_5
+{
+    public partial class Actview : Form
+    {
+        private ActController _controller;
+        private Dictionary<string, string> _filtres;
+        private string _columnName;
+        public Actview()
+        {
+            InitializeComponent();
+            _controller = new ActController();
+            InitializeForm();
+            InitializeFiltrsDictionary();
+            ShowActs();
+        }
+        private void InitializeFiltrsDictionary()
+        {
+            _filtres = new Dictionary<string, string>();
+            foreach (DataGridViewColumn col in ConDataGrid.Columns)
+                _filtres.Add(col.Name, "");
+        }
+
+        private void InitializeForm()
+        {
+            var possibilites = UserSession.User.Privilege.Acts.Item2;
+            CreateButton.Enabled = false;
+            ChangeToolStripMenuItem.Enabled = false;
+            DeleteToolStripMenuItem.Enabled = false;
+            if (possibilites == null) return;
+            foreach (var poss in possibilites)
+            {
+                switch (poss)
+                {
+                    case Possibilities.Add:
+                        CreateButton.Enabled = true;
+                        break;
+                    case Possibilities.Change:
+                        ChangeToolStripMenuItem.Enabled = true;
+                        break;
+                    case Possibilities.Delete:
+                        DeleteToolStripMenuItem.Enabled = true;
+                        break;
+                }
+            }
+        }
+
+        private void ForwardToPage_Click(object sender, EventArgs e)
+        {
+            ShowActs();
+        }
+
+        private void NextPageButton_Click(object sender, EventArgs e)
+        {
+            if(NumberOfPage.Maximum > NumberOfPage.Value)
+            {
+                NumberOfPage.Value++;
+                ShowActs();
+            }
+            
+        }
+
+        private void PreviousPageButton_Click(object sender, EventArgs e)
+        {
+            NumberOfPage.Value = NumberOfPage.Value > 1 ? --NumberOfPage.Value : NumberOfPage.Value;
+            ShowActs();
+        }
+
+        public void ShowActs()
+        {
+            (string, SortOrder) sortCol = ConDataGrid.SortedColumn == null ? 
+                (null, SortOrder.None) : (ConDataGrid.SortedColumn.Name, ConDataGrid.SortOrder);
+            var orgs = _controller.ShowActs(
+                (int)PagesSize.Value, 
+                (int)NumberOfPage.Value,
+                _filtres,
+                sortCol,
+                out int maxPage);
+            NumberOfPage.Maximum = maxPage;
+            ConDataGrid.Rows.Clear();
+            foreach (var org in orgs)
+                ConDataGrid.Rows.Add(org);
+        }
+
+        private void CreateContractButton_Click(object sender, EventArgs e)
+        {
+            new ActEditView(_controller).ShowDialog();
+            ShowActs();
+        }
+
+        private void PagesSize_ValueChanged(object sender, EventArgs e)
+        {
+            ShowActs();
+        }
+
+
+        private void AcceptButton_Click(object sender, EventArgs e)
+        {
+            ShowActs();
+        }
+
+        private void ExportButton_Click(object sender, EventArgs e)
+        {
+            //var columns = new string[ConDataGrid.ColumnCount];
+            //for (var col = 0; col < columns.Length; col++)
+            //    columns[col] = ConDataGrid.Columns[col].HeaderText;
+            //_controller.ExportToExcel(columns, _filtres);
+        }
+
+        private void ConDataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => 
+            ShowActs();
+        
+        private void ChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            new ActEditView(_controller, State.Update,
+                int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
+            ShowActs();
+        }
+
+
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            _controller.DeleteAct(int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString()));
+            ShowActs();
+        }
+
+        private void ConDataGrid_MouseDown(object sender, MouseEventArgs e)
+        {
+            FiltrGroupBox.Visible = false;
+            if (e.Button == MouseButtons.Right)
+            {
+                var hti = ConDataGrid.HitTest(e.X, e.Y);
+                if (hti.RowIndex != -1)
+                {
+                    ConDataGrid.ClearSelection();
+                    ConDataGrid.Rows[hti.RowIndex].Selected = true;
+                    ContractContextMenuStrip.Show(ConDataGrid, e.Location);
+                }
+                else if (hti.ColumnIndex > -1)
+                {
+                    FiltrTextBox.Text = _filtres[ConDataGrid.Columns[hti.ColumnIndex].Name];
+                    if (hti.ColumnIndex == 2)
+                    {
+                        if(FiltrGroupBox.Size.Height == 89)
+                            FiltrGroupBox.Size = new Size(FiltrGroupBox.Size.Width, FiltrGroupBox.Size.Height + 28);
+                        FiltrTextBox.Visible = false;
+                        
+                        FiltrStartDateTimePicker.Visible = true;
+                        FiltrStartDateTimePicker.Location = FiltrTextBox.Location;
+                        
+                        FiltrEndDateTimePicker.Location = new Point(FiltrTextBox.Location.X, FiltrTextBox.Location.Y + 28);
+                        FiltrEndDateTimePicker.Visible = true;
+                        
+                        if (_filtres.ElementAt(hti.ColumnIndex).Value != "")
+                        {
+                            var dates = _filtres.ElementAt(hti.ColumnIndex).Value.Split(' ');
+                            FiltrStartDateTimePicker.Value = DateTime.Parse(dates[0]);
+                            FiltrEndDateTimePicker.Value = DateTime.Parse(dates[1]);
+                        }
+                    }
+                    else
+                    {
+                        FiltrGroupBox.Size = new Size(FiltrGroupBox.Size.Width, 89);
+                        FiltrTextBox.Visible = true;
+                        FiltrStartDateTimePicker.Visible = false;
+                        FiltrEndDateTimePicker.Visible = false;
+                    }
+                    FiltrGroupBox.Visible = true;
+                    //if (hti.ColumnIndex == ConDataGrid.ColumnCount - 1)
+                    //    FiltrGroupBox.Location = new Point(hti.ColumnX - 60, hti.RowY + 60);
+                    //else 
+                        FiltrGroupBox.Location = new Point(hti.ColumnX, hti.RowY + 60);
+                    _columnName = ConDataGrid.Columns[hti.ColumnIndex].Name;
+                }
+            }
+            
+        }
+
+        private void ConDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                var hti = ConDataGrid.HitTest(e.X, e.Y);
+                if (hti.RowIndex != -1)
+                {
+                    var selectedRow = ConDataGrid.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                    new ActEditView(_controller, State.None,
+                        int.Parse(ConDataGrid.Rows[selectedRow].Cells[0].Value.ToString())).ShowDialog();
+                }
+            }
+        }
+
+        private void AcceptFiltrButton_Click(object sender, EventArgs e)
+        {
+            if (_columnName == "DateOfCapture")
+            {
+                _filtres[_columnName] = FiltrStartDateTimePicker.Value.ToShortDateString() + " "
+                    + FiltrEndDateTimePicker.Value.ToShortDateString();
+                FiltrStartDateTimePicker.Value = DateTime.Now;
+                FiltrGroupBox.Visible = false;
+                ShowActs();
+            }
+            else if (FiltrTextBox.Text.Length != 0)
+            {
+                _filtres[_columnName] = FiltrTextBox.Text;
+                FiltrTextBox.Clear();
+                FiltrGroupBox.Visible = false;
+                ShowActs();
+            }
+        }
+
+        private void ClearFiltrsButton_Click(object sender, EventArgs e)
+        {
+            InitializeFiltrsDictionary();
+            FiltrTextBox.Clear();
+            ShowActs();
+            FiltrGroupBox.Visible = false;
+        }
+    }
+}
