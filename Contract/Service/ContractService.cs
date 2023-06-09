@@ -38,7 +38,8 @@ namespace IS_5
             return MapContracts(result.ToList());
         }
 
-        private IEnumerable<Contract> FilterContracts(IEnumerable<Contract> contracts, Dictionary<string, string> filters)
+        private IEnumerable<Contract> FilterContracts(IEnumerable<Contract> contracts, 
+            Dictionary<string, string> filters)
         {
             if (filters["Id"] != "")
             {
@@ -171,10 +172,10 @@ namespace IS_5
                     locs.Where(l => l.Name == localsprices[i][0]).FirstOrDefault(),
                     decimal.Parse(localsprices[i][1].ToString())));
 
-            var files = new List<ContractFile>();
+            var files = new List<Scan>();
             if (scans != null)
                 for (int i = 0; i < scans.Count; i++)
-                    files.Add(new ContractFile(i + 1, scans[i]));
+                    files.Add(new Scan(i + 1, scans[i]));
             var id = _contractRepository.GetContracts().Max(c => c.Id);
             var contract = new Contract(
                 ++id,
