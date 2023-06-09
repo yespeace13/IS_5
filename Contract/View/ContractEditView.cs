@@ -210,7 +210,6 @@ namespace IS_5.View
                     _currentScan = _currentScan == 0 ? 0 : --_currentScan;
                     ChangeScan();
                 }
-                
             }
             else
             {
