@@ -35,6 +35,7 @@ namespace IS_5
         private void button3_Click(object sender, EventArgs e)
         {
             new PlanView().ShowDialog();
+        }
         private void ActsButton_Click(object sender, EventArgs e)
         {
             new Actview().ShowDialog();

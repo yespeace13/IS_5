@@ -144,9 +144,7 @@ namespace IS_5
                         {
                             Possibilities.Add, Possibilities.Delete, Possibilities.Change,
                                 Possibilities.AddFile, Possibilities.DelFile
-                            }))
-                    
-                        }),
+                            }),
                         new Tuple<Restrictions, Possibilities[], int[]>(Restrictions.None, null, null),
                         new Tuple<Restrictions, Possibilities[]>(Restrictions.None, null))
                 }
