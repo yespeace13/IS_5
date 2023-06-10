@@ -12,8 +12,11 @@ namespace IS_5
         public static List<User> Users { get; set; }
         public static List<Locality> Localitys { get; set; }
         public static List<Role> Roles { get; set; }
-
+        
         public static List<Contract> Contracts { get; set; }
+
+        public static List<Plan> Plans { get; set; }
+        public static List<List<ContentPlan>> ContentPlans { get; set; }
 
         static TestData()
         {
@@ -24,6 +27,8 @@ namespace IS_5
             CreateRoles();
             CreateUsers();
             CreateContracts();
+            CreateContentPlans();
+            CreatePlans();
         }
 
         private static void CreateContracts()
@@ -131,6 +136,7 @@ namespace IS_5
                                 Possibilities.Add, Possibilities.Change, Possibilities.Delete,
                                 Possibilities.AddFile, Possibilities.DelFile
                             }))
+                    
                 }
 
             };
@@ -142,7 +148,7 @@ namespace IS_5
             {
                 { new User(1, "User1", "1234", Localitys[0], null, Roles[0]) },
                 { new User(2, "User2", "1234", null, null, Roles[1])},
-                { new User(3, "User3", "1234", Localitys[2], null, Roles[2])}
+                { new User(3, "User3", "1234", Localitys[2], null, Roles[2])},
             };
         }
 
@@ -199,5 +205,33 @@ namespace IS_5
                 { new TypeOwnerOrganization(2, "Юридическое лицо") }
             };
         }
-    }
+
+        private static void CreateContentPlans()
+        {
+            ContentPlans = new List<List<ContentPlan>>
+            {
+                new List<ContentPlan>
+                {
+                    {new ContentPlan(1, Localitys[0], "Республики 120",false)},
+                    {new ContentPlan(2, Localitys[0],"Республики 160",true)}
+                },
+                new List<ContentPlan>
+                {
+                    {new ContentPlan(1, Localitys[0], "Ленина 120",true)},
+                    {new ContentPlan(2, Localitys[0],"Ленина 160", false)}
+                }
+            };
+        }
+
+        private static void CreatePlans()
+        {
+
+            Plans = new List<Plan>
+            {
+                {new Plan(1,2,2023,ContentPlans[0])},
+                {new Plan(3,4,2022,ContentPlans[0])},
+                {new Plan(2,3,2023,ContentPlans[1])}
+            };
+        }
+    }    
 }

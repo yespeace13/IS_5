@@ -12,6 +12,7 @@ namespace IS_5
         public int Month { get; set; }
         public int Year { get; set; }
         public List<ContentPlan> ContentsPlan { get; set; }
+
         public Plan(int id, int month, int year, List<ContentPlan> contentsPlan) 
         {
             Id = id; 
@@ -19,5 +20,6 @@ namespace IS_5
             Year = year;
             ContentsPlan = contentsPlan;
         }
+
     }
 }

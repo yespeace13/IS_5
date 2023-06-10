@@ -21,13 +21,13 @@ namespace IS_5
             Application.SetCompatibleTextRenderingDefault(false);
             var authoizationView = new AuthorizationView();
             Application.Run(authoizationView);
-            
-            if(authoizationView.UserSuccessfullyAuthenticated) 
+
+            if (authoizationView.UserSuccessfullyAuthenticated)
             {
                 Application.Run(new MenuForm());
             }
-            
-         
+
+
         }
 
     }
