@@ -74,6 +74,7 @@
             this.StartDateTimePicker.Name = "StartDateTimePicker";
             this.StartDateTimePicker.Size = new System.Drawing.Size(189, 22);
             this.StartDateTimePicker.TabIndex = 3;
+            this.StartDateTimePicker.Value = new System.DateTime(2022, 6, 10, 3, 6, 0, 0);
             this.StartDateTimePicker.ValueChanged += new System.EventHandler(this.StartDateTimePicker_ValueChanged);
             // 
             // EndDateTimePicker

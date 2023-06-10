@@ -37,7 +37,7 @@ namespace IS_5
 
             Acts = new List<Act>
             {
-                new Act(1, animals, Organizations[5], new DateTime(2020,11,28), null)
+                new Act(1, animals, Organizations[5], new DateTime(2022,11,28), null)
             };
             Contracts[0].Acts.Add(Acts[0]);
         }
@@ -50,7 +50,8 @@ namespace IS_5
                     new List<Localityprice>()
                     {
                         new Localityprice(1, Localitys[0], 5000),
-                        new Localityprice(2, Localitys[1], 25000)
+                        new Localityprice(2, Localitys[1], 25000),
+                        new Localityprice(3, Localitys[2], 10000)
                     },
                     new List<Scan>()
                     {
@@ -61,7 +62,8 @@ namespace IS_5
                     new List<Localityprice>()
                     {
                         new Localityprice(1, Localitys[0], 5000),
-                        new Localityprice(2, Localitys[2], 25000)
+                        new Localityprice(2, Localitys[2], 25000),
+                        new Localityprice(3, Localitys[1], 10000)
                     },
                     new List<Scan>()
                     {

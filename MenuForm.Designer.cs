@@ -37,9 +37,9 @@
             // 
             // OrgsButton
             // 
-            this.OrgsButton.Location = new System.Drawing.Point(12, 12);
+            this.OrgsButton.Location = new System.Drawing.Point(197, 152);
             this.OrgsButton.Name = "OrgsButton";
-            this.OrgsButton.Size = new System.Drawing.Size(184, 33);
+            this.OrgsButton.Size = new System.Drawing.Size(319, 33);
             this.OrgsButton.TabIndex = 0;
             this.OrgsButton.Text = "Организации";
             this.OrgsButton.UseVisualStyleBackColor = true;
@@ -47,9 +47,9 @@
             // 
             // ContractsButton
             // 
-            this.ContractsButton.Location = new System.Drawing.Point(12, 51);
+            this.ContractsButton.Location = new System.Drawing.Point(197, 191);
             this.ContractsButton.Name = "ContractsButton";
-            this.ContractsButton.Size = new System.Drawing.Size(184, 33);
+            this.ContractsButton.Size = new System.Drawing.Size(319, 33);
             this.ContractsButton.TabIndex = 1;
             this.ContractsButton.Text = "Контракты";
             this.ContractsButton.UseVisualStyleBackColor = true;
@@ -57,9 +57,9 @@
             // 
             // ActsButton
             // 
-            this.ActsButton.Location = new System.Drawing.Point(12, 90);
+            this.ActsButton.Location = new System.Drawing.Point(197, 230);
             this.ActsButton.Name = "ActsButton";
-            this.ActsButton.Size = new System.Drawing.Size(184, 33);
+            this.ActsButton.Size = new System.Drawing.Size(319, 33);
             this.ActsButton.TabIndex = 2;
             this.ActsButton.Text = "Акты";
             this.ActsButton.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             // 
             // ReportButton
             // 
-            this.ReportButton.Location = new System.Drawing.Point(12, 129);
+            this.ReportButton.Location = new System.Drawing.Point(197, 269);
             this.ReportButton.Name = "ReportButton";
-            this.ReportButton.Size = new System.Drawing.Size(184, 33);
+            this.ReportButton.Size = new System.Drawing.Size(319, 33);
             this.ReportButton.TabIndex = 3;
             this.ReportButton.Text = "Отчет";
             this.ReportButton.UseVisualStyleBackColor = true;
