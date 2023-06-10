@@ -16,9 +16,10 @@ namespace IS_5
         public Organization Executor { get; set; }
         public Organization Client { get; set; }
         public List<Localityprice> Localitysprices { get; set; }
-        public List<ContractFile> Scans { get; set; } 
+        public List<Scan> Scans { get; set; } 
+        public List<Act> Acts { get; set; }
         public Contract(int id, string number, DateTime dateOfCon, DateTime dateValid, 
-            Organization executor, Organization client, List<Localityprice> localityprices, List<ContractFile> scans)
+            Organization executor, Organization client, List<Localityprice> localityprices, List<Scan> scans)
         {
             Id = id;
             Number = number;
@@ -28,6 +29,7 @@ namespace IS_5
             Client = client;
             Localitysprices = localityprices;
             Scans = scans;
+            Acts = new List<Act>();
         }
     }
 }

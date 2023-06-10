@@ -13,10 +13,14 @@ namespace IS_5
         public List<Animal> Animals { get; set; }
         public Organization Organization { get; set; }
         public DateTime DateOfCapture { get; set; }
-        
-        //Должен быть здесь или у контракта?!
-        public Contract Contract { get; set; }
-
-        public Act() { }
+        public List<Scan> Scans { get; set; }
+        public Act(int id, List<Animal> animals, Organization organization, DateTime date, List<Scan> scans) 
+        {
+            Id = id;
+            Animals = animals;
+            Organization = organization;
+            DateOfCapture = date;
+            Scans = scans;
+        }
     }
 }

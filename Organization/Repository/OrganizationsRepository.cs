@@ -32,10 +32,7 @@ namespace IS_5
         {
             return TestData.TypeOwnerOrganizations;
         }
-        public List<Locality> GetLocalitys()
-        {
-            return TestData.Localitys;
-        }
+        
         public void AddOrganizationToRepository(Organization organization) 
         {
             TestData.Organizations.Add(organization);
