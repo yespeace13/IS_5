@@ -305,7 +305,7 @@
     <Content Include="Resources\fast-forward.png" />
     <Content Include="Resources\fast-forward_r.png" />
   </ItemGroup>
-  <ItemGroup
+  <ItemGroup>
     <Folder Include="Act\Controller\" />
     <Folder Include="Act\Service\" />
     <Folder Include="Act\View\" />
